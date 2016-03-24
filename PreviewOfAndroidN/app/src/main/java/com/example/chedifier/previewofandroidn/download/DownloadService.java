@@ -52,7 +52,7 @@ public class DownloadService extends Service implements IDownloadListener{
         if(!hasPermission){
             Log.d(TAG,"sdcard permission denied!");
         }else{
-            DownloadTask task = DownloadTaskMgr.getInstance().addDownloadTask("testfile" + (++mFileIndex),mUrl);
+            DownloadTask task = DownloadTaskMgr.getInstance().addDownloadTask("手动添加测试任务" + (++mFileIndex) + ".test",mUrl);
 
             if(task != null){
                 task.addListener(this);
@@ -90,13 +90,12 @@ public class DownloadService extends Service implements IDownloadListener{
     public void onDownloadPause(DownloadTask task) {
         Log.d(TAG,"onDownloadPause task: " + task);
 
-        task.start();
     }
 
     @Override
     public void onDownloadError(DownloadTask task) {
         Log.d(TAG,"onDownloadError task: " + task);
-        task.start();
+        task.retry();
     }
 
 

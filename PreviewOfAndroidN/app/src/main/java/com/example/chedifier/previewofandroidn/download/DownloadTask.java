@@ -37,6 +37,10 @@ public class DownloadTask implements Runnable,Parcelable{
     private String mFilePath;
     private int mProgress;
 
+    private int mMaxRetryTimes = 5;
+    private int mRetryTimes = 0;
+
+    private Boolean mThreadRunning = false;
     private DONWNLOAD_STATE mDownloadState = DONWNLOAD_STATE.INIT;
 
     protected DownloadTask(Parcel in) {
@@ -116,12 +120,35 @@ public class DownloadTask implements Runnable,Parcelable{
 
         new Thread(this).start();
 
+        mRetryTimes = 0;
+        mDownloadState = DONWNLOAD_STATE.DOWNLOADING;
+        broadCastState(DONWNLOAD_STATE.DOWNLOADING,mProgress);
+
+    }
+
+    public synchronized void retry(){
+
+        if(mRetryTimes > mMaxRetryTimes){
+            return;
+        }
+
+        if(mDownloadState == DONWNLOAD_STATE.DOWNLOADING){
+            Log.d(TAG,"task is downloading.");
+            return;
+        }
+
+        if(!mThreadRunning){
+            new Thread(this).start();
+        }
+
+        mRetryTimes++;
         mDownloadState = DONWNLOAD_STATE.DOWNLOADING;
         broadCastState(DONWNLOAD_STATE.DOWNLOADING,mProgress);
 
     }
 
     public synchronized void stop(){
+        mRetryTimes = 0;
         mDownloadState = DONWNLOAD_STATE.PAUSE;
 
         broadCastState(DONWNLOAD_STATE.PAUSE,mProgress);
@@ -131,34 +158,61 @@ public class DownloadTask implements Runnable,Parcelable{
         return mDownloadState;
     }
 
+
+    private void lockThread(){
+        synchronized (mThreadRunning){
+            mThreadRunning = true;
+        }
+
+        Log.d(TAG,this + "run>>>>");
+    }
+
+    private void unLockThread(){
+        synchronized (mThreadRunning){
+            mThreadRunning = false;
+        }
+
+        Log.d(TAG,this + "stop||||");
+    }
+
     @Override
     public void run() {
+
+        lockThread();
+
         while(mDownloadState==DONWNLOAD_STATE.DOWNLOADING){
+            InputStream input = null;
+            OutputStream output = null;
+
             try {
                 URL url = new URL(mUrl);
                 URLConnection connection = url.openConnection();
+                connection.setConnectTimeout(10000);
+                connection.setReadTimeout(10000);
+
                 File destFile = new File(mFilePath);
                 if(!destFile.exists()){
+                    unLockThread();
                     broadCastState(DONWNLOAD_STATE.FAIL,"dest file is not exist!");
                     return;
                 }
 
                 connection.setRequestProperty("RANGE","bytes=" + destFile.length() + "-");
                 connection.connect();
-                // this will be useful so that you can show a typical 0-100% progress bar
-                int fileLength = connection.getContentLength();
 
+                int fileLength = connection.getContentLength() + (int)destFile.length();
+                Log.d(TAG,"fileLength = " + fileLength + "destFile.length(): " + destFile.length());
                 if(destFile.length() >= fileLength){
-                    broadCastState(DONWNLOAD_STATE.SUCC,100);
+                    unLockThread();
+                    mProgress = 100;
+                    broadCastState(DONWNLOAD_STATE.SUCC,mProgress);
                     return;
                 }
 
-                // download the file
-                InputStream input = new BufferedInputStream(connection.getInputStream());
-                OutputStream output = new FileOutputStream(mFilePath);
-
+                input = new BufferedInputStream(connection.getInputStream());
+                output = new FileOutputStream(mFilePath,true);
                 byte data[] = new byte[1024];
-                long total = 0;
+                long total = destFile.length();
                 int count;
                 long nextTimeToBroadCast = System.currentTimeMillis();
                 while (mDownloadState==DONWNLOAD_STATE.DOWNLOADING &&
@@ -179,10 +233,16 @@ public class DownloadTask implements Runnable,Parcelable{
 
                 output.flush();
                 output.close();
+                output = null;
                 input.close();
+                input = null;
 
                 if(mDownloadState == DONWNLOAD_STATE.DOWNLOADING){
                     if(destFile.length() >= fileLength){
+
+                        unLockThread();
+                        mProgress = 100;
+                        mDownloadState = DONWNLOAD_STATE.SUCC;
                         broadCastState(DONWNLOAD_STATE.SUCC,100);
                         return;
                     }
@@ -190,13 +250,34 @@ public class DownloadTask implements Runnable,Parcelable{
             } catch (IOException e) {
                 e.printStackTrace();
 
+                unLockThread();
                 mDownloadState = DONWNLOAD_STATE.FAIL;
                 broadCastState(DONWNLOAD_STATE.FAIL,e.toString());
 
+                return;
             }finally {
+                if(output != null){
+                    try {
+                        output.flush();
+                        output.close();
+                        output = null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                if(input != null){
+                    try {
+                        input.close();
+                        input=null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
+
+        unLockThread();
     }
 
     private boolean hasListener(IDownloadListener l){
@@ -248,8 +329,8 @@ public class DownloadTask implements Runnable,Parcelable{
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof DownloadTask){
-            return this.mUrl == ((DownloadTask) obj).mUrl
-                    && this.mFileName == ((DownloadTask) obj).mFileName;
+            return this.mUrl.equals (((DownloadTask) obj).mUrl)
+                    && this.mFileName.equals(((DownloadTask) obj).mFileName);
         }
 
         return  false;
@@ -263,7 +344,7 @@ public class DownloadTask implements Runnable,Parcelable{
 
     @Override
     public String toString(){
-        return mFileName + "\n" + mUrl + "";
+        return mFileName + " " + "";
     }
 
     private class MyHandler extends Handler{

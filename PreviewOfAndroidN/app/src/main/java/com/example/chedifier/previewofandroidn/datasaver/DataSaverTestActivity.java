@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -60,6 +59,9 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
         ((Button)findViewById(R.id.addtask)).setOnClickListener(this);
         mBtnStartDownloadService = ((Button)findViewById(R.id.start_download_service));
         mBtnStartDownloadService.setOnClickListener(this);
+
+        ((Button)findViewById(R.id.stop_all_task)).setOnClickListener(this);
+        ((Button)findViewById(R.id.delete_all_task)).setOnClickListener(this);
 
         DownloadTaskMgr.getInstance().addListener(this);
 
@@ -120,7 +122,7 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
 
         if(mNeedLaunchData){
             mNeedLaunchData = false;
-            mAdapter.setData(DownloadTaskMgr.getInstance().getDownloadTasks(),true);
+            mAdapter.setData(DownloadTaskMgr.getInstance().getSortedDownloadTasks(),true);
         }
 
         if(ServiceHelper.isServiceRunning(this,DownloadService.class)){
@@ -142,9 +144,6 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.addtask:
 
-                String dir = Environment.getExternalStorageDirectory().getPath();
-                Log.d(TAG,"dir: " + dir);
-
                 boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
 
@@ -153,11 +152,11 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             OPEN_DIRECTORY_REQUEST_CODE);
                 }else{
-                    DownloadTask task = DownloadTaskMgr.getInstance().addDownloadTask("testfile" + (++mFileIndex),mUrl);
+                    DownloadTask task = DownloadTaskMgr.getInstance().addDownloadTask("手动添加测试任务" + (++mFileIndex) + ".test",mUrl);
 
                     if(task != null){
                         task.start();
-                        mAdapter.setData(DownloadTaskMgr.getInstance().getDownloadTasks(),true);
+                        mAdapter.setData(DownloadTaskMgr.getInstance().getSortedDownloadTasks(),true);
                     }
                 }
 
@@ -175,17 +174,25 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
                 }
 
                 break;
+
+            case R.id.stop_all_task:
+                DownloadTaskMgr.getInstance().stopAllTask();
+                break;
+
+            case R.id.delete_all_task:
+                DownloadTaskMgr.getInstance().deleteAllTask();
+                break;
         }
     }
 
     @Override
     public void onTaskAdd(DownloadTask task) {
-        mAdapter.setData(DownloadTaskMgr.getInstance().getDownloadTasks(),true);
+        mAdapter.setData(DownloadTaskMgr.getInstance().getSortedDownloadTasks(),true);
     }
 
     @Override
     public void onTaskDelete(DownloadTask task) {
-        mAdapter.setData(DownloadTaskMgr.getInstance().getDownloadTasks(),true);
+        mAdapter.setData(DownloadTaskMgr.getInstance().getSortedDownloadTasks(),true);
     }
 
     private class MyBaseAdapter extends BaseAdapter{
@@ -253,7 +260,7 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
             this.task = task;
 
             info.setText(task.toString());
-            seekBar.setProgress(task.getProgress());
+            updateUI();
 
             task.addListener(this);
             seekBar.setOnClickListener(this);
@@ -264,8 +271,7 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onDownloadSucc(DownloadTask task) {
             if(this.task.equals(task)){
-                seekBar.setBackgroundColor(0xff00ff00);
-                seekBar.setProgress(100);
+                updateUI();
             }
         }
 
@@ -274,8 +280,7 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
             if(this.task.equals(task)){
                 Log.d(TAG,this + ":  onDownloading progress: " + progress);
 
-                seekBar.setBackgroundColor(0xffffffff);
-                seekBar.setProgress(task.getProgress());
+                updateUI();
             }
 
         }
@@ -283,7 +288,7 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onDownloadPause(DownloadTask task) {
             if(this.task.equals(task)){
-                seekBar.setBackgroundColor(0xffffff00);
+                updateUI();
             }
 
         }
@@ -291,9 +296,33 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onDownloadError(DownloadTask task) {
             if(this.task.equals(task)){
-                seekBar.setBackgroundColor(0xffff0000);
+                updateUI();
             }
 
+        }
+
+        private void updateUI(){
+            seekBar.setProgress(task.getProgress());
+            switch (task.getDownloadState()){
+                case DOWNLOADING:
+                    seekBar.setBackgroundColor(0xffffffff);
+                    seekBar.setProgress(this.task.getProgress());
+                    break;
+                case PAUSE:
+                    seekBar.setBackgroundColor(0xffffff00);
+                    seekBar.setProgress(this.task.getProgress());
+                    break;
+
+                case SUCC:
+                    seekBar.setBackgroundColor(0xff00ff00);
+                    seekBar.setProgress(this.task.getProgress());
+                    break;
+
+                case FAIL:
+                    seekBar.setBackgroundColor(0xffff0000);
+                    seekBar.setProgress(this.task.getProgress());
+                    break;
+            }
         }
 
         @Override
@@ -315,7 +344,7 @@ public class DataSaverTestActivity extends BaseActivity implements View.OnClickL
         @Override
         public boolean onLongClick(View view) {
             DownloadTaskMgr.getInstance().deleteTask(task);
-            mAdapter.setData(DownloadTaskMgr.getInstance().getDownloadTasks(),true);
+            mAdapter.setData(DownloadTaskMgr.getInstance().getSortedDownloadTasks(),true);
             return true;
         }
     }

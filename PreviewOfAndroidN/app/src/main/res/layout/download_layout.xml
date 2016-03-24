@@ -23,6 +23,20 @@
             android:text="后台service下载"
             android:textSize="18sp"/>
 
+        <Button
+            android:id="@+id/stop_all_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止所有任务"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/delete_all_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除所有任务"
+            android:textSize="18sp"/>
+
     </LinearLayout>
 
 

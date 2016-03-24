@@ -14,6 +14,8 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,8 @@ public class DownloadTaskMgr {
     private Handler mHandler;
     private List<IDownloadMgrListener> mListeners = new ArrayList<>();
     private Map<String,DownloadTask> mTasks = new HashMap<>();
+
+    private Integer mDownloadingTaskNum = 0;
 
     private boolean mInited = false;
 
@@ -62,7 +66,6 @@ public class DownloadTaskMgr {
 
         return  sInstance;
     }
-
 
     public void init(Context ctx){
         if(mInited){
@@ -102,6 +105,9 @@ public class DownloadTaskMgr {
     }
 
     public DownloadTask addDownloadTask(String saveName,String url){
+
+        Log.d(TAG,"addDownloadTask " + saveName);
+
 //        if(mService == null){
 //            Log.d(TAG,"addDownloadTask Failed service is not started!");
 //
@@ -128,6 +134,25 @@ public class DownloadTaskMgr {
         return null;
     }
 
+    public void stopAllTask(){
+        synchronized (mTasks){
+            List<DownloadTask> tasks = getDownloadTasks();
+            for(DownloadTask task:tasks){
+                task.stop();
+            }
+        }
+    }
+
+    public void deleteAllTask(){
+        synchronized (mTasks){
+            List<DownloadTask> tasks = getDownloadTasks();
+            for(DownloadTask task:tasks){
+                deleteTask(task);
+            }
+            mTasks.clear();
+        }
+    }
+
     public void deleteTask(String fileName,String url){
         String key = createTaskKey(fileName,url);
         deleteTask(mTasks.get(key));
@@ -139,10 +164,25 @@ public class DownloadTaskMgr {
 
             new File(task.getFilePath()).delete();
 
-            mTasks.remove(createTaskKey(task.getFileName(),task.getUrl()));
+            synchronized (mTasks){
+                mTasks.remove(createTaskKey(task.getFileName(),task.getUrl()));
+            }
 
             broadCastMsg(1,task);
         }
+    }
+
+    public List<DownloadTask> getSortedDownloadTasks(){
+        List<DownloadTask> ret = getDownloadTasks();
+
+        Collections.sort(ret, new Comparator<DownloadTask>() {
+            @Override
+            public int compare(DownloadTask task, DownloadTask t1) {
+                return task.getFileName().compareTo(t1.getFileName());
+            }
+        });
+
+        return ret;
     }
 
     public List<DownloadTask> getDownloadTasks(){
