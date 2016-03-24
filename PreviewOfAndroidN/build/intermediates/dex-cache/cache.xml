@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\1a\dependencies.jar"
+        jumboMode="true"
+        revision="24.0.0 rc1"
+        sha1="297936267efe31259634579944689fca33ad9767">
+        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\1a\dependencies_6400398556f5cb335dcf6fc2603693f661feaabf\classes.dex" />
+    </item>
+    <item
+        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_sliceb.jar"
+        jumboMode="true"
+        revision="24.0.0 rc1"
+        sha1="c5f82a1910ad39c93add8dc7e9ade9bc543637c9">
+        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_sliceb_98b64c6de09b1df5d786be73d3dc33472cbe2c5e\classes.dex" />
+    </item>
+    <item
+        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_slice.jar"
+        jumboMode="true"
+        revision="24.0.0 rc1"
+        sha1="1d96bcec2449a9022262ab30ba2c730758f854de">
+        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_slice_b15218b45e4ff17e69b4ee00fe8befb30e792a7e\classes.dex" />
+    </item>
+
+</items>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AndroidN</string>
+
+    <string name="permission_of_fileprovider">Permission Of FileProvider!</string>
+    <string name="permission_of_myprovider">Permission Of MyProvider!</string>
+
+</resources>

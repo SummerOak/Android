@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".multiwindows.SingleWindowActivity">
+
+    <Button
+        android:id="@+id/start_difftask_adjacentw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="邻窗口不同Task"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/start_difftask_currentw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前窗口不同Task"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/start_sametask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前窗口相同Task"
+        android:padding="20dp"/>
+
+</LinearLayout>
