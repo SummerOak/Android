@@ -143,7 +143,7 @@ public class DownloadTaskMgr {
         }
     }
 
-    public void deleteAllTask(){
+    public void deleteAllTask(){ 
         synchronized (mTasks){
             List<DownloadTask> tasks = getDownloadTasks();
             for(DownloadTask task:tasks){
