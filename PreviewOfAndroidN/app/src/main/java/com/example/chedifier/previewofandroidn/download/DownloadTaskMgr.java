@@ -153,7 +153,7 @@ public class DownloadTaskMgr {
         }
     }
 
-    public void deleteTask(String fileName,String url){
+    public void deleteTask(String fileName,String url){ 
         String key = createTaskKey(fileName,url);
         deleteTask(mTasks.get(key));
     }
