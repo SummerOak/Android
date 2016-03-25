@@ -19,37 +19,47 @@ public class SingleWindowActivity extends BaseActivity implements View.OnClickLi
 
         setContentView(R.layout.singlew_act);
 
-        ((Button)findViewById(R.id.start_difftask_adjacentw)).setOnClickListener(this);
-        ((Button)findViewById(R.id.start_difftask_currentw)).setOnClickListener(this);
-        ((Button)findViewById(R.id.start_sametask)).setOnClickListener(this);
-
+        ((Button)findViewById(R.id.start_adjacentw_difftask)).setOnClickListener(this);
+        ((Button)findViewById(R.id.start_currentw_difftask)).setOnClickListener(this);
+        ((Button)findViewById(R.id.start_currentw_sametask)).setOnClickListener(this);
+        ((Button)findViewById(R.id.start_adjacentw_sametask)).setOnClickListener(this);
     }
 
 
     /**
      * 邻窗口不同task
      */
-    public void onClickStartAdjacentW(){
+    public void onClickStartAdjacentDiffTask(){
 
-        Intent intent = new Intent(this, MultiWindowSampleActivity.class);
+        Intent intent = new Intent(this, MultiWindowSampleActivity2.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     /**
+     * 邻窗口相同task
+     */
+    public void onClickStartAdjacentSameTask(){
+
+        Intent intent = new Intent(this, MultiWindowSampleActivity3.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
+        startActivity(intent);
+    }
+
+    /**
      * 当前窗口不同task
      */
-    public void onClickStartCurrentW(){
+    public void onClickStartCurrentDiffTask(){
         Intent intent = new Intent(this, MultiWindowSampleActivity2.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     /**
-     * 相同task
+     * 当前窗口相同task
      */
-    public void onClickStartInSameTask(){
+    public void onClickStartCurrentSameTask(){
         Intent intent = new Intent(this, MultiWindowSampleActivity3.class);
         startActivity(intent);
     }
@@ -57,21 +67,26 @@ public class SingleWindowActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.start_difftask_adjacentw:
+            case R.id.start_adjacentw_difftask:
 
-                onClickStartAdjacentW();
-
-                break;
-
-            case R.id.start_difftask_currentw:
-
-                onClickStartCurrentW();
+                onClickStartAdjacentDiffTask();
 
                 break;
 
-            case R.id.start_sametask:
+            case R.id.start_currentw_difftask:
 
-                onClickStartInSameTask();
+                onClickStartCurrentDiffTask();
+
+                break;
+
+            case R.id.start_currentw_sametask:
+
+                onClickStartCurrentSameTask();
+
+                break;
+
+            case R.id.start_adjacentw_sametask:
+                onClickStartAdjacentSameTask();
 
                 break;
         }

@@ -1,0 +1,267 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:2:1-162:12
+	package
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:3:5-54
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:5:5-79
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:5:22-76
+uses-permission#android.permission.INTERNET
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:6:5-67
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:7:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:8:5-80
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:8:22-77
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:9:5-71
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:9:22-68
+uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:10:5-95
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:10:22-92
+uses-permission#android.permission.IG
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:11:5-61
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:11:22-58
+permission#com.example.chedifier.previewofandroidn.permissions.mycontentprovider
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:13:5-17:43
+	android:label
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:15:9-35
+	android:protectionLevel
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:17:9-41
+	android:description
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:16:9-63
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:14:9-93
+permission#com.example.chedifier.previewofandroidn.permissions.fileprovider
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:19:5-23:43
+	android:label
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:21:9-37
+	android:protectionLevel
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:23:9-41
+	android:description
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:22:9-65
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:20:9-88
+application
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:25:5-160:19
+MERGED from [com.android.support:appcompat-v7:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.0.0-alpha1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0-alpha1\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-v4:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-alpha1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0-alpha1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0-alpha1\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-v4:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-alpha1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-alpha1\AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:28:9-41
+	android:supportsRtl
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:29:9-35
+	android:allowBackup
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:26:9-35
+	android:icon
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:27:9-43
+	android:theme
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:30:9-40
+activity#com.example.chedifier.previewofandroidn.MainActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:31:9-49:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:34:13-99
+	android:theme
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:33:13-53
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:32:13-41
+layout
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:36:13-39:42
+	android:gravity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:39:17-40
+	android:defaultHeight
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:37:17-45
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:44:13-48:29
+action#android.intent.action.MAIN
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:45:17-69
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:45:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:47:17-77
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:47:27-74
+activity#com.example.chedifier.previewofandroidn.multiwindows.MultiWindowActivityMain
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:52:9-58:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:53:13-99
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:52:19-71
+activity#com.example.chedifier.previewofandroidn.multiwindows.MultiWindowSampleActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:60:9-64:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:62:13-91
+	android:taskAffinity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:61:13-36
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:60:19-73
+activity#com.example.chedifier.previewofandroidn.multiwindows.MultiWindowSampleActivity2
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:66:9-70:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:68:13-91
+	android:taskAffinity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:67:13-42
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:66:19-74
+activity#com.example.chedifier.previewofandroidn.multiwindows.MultiWindowSampleActivity3
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:72:9-76:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:74:13-91
+	android:taskAffinity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:73:13-44
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:72:19-74
+activity#com.example.chedifier.previewofandroidn.multiwindows.SingleWindowActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:78:9-83:20
+	android:resizeableActivity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:79:13-47
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:81:13-78
+	android:taskAffinity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:80:13-44
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:78:19-68
+activity#com.example.chedifier.previewofandroidn.multiwindows.DragAndDropTestActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:85:9-88:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:86:13-91
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:85:19-71
+activity#com.example.chedifier.previewofandroidn.multiwindows.DragAndDropTestActivityInAnotherProc
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:90:9-95:20
+	android:process
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:91:13-36
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:93:13-91
+	android:taskAffinity
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:92:13-36
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:90:19-84
+activity#com.example.chedifier.previewofandroidn.notifications.NotificationTestActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:98:9-101:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:99:13-91
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:98:19-73
+service#com.example.chedifier.previewofandroidn.notifications.AutoNotifyService
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:103:9-67
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:103:18-65
+service#com.example.chedifier.previewofandroidn.download.DownloadService
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:105:9-60
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:105:18-58
+activity#com.example.chedifier.previewofandroidn.datasaver.DataSaverTestActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:107:9-110:20
+	android:configChanges
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:108:13-91
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:107:19-66
+receiver#com.example.chedifier.previewofandroidn.notifications.MyNotificationReceiver
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:112:9-73
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:112:19-71
+receiver#com.example.chedifier.previewofandroidn.backgroupopt.ConnectivityChangeReceiver
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:114:9-120:20
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:114:19-74
+intent-filter#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:116:13-118:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:117:17-78
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:117:25-76
+receiver#com.example.chedifier.previewofandroidn.backgroupopt.NewPic$VideoReceiver
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:122:9-129:20
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:122:19-68
+intent-filter#android.hardware.action.NEW_PICTURE+android.hardware.action.NEW_VIDEO
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:124:13-127:29
+action#android.hardware.action.NEW_PICTURE
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:125:17-77
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:125:25-75
+action#android.hardware.action.NEW_VIDEO
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:126:17-75
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:126:25-73
+provider#android.support.v4.content.FileProvider
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:131:9-143:20
+	android:authorities
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:133:13-87
+	android:grantUriPermissions
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:136:13-47
+	android:exported
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:135:13-37
+	android:permission
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:134:13-98
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:132:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:138:13-141:19
+	android:resource
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:140:17-54
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:139:17-67
+provider#com.example.chedifier.previewofandroidn.common.MyContentProvider
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:146:9-152:20
+	android:authorities
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:148:13-92
+	android:exported
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:150:13-36
+	android:permission
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:149:13-103
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:147:13-92
+activity#com.example.chedifier.previewofandroidn.backgroupopt.JobSchedulerTestActivity
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:154:9-74
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:154:19-72
+service#com.example.chedifier.previewofandroidn.backgroupopt.TestJobSchedulerService
+ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:156:9-158:38
+	android:exported
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:158:13-36
+	android:permission
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:157:13-69
+	android:name
+		ADDED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:156:18-70
+uses-sdk
+INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.0.0-alpha1\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-vector-drawable:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0-alpha1\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-v4:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-alpha1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:animated-vector-drawable:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0-alpha1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0-alpha1\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-v4:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-alpha1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-alpha1\AndroidManifest.xml:20:5-43
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:24.0.0-alpha1] E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.0.0-alpha1\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml
+		INJECTED from E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\src\main\AndroidManifest.xml

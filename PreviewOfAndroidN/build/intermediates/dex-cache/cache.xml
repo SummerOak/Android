@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\1a\dependencies.jar"
+        jumboMode="true"
+        revision="24.0.0 rc1"
+        sha1="3557f60384c51faf263a2ce5957db0e478a46013">
+        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\1a\dependencies_6400398556f5cb335dcf6fc2603693f661feaabf\classes.dex" />
+    </item>
+    <item
+        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_sliceb.jar"
+        jumboMode="true"
+        revision="24.0.0 rc1"
+        sha1="bbfca9fc410cf4fb82baeb95a7cb18a09772e162">
+        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_sliceb_98b64c6de09b1df5d786be73d3dc33472cbe2c5e\classes.dex" />
+    </item>
+
+</items>

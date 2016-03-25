@@ -64,19 +64,20 @@
         </activity>
 
         <activity android:name=".multiwindows.MultiWindowSampleActivity2"
+            android:taskAffinity=".task2"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation">
 
         </activity>
 
         <activity android:name=".multiwindows.MultiWindowSampleActivity3"
-            android:taskAffinity=""
+            android:taskAffinity=".singleW"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation">
 
         </activity>
 
         <activity android:name=".multiwindows.SingleWindowActivity"
             android:resizeableActivity="false"
-            android:taskAffinity=""
+            android:taskAffinity=".singleW"
             android:configChanges="screenSize|smallestScreenSize|orientation">
 
         </activity>
