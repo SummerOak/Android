@@ -1,6 +1,5 @@
 package com.example.chedifier.previewofandroidn;
 
-import android.*;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -9,9 +8,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.util.Patterns;
 
-import java.util.regex.Pattern;
 
 /**
  *

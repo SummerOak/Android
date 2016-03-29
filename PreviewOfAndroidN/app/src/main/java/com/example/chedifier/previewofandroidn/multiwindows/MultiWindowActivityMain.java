@@ -41,12 +41,15 @@ public class MultiWindowActivityMain extends BaseActivity implements View.OnClic
         tasks.add(new Task("启动一个非多窗口Activity",Task.ACTION_LAUNCH_ACTIVITY_SINGLE_W));
         tasks.add(new Task("测试Drag&Drop",Task.ACTION_TEST_DRAG_DROP));
         tasks.add(new Task("启动DropActivity",Task.ACTION_LAUNCH_DROP_ACT));
+        tasks.add(new Task("启动一个支持锁屏的Activity",Task.ACTION_LAUNCH_ACTIVITY_FIX_ORIENTATION));
         for(int i=0;i<10;i++){
             tasks.add(new Task());
         }
 
 //        showTasks(tasks);
 
+        MultiWindowMainListHeader header = new MultiWindowMainListHeader(this);
+        mListView.addHeaderView(header.getView());
         mListView.setAdapter(new MyAdapter(tasks));
     }
 
@@ -92,6 +95,10 @@ public class MultiWindowActivityMain extends BaseActivity implements View.OnClic
             case Task.ACTION_LAUNCH_DROP_ACT:
 
                 launchDropActivity();
+                break;
+
+            case Task.ACTION_LAUNCH_ACTIVITY_FIX_ORIENTATION:
+                startActivity(new Intent(this,FixOrientationSupportActivity.class));
                 break;
 
             default:
@@ -175,6 +182,7 @@ public class MultiWindowActivityMain extends BaseActivity implements View.OnClic
         public static final int ACTION_LAUNCH_ACTIVITY_SINGLE_W = 3;
         public static final int ACTION_TEST_DRAG_DROP = 4;
         public static final int ACTION_LAUNCH_DROP_ACT = 5;
+        public static final int ACTION_LAUNCH_ACTIVITY_FIX_ORIENTATION = 6;
 
         public Task(String name,int action){
             this.name = name;

@@ -35,7 +35,7 @@ public class JobSchedulerTestActivity extends BaseActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_job_while_connectivity_changed:
-
+                //设置一个任务，当网络有变化的时候触发
 
 
                 JobScheduler jobScheduler =

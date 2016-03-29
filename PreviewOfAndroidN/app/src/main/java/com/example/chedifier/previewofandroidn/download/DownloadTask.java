@@ -19,6 +19,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class DownloadTask implements Runnable,Parcelable{
     private String mFilePath;
     private int mProgress;
 
-    private int mMaxRetryTimes = 5;
+    private int mMaxRetryTimes = 50;
     private int mRetryTimes = 0;
 
     private Boolean mThreadRunning = false;
@@ -149,7 +150,9 @@ public class DownloadTask implements Runnable,Parcelable{
 
     public synchronized void stop(){
         mRetryTimes = 0;
-        mDownloadState = DONWNLOAD_STATE.PAUSE;
+        if(mDownloadState == DONWNLOAD_STATE.DOWNLOADING){
+            mDownloadState = DONWNLOAD_STATE.PAUSE;
+        }
 
         broadCastState(DONWNLOAD_STATE.PAUSE,mProgress);
     }
@@ -205,6 +208,7 @@ public class DownloadTask implements Runnable,Parcelable{
                 if(destFile.length() >= fileLength){
                     unLockThread();
                     mProgress = 100;
+                    mDownloadState = DONWNLOAD_STATE.SUCC;
                     broadCastState(DONWNLOAD_STATE.SUCC,mProgress);
                     return;
                 }
@@ -222,6 +226,7 @@ public class DownloadTask implements Runnable,Parcelable{
                     long currentTime = System.currentTimeMillis();
                     if(nextTimeToBroadCast < currentTime){
                         mProgress = (int) (total * 100 / fileLength);
+                        Log.d(TAG,"run progress: " + mProgress);
                         broadCastState(DONWNLOAD_STATE.DOWNLOADING,mProgress);
 
                         nextTimeToBroadCast = currentTime + 1000;
@@ -296,6 +301,16 @@ public class DownloadTask implements Runnable,Parcelable{
         synchronized (mListeners){
             if(!hasListener(l)){
                 mListeners.add(l);
+            }
+        }
+    }
+
+    public void removeListener(IDownloadListener l){
+        synchronized (mListeners){
+            for(Iterator it = mListeners.iterator();it.hasNext();){
+                if(it.next() == l){
+                    it.remove();
+                }
             }
         }
     }

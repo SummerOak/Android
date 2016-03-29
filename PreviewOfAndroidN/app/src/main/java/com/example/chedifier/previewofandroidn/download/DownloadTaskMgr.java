@@ -131,7 +131,7 @@ public class DownloadTaskMgr {
             }
         }
 
-        return null;
+        return getDownloadTask(saveName,url);
     }
 
     public void stopAllTask(){
@@ -192,6 +192,11 @@ public class DownloadTaskMgr {
         return ret;
     }
 
+    public DownloadTask getDownloadTask(String saveName,String url){
+        synchronized (mTasks) {
+            return mTasks.get(createTaskKey(saveName, url));
+        }
+    }
 
     public boolean hasTask(String saveName,String url){
         synchronized (mTasks) {

@@ -3,6 +3,7 @@ package com.example.chedifier.previewofandroidn;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.util.Log;
@@ -10,10 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.chedifier.previewofandroidn.backgroupopt.ConnectivityChangeTest;
+import com.example.chedifier.previewofandroidn.backgroupopt.DozeTestActivity;
 import com.example.chedifier.previewofandroidn.backgroupopt.JobSchedulerTestActivity;
 import com.example.chedifier.previewofandroidn.backgroupopt.NewPic$VideoActionTest;
 import com.example.chedifier.previewofandroidn.common.FileUtils;
-import com.example.chedifier.previewofandroidn.datasaver.DataSaverTestActivity;
+import com.example.chedifier.previewofandroidn.datasaver.DownloadTestActivity;
 import com.example.chedifier.previewofandroidn.multiwindows.MultiWindowActivityMain;
 import com.example.chedifier.previewofandroidn.notifications.NotificationTestActivity;
 
@@ -39,12 +41,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         ((TextView)findViewById(R.id.register_connectivity_receiver)).setOnClickListener(this);
         ((TextView)findViewById(R.id.register_pic_receiver)).setOnClickListener(this);
         ((TextView)findViewById(R.id.job_scheduler_test)).setOnClickListener(this);
+        ((TextView)findViewById(R.id.doze_mode_test)).setOnClickListener(this);
+
 
         doSomeBusiness();
     }
 
     private void doSomeBusiness(){
         FileUtils.saveDrawable2Internal(this);
+
+        Intent it = new Intent("com.example.chedifier.previewofandroidn.remote");
+        it.setPackage("com.example.chedifier.previewofandroidn");
+        startService(it);
     }
 
     @Override
@@ -73,11 +81,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private void scopedAccess(){
         StorageManager storageManager = getSystemService(StorageManager.class);
         StorageVolume storageVolume = storageManager.getPrimaryVolume();
-        Intent intent = storageVolume.createAccessIntent("chedifier");
+        Intent intent = storageVolume.createAccessIntent(Environment.DIRECTORY_MOVIES);
         startActivityForResult(intent, OPEN_DIRECTORY_REQUEST_CODE);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+        Intent it = new Intent("com.example.chedifier.previewofandroidn.remote");
+        it.setPackage("com.example.chedifier.previewofandroidn");
+        stopService(it);
+    }
 
     @Override
     public void onClick(View view) {
@@ -95,7 +110,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
 
             case R.id.datasaver_test://测试后台付费流量控制
-                startActivity(new Intent(MainActivity.this, DataSaverTestActivity.class));
+                startActivity(new Intent(MainActivity.this, DownloadTestActivity.class));
 
                 break;
 
@@ -144,6 +159,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case R.id.job_scheduler_test:
 
                 startActivity(new Intent(this, JobSchedulerTestActivity.class));
+
+                break;
+
+            case R.id.doze_mode_test:
+                startActivity(new Intent(this,DozeTestActivity.class));
 
                 break;
 

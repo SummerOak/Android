@@ -9,12 +9,15 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,13 +36,13 @@ public class DownloadService extends Service implements IDownloadListener{
     private Handler mHandler = new MyHandler(this);
     private final Messenger mMessenger = new Messenger(mHandler);
 
+    private List<DownloadTask> mTasks = new ArrayList<>();
 
     @Override
     public void onCreate(){
         Log.d(TAG,"onCreate");
 
         mHandler.sendEmptyMessageDelayed(0,3000);
-
     }
 
 
@@ -57,6 +60,8 @@ public class DownloadService extends Service implements IDownloadListener{
             if(task != null){
                 task.addListener(this);
                 task.start();
+
+                mTasks.add(task);
             }
         }
     }
@@ -72,10 +77,16 @@ public class DownloadService extends Service implements IDownloadListener{
     @Override
     public void onDestroy(){
         super.onDestroy();
+
+        for(DownloadTask task:mTasks){
+            task.removeListener(this);
+        }
+
     }
 
     @Override
     public void onDownloadSucc(DownloadTask task) {
+
         Log.d(TAG,"onDownloadSucc task: " + task);
 
         addDownloadTask();

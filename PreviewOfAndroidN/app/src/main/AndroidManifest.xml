@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.IG" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
 
     <permission
         android:name="com.example.chedifier.previewofandroidn.permissions.mycontentprovider"
@@ -30,6 +31,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/MainActivityTheme"
             android:configChanges="density|screenSize|smallestScreenSize|screenLayout|orientation">
 
@@ -82,6 +84,11 @@
 
         </activity>
 
+        <activity android:name=".multiwindows.FixOrientationSupportActivity"
+            android:configChanges="density|screenSize|smallestScreenSize|screenLayout|orientation">
+
+        </activity>
+
         <activity android:name=".multiwindows.DragAndDropTestActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation">
 
@@ -104,7 +111,7 @@
 
         <service android:name=".download.DownloadService"/>
 
-        <activity android:name=".datasaver.DataSaverTestActivity"
+        <activity android:name=".datasaver.DownloadTestActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation">
 
         </activity>
@@ -153,9 +160,42 @@
 
         <activity android:name=".backgroupopt.JobSchedulerTestActivity"/>
 
+        <activity android:name=".backgroupopt.DozeTestActivity"/>
+
+        <service android:name=".remote.BackgroundService"
+            android:process=":background">
+            <intent-filter>
+                <action android:name="com.example.chedifier.previewofandroidn.remote"/>
+            </intent-filter>
+        </service>
+
         <service android:name=".backgroupopt.TestJobSchedulerService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true"/>
+
+        <receiver android:name=".backgroupopt.MyAlarmReceiver">
+
+            <intent-filter>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm1"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm2"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm3"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm4"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm5"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm6"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm7"/>
+                <action android:name="com.example.chedifier.previewofandroidn.alarm8"/>
+            </intent-filter>
+
+        </receiver>
+
+
+        <receiver android:name=".directboot.LockedBootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".directboot.BootCompleteActivity"/>
 
     </application>
 
