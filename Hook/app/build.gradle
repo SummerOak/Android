@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "example.chedifier.hook"
+        minSdkVersion 18
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        /*ndk{
+            moduleName "chedifierHookLib"
+            ldLibs "log"
+            cFlags "-std=c++11"
+            stl "stlport_shared"
+        }*/
+    }
+
+
+    sourceSets.main {
+        jni.srcDirs = []
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /*splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a' //select ABIs to build APKs for
+            universalApk true //generate an additional APK that contains all the ABIs
+        }
+    }*/
+}
+
+task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir\\ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath,
+            '-j', Runtime.runtime.availableProcessors(),
+            'all',
+            'NDK_DEBUG=1'
+}
+
+tasks.withType(JavaCompile) { compileTask ->
+
+    compileTask.dependsOn buildNative
+}
+
+task cleanNative(type: Exec, description: 'Clean JNI object files') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir\\ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            'clean'
+}
+
+task deleteJniLibs(type: Delete){
+//    delete 'libs/native-libs.jar'
+
+    delete 'src/main/jniLibs'
+    delete 'src/main/obj'
+}
+
+cleanNative.dependsOn 'deleteJniLibs'
+clean.dependsOn 'cleanNative'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+}

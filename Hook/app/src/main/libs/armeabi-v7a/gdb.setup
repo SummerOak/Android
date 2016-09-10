@@ -1,0 +1,2 @@
+set solib-search-path E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a
+directory D:/soft/ndk/android-ndk-r11b/build//../platforms/android-23/arch-arm/usr/include E:/private_workspace/Hook/app/src/main/jni/include E:\private_workspace\Hook\app\src\main\jni E:\private_workspace\Hook\app\src\debug\jni D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl//gabi++/include
