@@ -1,0 +1,92 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDirs = ['libs']
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir\\ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            '-j', Runtime.runtime.availableProcessors(),
+            'all',
+            'NDK_DEBUG=1'
+}
+
+task nativeLibsToJar(type: Zip, description: 'create a jar archive of the native libs') {
+//    destinationDir file("libs")
+//    baseName 'native-libs'
+//    extension 'jar'
+//    from fileTree(dir: 'src/main/libs', include: '**/*.so')
+//    into 'lib/'
+}
+
+task CopySoToLib(type:Copy){
+    from('src/main/libs'){
+        include '**/*.so'
+    }
+
+    into('libs/')
+}
+
+task binaryCopyToAssert(type: Copy) {
+    from('src/main/libs'){
+        include '**/daemon_proc'
+    }
+
+    into('src/main/assets/')
+}
+
+binaryCopyToAssert.dependsOn 'buildNative'
+
+CopySoToLib.dependsOn 'binaryCopyToAssert'
+
+tasks.withType(JavaCompile) { compileTask ->
+
+    compileTask.dependsOn CopySoToLib
+}
+
+//清理jni目录
+task cleanNative(type: Exec, description: 'Clean JNI object files') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir\\ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            'clean'
+}
+
+task cleanNativeJar(type: Delete){
+//    delete 'libs/native-libs.jar'
+
+    delete 'src/main/libs'
+    delete 'src/main/obj'
+}
+
+cleanNativeJar.dependsOn 'cleanNative'
+
+clean.dependsOn 'cleanNativeJar'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+}

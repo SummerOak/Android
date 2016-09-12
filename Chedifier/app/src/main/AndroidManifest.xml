@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="example.chedifier.chedifier">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="huawei.android.permission.HW_SIGNATURE_OR_SYSTEM" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="com.google.android.launcher.permission.UNINSTALL_SHORTCUT" />
+
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+    <uses-permission android:name="com.huawei.launcher2.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher2.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher3.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher3.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.huawei.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher2.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher2.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.google.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.google.android.launcher.permission.WRITE_SETTINGS"/>
+
+
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:singleUser="true"
+            android:configChanges="layoutDirection|locale|orientation|keyboardHidden|fontScale|screenSize|mcc|mnc|smallestScreenSize|screenLayout">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".common.SecondaryActivity"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Dialog">
+
+            <intent-filter>
+                <!-- 自定义的action，通过自定义的action可以跨app调用到activity 10.9以后新版会命中这个action-->
+                <action android:name="com.uc.baidu.v1.action.SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.ucmobile.category.SHORTCUT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".common.BlankActivity"
+            android:taskAffinity=".blank"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Dialog"
+            />
+
+        <service
+            android:name=".BackgroundService"
+            android:process=":svr"/>
+
+
+        <receiver android:name=".test.NetworkConnectReceiver"
+            android:enabled="true"
+            android:process=":svr">
+
+            <intent-filter android:priority="1000">
+                <action android:name="android.net.wifi.supplicant.STATE_CHANGE"/>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+            </intent-filter>
+
+        </receiver>
+
+        <receiver android:name=".test.NetworkReceiver">
+            <intent-filter>
+
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE_IMMEDIATE" />
+                <action android:name="android.net.wifi.SCAN_RESULTS" />
+                <!-- wifi开关 -->
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <!-- wifi配置 -->
+                <action android:name="android.net.wifi.RSSI_CHANGED" />
+                <action android:name="android.net.wifi.CONFIGURED_NETWORKS_CHANGE" />
+                <!-- wifi认证 -->
+                <action android:name="android.net.wifi.supplicant.STATE_CHANGE" />
+
+                <action android:name="android.net.conn.CAPTIVE_PORTAL" />
+            </intent-filter>
+
+        </receiver>
+
+        <service
+            android:name="com.uc.persistentservicelib.daemon.DaemonService"
+            android:process=":daemon"/>
+
+        <receiver
+            android:name="com.uc.persistentservicelib.daemon.HostBroadCastReceiver"
+            android:process=":svr"/>
+
+        <receiver
+            android:name="com.uc.persistentservicelib.daemon.DaemonBroadCastReceiver"
+            android:process=":daemon"/>
+
+
+
+    </application>
+
+</manifest>
