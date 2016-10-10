@@ -29,6 +29,7 @@ import example.chedifier.chedifier.module.OpenUrlByDefaultBrowser;
 import example.chedifier.chedifier.module.PreWindowTest;
 import example.chedifier.chedifier.module.ShortCutTest;
 import example.chedifier.chedifier.module.StartBrowserTest;
+import example.chedifier.chedifier.module.TalkbackModule;
 import example.chedifier.chedifier.module.WindowLeakTest;
 import example.chedifier.chedifier.multiuser.MultiUserManager;
 import example.chedifier.chedifier.utils.PermissionUtils;
@@ -45,14 +46,15 @@ public class MainActivity extends BaseActivity {
         mModules.add(new AccsTest(this));
         mModules.add(new BackgroundTest(this));
         mModules.add(new NotificationTest(this));
-//        mModules.add(new OpenUrlByDefaultBrowser(this));
+        mModules.add(new OpenUrlByDefaultBrowser(this));
         mModules.add(new MultiTextTest(this));
+        mModules.add(new EdittextError(this));
         mModules.add(new PreWindowTest(this));
         mModules.add(new ShortCutTest(this));
         mModules.add(new StartBrowserTest(this));
         mModules.add(new WindowLeakTest(this));
         mModules.add(new HWThemeChangeTest(this));
-        mModules.add(new EdittextError(this));
+        mModules.add(new TalkbackModule(this));
     }
 
     @Override

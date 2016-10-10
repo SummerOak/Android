@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 import example.chedifier.chedifier.base.AbsModule;
 
 /**
@@ -34,6 +38,13 @@ public class WindowLeakTest extends AbsModule {
     protected View createView(int pos) {
         TextView textView = new TextView(mContext);
         textView.setText("测试窗口泄漏");
+
+        TreeMap<String, String> map = new TreeMap<>();
+        Set<TreeMap.Entry<String, String>> entrySets = map.entrySet();
+        for (TreeMap.Entry<String, String> entrySet: entrySets) {
+            String key = entrySet.getKey();
+            String value = entrySet.getValue();
+        }
         return textView;
     }
 

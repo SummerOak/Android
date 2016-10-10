@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="example.chedifier.chedifier">
 
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -36,23 +37,28 @@
     <uses-permission android:name="com.google.android.launcher.permission.WRITE_SETTINGS"/>
 
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:label="@string/app_name">
         <activity
             android:name=".MainActivity"
-            android:singleUser="true"
-            android:configChanges="layoutDirection|locale|orientation|keyboardHidden|fontScale|screenSize|mcc|mnc|smallestScreenSize|screenLayout">
+            android:theme="@style/BackgroundTheme"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation|keyboardHidden|fontScale|screenSize|mcc|mnc">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data android:name="hwc-theme"
+                android:value="androidhwext:style/Theme.Emui" />
         </activity>
 
         <activity
@@ -75,6 +81,8 @@
             android:excludeFromRecents="true"
             android:theme="@android:style/Theme.Dialog"
             />
+
+        <activity android:name=".test.TalkbackTest" />
 
         <service
             android:name=".BackgroundService"
@@ -123,6 +131,22 @@
             android:name="com.uc.persistentservicelib.daemon.DaemonBroadCastReceiver"
             android:process=":daemon"/>
 
+        <service android:name=".ChedifierAccessibilityService"
+            android:description="@string/accessibility_service_description"
+            android:label="@string/accessibility_service_description"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+
+        </service>
 
 
     </application>

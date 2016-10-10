@@ -1,6 +1,6 @@
-E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifierHookLib/TestClassB.o: \
- E:/private_workspace/Hook/app/src/main/jni/TestClassB.cpp \
- E:/private_workspace/Hook/app/src/main/jni/TestClassB.h \
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifierHookLib/TestClassB.o: \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/TestClassB.cpp \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/TestClassB.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
@@ -98,9 +98,9 @@ E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifie
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_string_io.c \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_epilog.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
- E:/private_workspace/Hook/app/src/main/jni/define.h
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/define.h
 
-E:/private_workspace/Hook/app/src/main/jni/TestClassB.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/TestClassB.h:
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string:
 
@@ -296,4 +296,4 @@ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_epil
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
 
-E:/private_workspace/Hook/app/src/main/jni/define.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/define.h:

@@ -1,6 +1,6 @@
-E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifierHookLib/ArtMethod.o: \
- E:/private_workspace/Hook/app/src/main/jni/ArtMethod.cpp \
- E:/private_workspace/Hook/app/src/main/jni/ArtMethod.h \
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifierHookLib/ArtMethod.o: \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtMethod.cpp \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtMethod.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/type_traits \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
@@ -18,10 +18,10 @@ E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifie
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stddef.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_epilog.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
- E:/private_workspace/Hook/app/src/main/jni/define.h \
- E:/private_workspace/Hook/app/src/main/jni/Offset.h
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/define.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/Offset.h
 
-E:/private_workspace/Hook/app/src/main/jni/ArtMethod.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtMethod.h:
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/type_traits:
 
@@ -57,6 +57,6 @@ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_epil
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
 
-E:/private_workspace/Hook/app/src/main/jni/define.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/define.h:
 
-E:/private_workspace/Hook/app/src/main/jni/Offset.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/Offset.h:

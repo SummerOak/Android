@@ -1,5 +1,5 @@
-E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifierHookLib/chedifier_hook_lib.o: \
- E:/private_workspace/Hook/app/src/main/jni/chedifier_hook_lib.cpp \
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifierHookLib/chedifier_hook_lib.o: \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/chedifier_hook_lib.cpp \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
@@ -84,14 +84,13 @@ E:/private_workspace/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifie
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_num_get.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_num_get.c \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_string_io.c \
- E:/private_workspace/Hook/app/src/main/jni/define.h \
- E:/private_workspace/Hook/app/src/main/jni/TestClassA.h \
- E:/private_workspace/Hook/app/src/main/jni/TestClassB.h \
- E:/private_workspace/Hook/app/src/main/jni/ArtMethod.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/define.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtMethod.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/type_traits \
- E:/private_workspace/Hook/app/src/main/jni/Offset.h \
- E:/private_workspace/Hook/app/src/main/jni/util/StringUtils.h \
- E:/private_workspace/Hook/app/src/main/jni/ArtModifiers.h
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/Offset.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/StringUtils.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/Utils.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtModifiers.h
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string:
 
@@ -261,18 +260,16 @@ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_num_
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_string_io.c:
 
-E:/private_workspace/Hook/app/src/main/jni/define.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/define.h:
 
-E:/private_workspace/Hook/app/src/main/jni/TestClassA.h:
-
-E:/private_workspace/Hook/app/src/main/jni/TestClassB.h:
-
-E:/private_workspace/Hook/app/src/main/jni/ArtMethod.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtMethod.h:
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/type_traits:
 
-E:/private_workspace/Hook/app/src/main/jni/Offset.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/Offset.h:
 
-E:/private_workspace/Hook/app/src/main/jni/util/StringUtils.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/StringUtils.h:
 
-E:/private_workspace/Hook/app/src/main/jni/ArtModifiers.h:
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/Utils.h:
+
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtModifiers.h:

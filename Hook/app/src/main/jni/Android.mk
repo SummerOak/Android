@@ -6,7 +6,12 @@ NDK_APP_DST_DIR := ../jniLibs/$(TARGET_ARCH_ABI)
 
 LOCAL_CFLAGS := -std=c++11
 
-LOCAL_SRC_FILES := chedifier_hook_lib.cpp ArtMethod.cpp TestClassA.cpp TestClassB.cpp util/StringUtils.cpp aarch64.S
+LOCAL_SRC_FILES := \
+chedifier_hook_lib.cpp \
+ArtMethod.cpp \
+util/StringUtils.cpp \
+util/Utils.cpp \
+aarch64.S
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
 LOCAL_C_INCLUDES += E:\private_workspace\Hook\app\src\main\jni

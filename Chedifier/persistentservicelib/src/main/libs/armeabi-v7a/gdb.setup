@@ -1,2 +1,2 @@
-set solib-search-path E:/workspace/Chedifier/persistentservicelib/src/main/obj/local/armeabi-v7a
-directory D:/soft/ndk/android-ndk-r11b/build//../platforms/android-15/arch-arm/usr/include E:/workspace/Chedifier/persistentservicelib/src/main/jni/include D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/system/include
+set solib-search-path E:/private_workspace/ChedifierGithub/Chedifier/persistentservicelib/src/main/obj/local/armeabi-v7a
+directory D:/soft/ndk/android-ndk-r11b/build//../platforms/android-15/arch-arm/usr/include E:/private_workspace/ChedifierGithub/Chedifier/persistentservicelib/src/main/jni/include D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/system/include

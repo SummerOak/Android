@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chedifier</string>
+    <string name="accessibility_service_description">Chedifier Acc</string>
 </resources>

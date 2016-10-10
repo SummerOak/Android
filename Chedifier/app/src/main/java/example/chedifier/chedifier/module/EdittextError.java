@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import example.chedifier.chedifier.base.AbsModule;
+import example.chedifier.chedifier.common.dialog.BaseDialog;
 
 /**
  * ****************************************************************************
@@ -41,6 +42,11 @@ public class EdittextError extends AbsModule{
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayout.setGravity(Gravity.CENTER);
 
+//        LinearLayout contain1 = new LinearLayout(mContext);
+//        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT);
+//        linearLayout.addView(contain1,lp1);
+
         mEditText = new EditText(mContext);
         mEditText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80));
         mEditText.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
@@ -58,5 +64,21 @@ public class EdittextError extends AbsModule{
     @Override
     public void onClick(View v) {
         mEditText.setError("当前网址不符合规范");
+
+        BaseDialog dialog = new BaseDialog(mContext);
+
+        dialog.addNewRow().addEditText("test", 111);
+        dialog.addNewRow().addButton("ok", 112);
+
+        final EditText editText = (EditText) dialog.findViewById(111);
+        Button button = (Button)dialog.findViewById(112);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setError("当前网址不符合规范");
+            }
+        });
+
+        dialog.show();
     }
 }
