@@ -90,7 +90,12 @@ E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/obj
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/Offset.h \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/StringUtils.h \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/Utils.h \
- E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtModifiers.h
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtModifiers.h \
+ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/map \
+ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_map.h \
+ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_tree.h \
+ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_tree.c \
+ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_relops_cont.h
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string:
 
@@ -273,3 +278,13 @@ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/StringUtils.h:
 E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/util/Utils.h:
 
 E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/ArtModifiers.h:
+
+D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/map:
+
+D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_map.h:
+
+D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_tree.h:
+
+D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_tree.c:
+
+D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:

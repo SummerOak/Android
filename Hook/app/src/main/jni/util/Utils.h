@@ -12,6 +12,9 @@ class Utils {
 public:
 
     static void logoutABI();
+
+    static float unsigned_int2_float(unsigned int x);
+
 };
 
 

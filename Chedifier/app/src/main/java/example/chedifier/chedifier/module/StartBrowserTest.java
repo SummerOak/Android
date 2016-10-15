@@ -37,9 +37,11 @@ public class StartBrowserTest extends AbsModule {
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.UCMobile", "com.uc.urlfilter.UrlFilterLocalBlackListActivity"));
-        mContext.startActivity(intent);
+        startWXEntryInUC();
+
+//        Intent intent = new Intent();
+//        intent.setComponent(new ComponentName("com.UCMobile", "com.uc.urlfilter.UrlFilterLocalBlackListActivity"));
+//        mContext.startActivity(intent);
 
 //        mContext.startActivity(generateUCHotNews());
 
@@ -66,5 +68,14 @@ public class StartBrowserTest extends AbsModule {
 
 
         return intent;
+    }
+
+    private void startWXEntryInUC(){
+        String pkgName = "com.UCMobile.odm";
+        String actName = pkgName + ".wxapi.WXEntryActivity";
+        Intent intent = new Intent();
+        intent.setClassName(pkgName,actName);
+
+        mContext.startActivity(intent);
     }
 }

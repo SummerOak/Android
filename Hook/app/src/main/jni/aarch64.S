@@ -20,24 +20,45 @@
 
 .extern hook_func_proxy
 ENTRY art_method_handler
+
     push {lr}
 	push {r4,r5,r6,r7}
-
 	mov r4,sp
 	add r4,#20
-	push {r4}
 
-	push {r5}
+	vpush {s0-s15}  @save s0-s15
+
+    mov r5,#16
+    push {r5}       @push fArgLen
+
+    mov r5,sp
+    add r5,#4
+    push {r5}       @push fArgs
+
+	push {r4}       @push oldSP
+
+	push {r7}       @push r7
+	push {r6}       @push r6
+
+    mov r5,r4
+    sub r5,#16
+    ldr r5,[r5]
+	push {r5}       @push r5
 
 	sub r4,#8
 	ldr r4,[r4]
-	push {r4}
+	push {r4}       @push r4
 
-    blx hook_func_proxy     @hook_func_proxy(r0,r1,r2,r3,r4,r5,sp)
+    blx hook_func_proxy     @hook_func_proxy(r0,r1,r2,r3,r4,r5,r6,r7,oldSP,fArgs,fArgLen)
 
     pop {r4}
     pop {r5}
-    pop {r4}
+    pop {r6}
+    pop {r7}
+    pop {r5}
+    pop {r5}
+    pop {r5}
+    vpop {s0-s15}
 
     pop {r4,r5,r6,r7}
     pop {pc}
@@ -55,7 +76,8 @@ r3 = r3
 [sp+8] = r6
 [sp+12] = r7
 [sp+16] = oldSP
-[sp+20] = entry
+[sp+20] = fArgs
+[sp+24] = entry
 
 **/
 ENTRY call_old_art_method
@@ -82,7 +104,12 @@ ENTRY call_old_art_method
     ldr r5,[sp,#(COPY_STACK_SIZE+20)]
     ldr r6,[sp,#(COPY_STACK_SIZE+24)]
     ldr r7,[sp,#(COPY_STACK_SIZE+28)]
+
     ldr r5,[sp,#(COPY_STACK_SIZE+TEMP_SPACE_SIZE+4+20)]
+    mov ip,r5
+    vldm   ip, {s0-s15}
+
+    ldr r5,[sp,#(COPY_STACK_SIZE+TEMP_SPACE_SIZE+4+24)]
     blx r5
     add sp,#(COPY_STACK_SIZE+TEMP_SPACE_SIZE)
     pop {pc}

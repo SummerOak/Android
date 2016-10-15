@@ -6,8 +6,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +55,74 @@ public class WindowLeakTest extends AbsModule {
 
     @Override
     public void onClick(View v) {
-        testWindowLeak();
+        //testWindowLeak();
+
+        android.util.Log.d(TAG,getDiviceId());
+
+        try {
+            createPersonalAccountJson();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            createCommonODMAccountJson();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDiviceId(){
+        TelephonyManager tm = (TelephonyManager)mContext.getSystemService(Context.TELEPHONY_SERVICE);
+        String DEVICE_ID = tm.getDeviceId();
+        return DEVICE_ID;
+    }
+
+    private void createPersonalAccountJson() throws JSONException {
+        JSONObject root = new JSONObject();
+
+        //agoo
+        JSONObject account = new JSONObject();
+        account.put("key","21711551");
+        account.put("secret","52794363abe78b68c1fbebe92a6c96ed");
+        root.put("agoo",account);
+
+        //微信
+        account = new JSONObject();
+        account.put("key","wx020a535dccd46c11");
+        account.put("secret","e73cedfab8d7a82f56814488f9bdb035");
+        root.put("weixin",account);
+
+        //QQ
+        account = new JSONObject();
+        account.put("key","1101031180");
+        account.put("secret","");
+        root.put("qq",account);
+
+        //微博
+        account = new JSONObject();
+        account.put("key","3982225019");
+        account.put("secret","");
+        root.put("qq",account);
+
+        Log.d(TAG,root.toString());
+    }
+
+    private void createCommonODMAccountJson() throws JSONException {
+        JSONObject root = new JSONObject();
+
+        //agoo
+        JSONObject account = new JSONObject();
+        account.put("key","23467295");
+        account.put("secret","e616557cd810027df1591a82ec94c0ea");
+        root.put("agoo",account);
+
+        //微信
+        account = new JSONObject();
+        account.put("key","wx110341b81c08d810");
+        account.put("secret","eed1402a6072ecacf1769109e7fe87a2");
+        root.put("weixin",account);
+
+        Log.d(TAG,root.toString());
     }
 
     private void testWindowLeak(){

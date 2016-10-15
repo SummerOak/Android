@@ -77,7 +77,8 @@ public class MainActivity extends BaseActivity {
 
         PermissionUtils.checkSdcardPermission(this, new String[]{
                 "android.permission.WRITE_EXTERNAL_STORAGE",
-                "android.permission.READ_EXTERNAL_STORAGE"});
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.READ_PHONE_STATE"});
     }
 
     private void initModules(ViewGroup container){

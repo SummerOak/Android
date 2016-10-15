@@ -1,26 +1,30 @@
 package example.chedifier.hook.hook;
 
+import example.chedifier.hook.MainActivity;
+
 /**
  * Created by chedifier on 2016/5/14.
  */
 public class HookProxyMethod {
 
-//    public void toast(Context ctx,String content){
-////        Toast.makeText(ctx, content, Toast.LENGTH_SHORT).show();
-//    }
+    @HookAnnotation(
+            targetClass = MainActivity.class,
+            methodName = "testCall",
+            params = {int.class,int.class,int.class,int.class,int.class,
+                    String.class,String.class,
+                    byte.class,byte.class,
+                    char.class,char.class,
+                    float.class,float.class})
+    public void testHookProxy(){
 
-    public void setText(CharSequence content){
-//        Toast.makeText(HookApplication.getAppContext(), content, Toast.LENGTH_SHORT).show();
     }
 
-    private Object hookProxy(Object... parms){
 
-        return null;
-    }
+    @HookAnnotation(targetClass = MainActivity.class,
+                    methodName = "testCall2",
+                    params = {String[].class})
+    public void testHookProxy2(){
 
-    public static void main(String[] args)
-    {
-        System.out.println("Hello Word");
     }
 
 }

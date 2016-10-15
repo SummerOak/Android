@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import example.chedifier.hook.hook.Hook;
+import example.chedifier.hook.hook.HookParaser;
 import example.chedifier.hook.hook.HookProxyMethod;
 
 /**
@@ -29,34 +30,7 @@ public class HookApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-//        MainActivity.toast(this, "init static from application!");
-
-//        Hook.hookMethod(MainActivity.class, "toast", "(Ljava/lang/String;)V", false,
-//                MainActivity.class, "toastHooked", "(Ljava/lang/String;)V", false);
-
-//        Hook.hookMethod(MainActivity.class,"toast","(Landroid/content/Context;Ljava/lang/String;)V",true,
-//                MainActivity.class,"toastHooked","(Landroid/content/Context;Ljava/lang/String;)V",true);
-
-        Hook.hookMethod(MainActivity.class,"test","(ILjava/lang/String;BC)V",false,
-                MainActivity.class,"testHooked","(I)V",false);
-
-//        Hook.hookMethod(MainActivity.class,"toast","(Landroid/content/Context;Ljava/lang/String;)V",true,
-//                MainActivity.class,"toastHooked","(Ljava/lang/String;)V", false);
-
-//        Hook.hookMethod(TextView.class,"setText","(Ljava/lang/CharSequence;)V",false,
-//                HookProxyMethod.class,"setText","(Ljava/lang/CharSequence;)V",false);
-
-//        Hook.hookMethod(ActivityManager.class,"forceStopPackage","(Ljava/lang/String;)V",false,
-//                MainActivity.class,"logcatHook","(Ljava/lang/String;)V", false);
-
-//        try {
-//            Class c = Class.forName("com.android.server.am.ActivityManagerService");
-//
-//
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
+        HookParaser.parseAndHook();
 
         sAppContext = this;
     }

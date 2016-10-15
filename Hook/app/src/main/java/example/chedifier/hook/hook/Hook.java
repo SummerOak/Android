@@ -23,27 +23,13 @@ public class Hook {
         Log.d(TAG,"hookMethod > class: " + c.getName() + " method: " + name
         + " to: " + "class: " + proxyC.getName() + " method:" + proxyName);
 
-        hookMethodNative(c, name, sig,isStatic,
+        int ret = hookMethodNative(c, name, sig,isStatic,
                 proxyC,proxyName,proxySig,isProxyStatic);
-
-        return HookResult.FAILED;
-    }
-
-    public void setText(CharSequence content){
-        Toast.makeText(HookApplication.getAppContext(), content, Toast.LENGTH_SHORT).show();
-    }
-
-    public Object hookProxy(Object... parms){
-        Log.d(TAG,"hookProxy");
-
-        if(parms != null){
-            Log.d(TAG,"parms.length" + parms.length);
-
+        if(ret == 0){
+            return HookResult.SUCCESS;
         }
 
-
-
-        return null;
+        return HookResult.FAILED;
     }
 
     private static native int hookMethodNative(Class c,String name,String sig,boolean isStatic,
