@@ -2,14 +2,22 @@ package example.chedifier.hook;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Process;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import example.chedifier.hook.base.BaseActivity;
+import example.chedifier.hook.ptrace.PTrace;
+import example.chedifier.hook.ptrace.PTraceService;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
+
+    private EditText mPTraceIdInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +33,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         ((TextView)findViewById(R.id.call_native)).setOnClickListener(this);
         ((TextView)findViewById(R.id.call_instance_method)).setOnClickListener(this);
         ((TextView)findViewById(R.id.post_message)).setOnClickListener(this);
+
+        mPTraceIdInput = (EditText)findViewById(R.id.trace_edit);
+        ((TextView)findViewById(R.id.trace_pid)).setOnClickListener(this);
+
+        ((TextView)findViewById(R.id.trace_self)).setOnClickListener(this);
+        ((TextView)findViewById(R.id.stop_trace_self)).setOnClickListener(this);
+        ((TextView)findViewById(R.id.start_target)).setOnClickListener(this);
     }
 
-    public void testCall(int i,int i1,int i2,int i3,int i4,String s,String s1,byte b,byte b1,char c,char c1,float f,float f1){
+    public void testCall(int i,int i1,int i2,int i3,int i4,String s,String s1,byte b,byte b1,char c,char c1,float f,float f1) {
         Toast.makeText(this,
                 "testcall >>> \n"
-                + "  i=" + i + " i1=" + i1 + " i2=" + i2 + " i3=" + i3 + " i4=" + i4 + "\n"
-                + "  s=" + s + " s1=" + s1 + "\n"
-                + "  b=" + b + " b1=" + b1 + "\n"
-                + "  c=" + c + " c1=" + c1 + "\n"
-                + "  f=" + f + " f1=" + f1
-                ,Toast.LENGTH_LONG).show();
-
+                        + "  i=" + i + " i1=" + i1 + " i2=" + i2 + " i3=" + i3 + " i4=" + i4 + "\n"
+                        + "  s=" + s + " s1=" + s1 + "\n"
+                        + "  b=" + b + " b1=" + b1 + "\n"
+                        + "  c=" + c + " c1=" + c1 + "\n"
+                        + "  f=" + f + " f1=" + f1
+                        , Toast.LENGTH_LONG).show();
         return;
     }
 
@@ -55,9 +69,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         return;
     }
 
-    public void testHooked(int i){
-        Toast.makeText(this,"test " + i,Toast.LENGTH_SHORT).show();
-    }
 
     public static void toast(Context ctx,String content){
         Toast.makeText(ctx,content,Toast.LENGTH_SHORT).show();
@@ -115,7 +126,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 ((TextView)v).setText("chedifier");
 
                 break;
+            case R.id.trace_pid:
 
+                if(mPTraceIdInput != null){
+                    int pid = Integer.valueOf(mPTraceIdInput.getText().toString());
+                    if(pid > 0){
+                        PTrace.pTrace(pid);
+                    }
+                }
+
+                break;
+
+            case R.id.trace_self:
+                PTraceService.startPTrace(this, Process.myPid());
+                break;
+
+            case R.id.stop_trace_self:
+                PTraceService.stopPTrace(this);
+                break;
+
+            case R.id.start_target:
+
+                new Thread(new Runnable() {
+                    int i = 0;
+                    @Override
+                    public void run() {
+                        while(true){
+                            System.out.println("chedifier hook test " + (i++));
+
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).start();
+
+                break;
 
         }
     }

@@ -5,7 +5,7 @@
 #include <jni.h>
 #include <string.h>
 #include "Utils.h"
-#include "define.h"
+#include "../common/common.h"
 
 void Utils::logoutABI(){
 
