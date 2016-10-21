@@ -17,5 +17,4 @@ public @interface HookAnnotation {
     public Class<?> targetClass() default Object.class;
     public String methodName() default "";
     public Class<?>[] params() default {};
-    public boolean isStatic() default false;
 }

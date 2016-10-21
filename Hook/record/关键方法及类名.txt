@@ -1,0 +1,6 @@
+1. quick_entryoints_cc_arm.cc
+	quick_invoke_reg_setup(ArtMethod* method, uint32_t* args, uint32_t args_size,
+                                   Thread* self, JValue* result, const char* shorty)
+
+2. quick_entrypoints_arm.S
+	art_quick_invoke_stub_internal

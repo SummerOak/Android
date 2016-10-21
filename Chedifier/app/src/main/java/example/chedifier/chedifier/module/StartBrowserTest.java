@@ -37,13 +37,13 @@ public class StartBrowserTest extends AbsModule {
     @Override
     public void onClick(View v) {
 
-        startWXEntryInUC();
+//        startWXEntryInUC();
 
 //        Intent intent = new Intent();
 //        intent.setComponent(new ComponentName("com.UCMobile", "com.uc.urlfilter.UrlFilterLocalBlackListActivity"));
 //        mContext.startActivity(intent);
 
-//        mContext.startActivity(generateUCHotNews());
+        mContext.startActivity(generateUCHotNews());
 
 //                createShortcut("草",R.drawable.hotnews_shortcut,generateUCHotNews());
 
@@ -64,6 +64,7 @@ public class StartBrowserTest extends AbsModule {
         String data = "ext:info_flow_open_channel:ch_id=100&from=9";
 //        intent.setData(Uri.parse(data));
         intent.putExtra("openurl","http://www.baidu.com");
+        intent.putExtra("tp","UCM_OPENURL");
 //        intent.setData(Uri.parse("http://www.baidu.com"));
 
 

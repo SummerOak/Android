@@ -27,6 +27,8 @@ extern "C" void call_old_art_method(unsigned int r0,
 struct HookInfo{
     ArtMethod*  target_method;
     unsigned int old_entry_point_from_quick_compiled_code;
+    ArtMethod* proxy_method;
+    unsigned int proxy_entry_point_from_quick_compiled_code;
     const char* s_target_func_name;
     const char* s_target_func_signature;
     const char* s_proxy_func_name;
@@ -85,11 +87,18 @@ unsigned int fArgLen
     }
 
     LOGD("old_entry_point_from_quick_compiled_code %x",pInfo->old_entry_point_from_quick_compiled_code);
+    LOGD("proxy_entry_point_from_quick_compiled_code %x",pInfo->proxy_entry_point_from_quick_compiled_code);
 
     call_old_art_method(
-    r0,r1,r2,r3,r4,r5,r6,r7,
-    oldSP,fArgs,
-    pInfo->old_entry_point_from_quick_compiled_code);
+        reinterpret_cast<unsigned int>(pInfo->proxy_method),
+        r1,r2,r3,r4,r5,r6,r7,
+        oldSP,fArgs,
+        pInfo->proxy_entry_point_from_quick_compiled_code);
+
+    call_old_art_method(
+        r0,r1,r2,r3,r4,r5,r6,r7,
+        oldSP,fArgs,
+        pInfo->old_entry_point_from_quick_compiled_code);
 }
 
 extern "C" JNIEXPORT jint JNICALL
@@ -121,8 +130,22 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
         return 1;
     }
 
+    jmethodID proxyMethod;
+    if(isProxyStatic){
+        proxyMethod = env->GetStaticMethodID(proxyC,proxy_method_name,proxy_method_signature);
+    }else{
+        proxyMethod = env->GetMethodID(proxyC,proxy_method_name,proxy_method_signature);
+    }
+    if(proxyMethod == NULL){
+        LOGD("proxyMethod not found.");
+        return 1;
+    }
+
     ArtMethod* targetArtMethod = reinterpret_cast<ArtMethod*>(targetMethod);
     targetArtMethod->print();
+
+    ArtMethod* proxyArtMethod = reinterpret_cast<ArtMethod*>(proxyMethod);
+    proxyArtMethod->print();
 
     LOGD("replace code entry >>>");
 
@@ -139,6 +162,8 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
     struct HookInfo *pInfo = new HookInfo();
     pInfo->target_method = targetArtMethod;
     pInfo->old_entry_point_from_quick_compiled_code = old_entry_point_from_quick_compiled_code;
+    pInfo->proxy_method = proxyArtMethod;
+    pInfo->proxy_entry_point_from_quick_compiled_code = reinterpret_cast<unsigned int>(proxyArtMethod->ptr_sized_fields_.entry_point_from_quick_compiled_code_);
     pInfo->s_target_func_name = target_method_name;
     pInfo->s_target_func_signature = target_method_signature;
     pInfo->s_proxy_func_name = proxy_method_name;

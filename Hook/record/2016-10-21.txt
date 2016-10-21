@@ -1,0 +1,7 @@
+1. 反编译 oat 文件，看dex2oat是怎么生成汇编指令的。
+2. oat文件存在于 /data/data/dalvik-cache/arm 下面
+3. 没有root的情况下，使用 run-as 命令启动debugable的应用，可以拷贝出来
+4. 使用oatdump 命令反编译 oat文件
+
+5. static 方法只能 hook static 方法，如果不匹配会有异常。
+

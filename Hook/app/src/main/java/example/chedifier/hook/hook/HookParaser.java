@@ -4,6 +4,8 @@ import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 /**
  * Created by chedifier on 2016/10/15.
  */
@@ -30,8 +32,8 @@ public class HookParaser {
                                 String signature = calculateMethodSignature(target);
                                 Log.d(TAG,"tareget >>> " + methodName + " " + signature);
 
-                                Hook.hookMethod(hookAnnotation.targetClass(),methodName,signature,hookAnnotation.isStatic(),
-                                        method.getDeclaringClass(),method.getName(),calculateMethodSignature(method),hookAnnotation.isStatic());
+                                Hook.hookMethod(hookAnnotation.targetClass(),methodName,signature,Modifier.isStatic(target.getModifiers()),
+                                        method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()));
                             }
                         } catch (NoSuchMethodException e) {
                             e.printStackTrace();
@@ -68,23 +70,5 @@ public class HookParaser {
 
         return signature;
     }
-
-
-//        Hook.hookMethod(MainActivity.class,"testCall","(IIIIILjava/lang/String;Ljava/lang/String;BBCCFF)V",false,MainActivity.class,"testHooked","(I)V",false);
-
-//        Hook.hookMethod(MainActivity.class, "toast", "(Ljava/lang/String;)V", false,
-//                MainActivity.class, "toastHooked", "(Ljava/lang/String;)V", false);
-
-//        Hook.hookMethod(MainActivity.class,"toast","(Landroid/content/Context;Ljava/lang/String;)V",true,
-//                MainActivity.class,"toastHooked","(Landroid/content/Context;Ljava/lang/String;)V",true);
-
-//        Hook.hookMethod(MainActivity.class,"toast","(Landroid/content/Context;Ljava/lang/String;)V",true,
-//                MainActivity.class,"toastHooked","(Ljava/lang/String;)V", false);
-
-//        Hook.hookMethod(TextView.class,"setText","(Ljava/lang/CharSequence;)V",false,
-//                HookProxyMethod.class,"setText","(Ljava/lang/CharSequence;)V",false);
-
-//        Hook.hookMethod(ActivityManager.class,"forceStopPackage","(Ljava/lang/String;)V",false,
-//                MainActivity.class,"logcatHook","(Ljava/lang/String;)V", false);
 
 }
