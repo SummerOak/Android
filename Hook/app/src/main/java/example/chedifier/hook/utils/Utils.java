@@ -1,5 +1,9 @@
 package example.chedifier.hook.utils;
 
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,6 +15,24 @@ import java.io.OutputStream;
  * Created by chedifier on 2016/10/20.
  */
 public class Utils {
+
+    public static void animateViewLoop(final View v){
+        if(v != null){
+
+            TranslateAnimation animation = new TranslateAnimation(
+                    Animation.RELATIVE_TO_SELF,0f,
+                    Animation.RELATIVE_TO_SELF,0.5f,
+                    Animation.RELATIVE_TO_SELF,0f,
+                    Animation.RELATIVE_TO_SELF,0f);
+
+            animation.setDuration(800);
+            animation.setRepeatCount(Integer.MAX_VALUE);
+            animation.setRepeatMode(Animation.REVERSE);
+
+            v.startAnimation(animation);
+        }
+
+    }
 
     public static void copy(File src, File dst) throws IOException {
         InputStream in = new FileInputStream(src);

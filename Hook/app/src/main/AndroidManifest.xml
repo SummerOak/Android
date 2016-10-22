@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".hook.HookActivity">
+
+        </activity>
+
         <service
             android:name=".ptrace.PTraceService"
             android:process=":ptrace">

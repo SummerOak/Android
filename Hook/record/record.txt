@@ -5,3 +5,14 @@
 
 5. static 方法只能 hook static 方法，如果不匹配会有异常。
 
+6. 通过javap -s 可以获取 类中方法的签名，比如： javap -s MainActivity ，前提是当前目录下有MainActivity 的class文件
+
+
+
+
+
+
+待解决问题：
+
+1. 修改参数
+2. 添加this参数
