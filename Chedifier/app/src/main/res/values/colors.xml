@@ -4,4 +4,6 @@
     <!-- Search Activity -->
     <color name="search_activity_background">#ff969696</color>
 
+    <color name="transpanet_color">#00000000</color>
+
 </resources>

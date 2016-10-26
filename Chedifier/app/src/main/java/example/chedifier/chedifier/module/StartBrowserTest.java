@@ -3,6 +3,7 @@ package example.chedifier.chedifier.module;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,7 +44,9 @@ public class StartBrowserTest extends AbsModule {
 //        intent.setComponent(new ComponentName("com.UCMobile", "com.uc.urlfilter.UrlFilterLocalBlackListActivity"));
 //        mContext.startActivity(intent);
 
-        mContext.startActivity(generateUCHotNews());
+        notifyUCPush(1);
+
+//        mContext.startActivity(generateUCHotNews());
 
 //                createShortcut("草",R.drawable.hotnews_shortcut,generateUCHotNews());
 
@@ -54,6 +57,34 @@ public class StartBrowserTest extends AbsModule {
 //                }catch (Exception e){
 //                    e.printStackTrace();
 //                }
+    }
+
+    private boolean notifyUCPush(int source) {
+        try {
+            Context appContext = mContext;
+            if(appContext == null){
+                return false;
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (Build.VERSION.SDK_INT >= 12)
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.setPackage("com.UCMobile");
+            intent.setData(android.net.Uri.parse("ucwebpush://www.uc.cn?source=huaweibp1")); // source = "huaweibp1"
+            intent.putExtra("uc_partner", "UCM_OPEN_FROM_HW_BAIPAI");
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            appContext.startActivity(intent);
+
+
+
+            return true;
+        } catch (Throwable tr) {
+            tr.printStackTrace();
+        }
+
+        return false;
     }
 
     private Intent generateUCHotNews(){

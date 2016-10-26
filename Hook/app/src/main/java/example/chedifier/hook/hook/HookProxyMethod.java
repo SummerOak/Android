@@ -27,6 +27,11 @@ public class HookProxyMethod {
             params = {int.class})
     public void testHookProxySimple(int i){
         Log.d("chedifier_hook","testHookProxySimple");
+        Toast.makeText(HookApplication.getAppContext(),
+                "testcallHooked >>> \n"
+                        + "  i=" + i
+                , Toast.LENGTH_LONG).show();
+        return;
     }
 
     @HookAnnotation(
@@ -55,11 +60,6 @@ public class HookProxyMethod {
     public void testHookProxy2(){
 
     }
-
-//    @HookAnnotation(
-//            targetClass = MainActivity.class,
-//            methodName = "testPrivData",
-//            params = {Object.class})
 
     @HookByDescriptor(
             className = "example.chedifier.hook.MainActivity",
@@ -130,21 +130,21 @@ public class HookProxyMethod {
         return;
     }
 
-    @HookAnnotation(
-            targetClass = View.class,
-            methodName = "invalidateInternal",
-            params = {int.class,int.class,int.class,int.class,boolean.class,boolean.class})
-    public void invalidateInternal(int l, int t, int r, int b, boolean invalidateCache,
-                       boolean fullInvalidate){
-        Log.d("cqx","invalidateInternal >>> Hooked\n"
-                + "  l=" + l
-                + "  t=" + t
-                + "  r=" + b
-                + "  invalidateCache=" + invalidateCache
-                + "  fullInvalidate=" + fullInvalidate);
-
-        return;
-    }
+//    @HookAnnotation(
+//            targetClass = View.class,
+//            methodName = "invalidateInternal",
+//            params = {int.class,int.class,int.class,int.class,boolean.class,boolean.class})
+//    public void invalidateInternal(int l, int t, int r, int b, boolean invalidateCache,
+//                       boolean fullInvalidate){
+//        Log.d("cqx","invalidateInternal >>> Hooked\n"
+//                + "  l=" + l
+//                + "  t=" + t
+//                + "  r=" + b
+//                + "  invalidateCache=" + invalidateCache
+//                + "  fullInvalidate=" + fullInvalidate);
+//
+//        return;
+//    }
 
     @HookAnnotation(
             targetClass = Activity.class,

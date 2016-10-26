@@ -5,7 +5,7 @@
 #include <jni.h>
 #include <string.h>
 #include "Utils.h"
-#include "../common/common.h"
+#include "common.h"
 
 void Utils::logoutABI(){
 
@@ -43,6 +43,18 @@ void Utils::logoutABI(){
 
     LOGD("abi = %s",ABI);
 
+}
+
+int Utils::getSystemAPLevel(JNIEnv *env){
+    // VERSION is a nested class within android.os.Build (hence "$" rather than "/")
+    jclass versionClass = env->FindClass("android/os/Build$VERSION");
+    if (NULL == versionClass){
+        return -1;
+    }
+
+    jfieldID sdkIntFieldID = env->GetStaticFieldID(versionClass, "SDK_INT", "I");
+    jint sdkInt = env->GetStaticIntField(versionClass, sdkIntFieldID);
+    return sdkInt;
 }
 
 float Utils::unsigned_int2_float(unsigned int x)

@@ -3,6 +3,7 @@ package example.chedifier.chedifier;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,7 +62,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        HashMap
         prepareTestModules();
         ScrollView scrollView = new ScrollView(this);
         LinearLayout moduleContainer = new LinearLayout(this);
@@ -68,6 +70,7 @@ public class MainActivity extends BaseActivity {
         scrollView.addView(moduleContainer);
         initModules(moduleContainer);
         setContentView(scrollView);
+        getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
 
         MultiUserManager.getInstance().registerUserChangeListener(getApplicationContext());
 
@@ -131,7 +134,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy(){
         super.onDestroy();
 
-        MyApplication.stopProcess();
+//        MyApplication.stopProcess();
     }
 
     @Override

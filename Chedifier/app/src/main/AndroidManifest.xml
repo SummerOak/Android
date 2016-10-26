@@ -49,6 +49,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"
+            android:theme="@style/BackgroundTheme"
             android:configChanges="orientation|keyboardHidden|fontScale|screenSize|mcc|mnc">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

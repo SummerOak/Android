@@ -15,6 +15,7 @@ public:
 
     static float unsigned_int2_float(unsigned int x);
 
+    static int getSystemAPLevel(JNIEnv *env);
 };
 
 

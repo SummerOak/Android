@@ -80,7 +80,7 @@ r3 = r3
 [sp+24] = entry
 
 **/
-ENTRY call_old_art_method
+ENTRY call_art_method
 
     push {lr}
     sub sp,#(COPY_STACK_SIZE+TEMP_SPACE_SIZE)
@@ -114,4 +114,4 @@ ENTRY call_old_art_method
     add sp,#(COPY_STACK_SIZE+TEMP_SPACE_SIZE)
     pop {pc}
 	
-END call_old_art_method
+END call_art_method

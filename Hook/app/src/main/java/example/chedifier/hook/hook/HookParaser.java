@@ -95,7 +95,7 @@ public class HookParaser {
             if(returnType == void.class){
                 signature += "V";
             }else{
-                signature += Array.newInstance(returnType,1).getClass().getName();
+                signature += Array.newInstance(returnType,1).getClass().getName().substring(1);
             }
 
             signature = signature.replace('.','/');
