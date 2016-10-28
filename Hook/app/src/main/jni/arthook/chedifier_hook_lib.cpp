@@ -115,7 +115,7 @@ unsigned int fArgLen
     }
 
     if(pInfo->post_method != NULL){
-        LOGD("call preMethod[%x]: %s %s",pInfo->post_method->getEntry2QuickCode(),pInfo->s_post_func_name,pInfo->s_post_func_signature);
+        LOGD("call postMethod[%x]: %s %s",pInfo->post_method->getEntry2QuickCode(),pInfo->s_post_func_name,pInfo->s_post_func_signature);
         call_art_method(
             pInfo->post_method->getMethodAddress(),
             r1,r2,r3,r4,r5,r6,r7,
