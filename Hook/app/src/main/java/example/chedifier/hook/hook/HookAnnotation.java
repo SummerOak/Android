@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 public @interface HookAnnotation {
 
     public Class<?> targetClass() default Object.class;
-    public String methodName() default "";
-    public Class<?>[] params() default {};
+    public String targetMethodName() default "";
+    public Class<?>[] targetMethodParams() default {};
+    public HookType hookType() default HookType.BEFORE_TARGET;
 }

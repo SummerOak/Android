@@ -1,23 +1,11 @@
 package example.chedifier.hook;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import example.chedifier.hook.hook.Hook;
 import example.chedifier.hook.hook.HookParaser;
-import example.chedifier.hook.hook.HookProxyMethod;
+import example.chedifier.hook.testproxy.HookProxyMethod;
+import example.chedifier.hook.testproxy.MyTextViewProxy;
 
 /**
  * Created by chedifier on 2016/5/13.
@@ -30,7 +18,9 @@ public class HookApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        HookParaser.parseAndHook();
+        HookParaser.parseAndHook(
+                HookProxyMethod.class,
+                MyTextViewProxy.class);
 
         sAppContext = this;
     }

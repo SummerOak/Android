@@ -5,7 +5,6 @@ import android.util.Log;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.logging.MemoryHandler;
 
 /**
  * Created by chedifier on 2016/10/15.
@@ -14,21 +13,24 @@ public class HookParaser {
 
     private static final String TAG = "HookParaser";
 
-    public static void parseAndHook(){
+    public static void parseAndHook(Class<?>... classes){
 
         Log.d(TAG,"parseAndHook");
 
-        Method[] methods = HookProxyMethod.class.getDeclaredMethods();
-        if(methods != null && methods.length > 0){
-            for(int i=0;i<methods.length;i++){
-                Method method = methods[i];
-                if(method.isAnnotationPresent(HookAnnotation.class)){
-                    parseWithClassAndParamsType(method,method.getAnnotation(HookAnnotation.class));
-                }else if(method.isAnnotationPresent(HookByDescriptor.class)){
-                    parseWithDescriptor(method,method.getAnnotation(HookByDescriptor.class));
+        if(classes != null && classes.length>0){
+            for(Class<?> c:classes){
+                Method[] methods = c.getDeclaredMethods();
+                if(methods != null && methods.length > 0){
+                    for(int i=0;i<methods.length;i++){
+                        Method method = methods[i];
+                        if(method.isAnnotationPresent(HookAnnotation.class)){
+                            parseWithClassAndParamsType(method,method.getAnnotation(HookAnnotation.class));
+                        }else if(method.isAnnotationPresent(HookByDescriptor.class)){
+                            parseWithDescriptor(method,method.getAnnotation(HookByDescriptor.class));
+                        }
+                    }
                 }
             }
-
         }
     }
 
@@ -44,7 +46,8 @@ public class HookParaser {
                             if(desc != null && !desc.equals("") && desc.equals(annotation.methodDescriptor())){
                                 Log.d(TAG,"tareget >>> " + annotation.methodName() + " " + annotation.methodDescriptor());
                                 Hook.hookMethod(targetClass,annotation.methodName(),annotation.methodDescriptor(),Modifier.isStatic(m.getModifiers()),
-                                        method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()));
+                                        method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
+                                        annotation.hookType().ordinal());
 
                                 return;
                             }
@@ -60,16 +63,17 @@ public class HookParaser {
     private static void parseWithClassAndParamsType(Method method,HookAnnotation hookAnnotation){
         if(hookAnnotation != null){
             if(hookAnnotation.targetClass() != null
-                    && hookAnnotation.methodName() != null){
+                    && hookAnnotation.targetMethodName() != null){
                 try {
-                    Method target = hookAnnotation.targetClass().getDeclaredMethod(hookAnnotation.methodName(),hookAnnotation.params());
+                    Method target = hookAnnotation.targetClass().getDeclaredMethod(hookAnnotation.targetMethodName(),hookAnnotation.targetMethodParams());
                     if(target != null){
                         String methodName = target.getName();
                         String signature = calculateMethodSignature(target);
                         Log.d(TAG,"tareget >>> " + methodName + " " + signature);
 
                         Hook.hookMethod(hookAnnotation.targetClass(),methodName,signature,Modifier.isStatic(target.getModifiers()),
-                                method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()));
+                                method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
+                                hookAnnotation.hookType().ordinal());
                     }
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();

@@ -3,6 +3,7 @@
 #include "common.h"
 #include "define.h"
 
+#include "hook_type.h"
 #include "IArtMethodAdapter.h"
 #include "ArtMethodHelper.h"
 #include "StringUtils.h"
@@ -34,6 +35,14 @@ struct HookInfo{
     IArtMethodAdapter* proxy_method;
     const char* s_proxy_func_name;
     const char* s_proxy_func_signature;
+
+    IArtMethodAdapter* pre_method;
+    const char* s_pre_func_name;
+    const char* s_pre_func_signature;
+
+    IArtMethodAdapter* post_method;
+    const char* s_post_func_name;
+    const char* s_post_func_signature;
 };
 
 map<uint32_t,HookInfo*> hook_func_mapping;
@@ -81,26 +90,46 @@ unsigned int fArgLen
         return;
     }
 
-    LOGD("old_entry_point_from_quick_compiled_code %x",pInfo->target_method->getEntry2QuickCode());
-    LOGD("proxy_entry_point_from_quick_compiled_code %x",pInfo->proxy_method->getEntry2QuickCode());
+    if(pInfo->pre_method != NULL){
+        LOGD("call preMethod[%x]: %s %s",pInfo->pre_method->getEntry2QuickCode(),pInfo->s_pre_func_name,pInfo->s_pre_func_signature);
+        call_art_method(
+            pInfo->pre_method->getMethodAddress(),
+            r1,r2,r3,r4,r5,r6,r7,
+            oldSP,fArgs,
+            pInfo->pre_method->getEntry2QuickCode());
+    }
 
-    call_art_method(
-        pInfo->proxy_method->getMethodAddress(),
-        r1,r2,r3,r4,r5,r6,r7,
-        oldSP,fArgs,
-        pInfo->proxy_method->getEntry2QuickCode());
+    if(pInfo->proxy_method != NULL){
+        LOGD("call proxyMethod[%x]: %s %s",pInfo->proxy_method->getEntry2QuickCode(),pInfo->s_proxy_func_name,pInfo->s_proxy_func_signature);
+        call_art_method(
+            pInfo->proxy_method->getMethodAddress(),
+            r1,r2,r3,r4,r5,r6,r7,
+            oldSP,fArgs,
+            pInfo->proxy_method->getEntry2QuickCode());
+    }else{
+        LOGD("call targetMethod[%x]: %s %s",pInfo->target_method->getEntry2QuickCode(),pInfo->s_target_func_name,pInfo->s_target_func_signature);
+        call_art_method(
+            r0,r1,r2,r3,r4,r5,r6,r7,
+            oldSP,fArgs,
+            pInfo->old_entry_point_from_quick_compiled_code);
+    }
 
-    call_art_method(
-        r0,r1,r2,r3,r4,r5,r6,r7,
-        oldSP,fArgs,
-        pInfo->old_entry_point_from_quick_compiled_code);
+    if(pInfo->post_method != NULL){
+        LOGD("call preMethod[%x]: %s %s",pInfo->post_method->getEntry2QuickCode(),pInfo->s_post_func_name,pInfo->s_post_func_signature);
+        call_art_method(
+            pInfo->post_method->getMethodAddress(),
+            r1,r2,r3,r4,r5,r6,r7,
+            oldSP,fArgs,
+            pInfo->post_method->getEntry2QuickCode());
+    }
 }
 
 extern "C" JNIEXPORT jint JNICALL
 Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
                                                        jclass type,
                                                        jclass c,jstring name,jstring sig,jboolean isStatic,
-                                                       jclass proxyC,jstring proxyName,jstring proxySig,jboolean isProxyStatic) {
+                                                       jclass proxyC,jstring proxyName,jstring proxySig,jboolean isProxyStatic,
+                                                       jint hookType) {
 
     Utils::logoutABI();
 
@@ -154,7 +183,6 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
         LOGD("adapt proxy method failed.");
         return 1;
     }
-
     proxyArtMethod->print();
 
     LOGD("replace code entry >>>");
@@ -165,16 +193,41 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
     LOGD("old_entry_point_from_quick_compiled_code [%x]\n",old_entry_point_from_quick_compiled_code);
     LOGD("art_method_handler [%p]\n",art_method_handler);
 
-    struct HookInfo *pInfo = new HookInfo();
-    pInfo->target_method = targetArtMethod;
-    pInfo->s_target_func_name = target_method_name;
-    pInfo->s_target_func_signature = target_method_signature;
-    pInfo->old_entry_point_from_quick_compiled_code = old_entry_point_from_quick_compiled_code;
+    struct HookInfo *pInfo = findHookInfo(reinterpret_cast<uint32_t>(targetMethod));
+    if(pInfo == NULL){
+        pInfo = new HookInfo();
+        pInfo->target_method = targetArtMethod;
+        pInfo->s_target_func_name = target_method_name;
+        pInfo->s_target_func_signature = target_method_signature;
+        pInfo->old_entry_point_from_quick_compiled_code = old_entry_point_from_quick_compiled_code;
 
-    pInfo->proxy_method = proxyArtMethod;
-    pInfo->s_proxy_func_name = proxy_method_name;
-    pInfo->s_proxy_func_signature = proxy_method_signature;
-    hook_func_mapping.insert(pair<uint32_t,HookInfo*>(reinterpret_cast<uint32_t>(targetMethod),pInfo));
+
+        hook_func_mapping.insert(pair<uint32_t,HookInfo*>(reinterpret_cast<uint32_t>(targetMethod),pInfo));
+    }
+
+    LOGD("hookType: %d",hookType);
+    switch(hookType){
+        case REPLACE_TARGET:{
+            pInfo->proxy_method = proxyArtMethod;
+            pInfo->s_proxy_func_name = proxy_method_name;
+            pInfo->s_proxy_func_signature = proxy_method_signature;
+            break;
+        }
+        case POST_TARGET:{
+            pInfo->post_method = proxyArtMethod;
+            pInfo->s_post_func_name = proxy_method_name;
+            pInfo->s_post_func_signature = proxy_method_signature;
+            break;
+        }
+
+        default:
+        case BEFORE_TARGET:{
+            pInfo->pre_method = proxyArtMethod;
+            pInfo->s_pre_func_name = proxy_method_name;
+            pInfo->s_pre_func_signature = proxy_method_signature;
+            break;
+        }
+    }
 
     return 0;
 }

@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 //                Utils.copy(new File(this.getDir()));
 
-                Log.d(TAG,"" + getDir("",0));
+                Log.d(TAG,"" + v);
 
                 break;
             case R.id.trace_pid:

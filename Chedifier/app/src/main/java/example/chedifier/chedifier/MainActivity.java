@@ -24,6 +24,7 @@ import example.chedifier.chedifier.module.AccsTest;
 import example.chedifier.chedifier.module.BackgroundTest;
 import example.chedifier.chedifier.module.CopySelf;
 import example.chedifier.chedifier.module.EdittextError;
+import example.chedifier.chedifier.module.FileObserverTest;
 import example.chedifier.chedifier.module.HWThemeChangeTest;
 import example.chedifier.chedifier.module.MultiTextTest;
 import example.chedifier.chedifier.module.NotificationTest;
@@ -57,12 +58,12 @@ public class MainActivity extends BaseActivity {
         mModules.add(new WindowLeakTest(this));
         mModules.add(new HWThemeChangeTest(this));
         mModules.add(new TalkbackModule(this));
+        mModules.add(new FileObserverTest(this));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HashMap
         prepareTestModules();
         ScrollView scrollView = new ScrollView(this);
         LinearLayout moduleContainer = new LinearLayout(this);

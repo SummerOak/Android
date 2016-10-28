@@ -14,12 +14,12 @@ public class Hook {
     }
 
     public static HookResult hookMethod(Class c,String name,String sig,boolean isStatic,
-                                        Class proxyC,String proxyName,String proxySig,boolean isProxyStatic){
+                                        Class proxyC,String proxyName,String proxySig,boolean isProxyStatic,int hookType){
         Log.d(TAG,"hookMethod > class: " + c.getName() + " method: " + name
         + " to: " + "class: " + proxyC.getName() + " method:" + proxyName);
 
         int ret = hookMethodNative(c, name, sig,isStatic,
-                proxyC,proxyName,proxySig,isProxyStatic);
+                proxyC,proxyName,proxySig,isProxyStatic,hookType);
         if(ret == 0){
             Log.d(TAG,"hook success.");
             return HookResult.SUCCESS;
@@ -30,7 +30,8 @@ public class Hook {
     }
 
     private static native int hookMethodNative(Class c,String name,String sig,boolean isStatic,
-                                               Class proxyC,String proxyName,String proxySig,boolean isProxyStatic);
+                                               Class proxyC,String proxyName,String proxySig,boolean isProxyStatic,
+                                               int hookType);
 
     private static native int hookMethodNativeWithLiBieGou(Class c,String name,String sig,boolean isStatic,
                                                            Class proxyC,String proxyName,String proxySig,boolean isProxyStatic);

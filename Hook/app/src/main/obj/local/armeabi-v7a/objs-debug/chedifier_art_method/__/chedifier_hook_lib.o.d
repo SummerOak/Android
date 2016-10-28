@@ -86,6 +86,7 @@ E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/obj
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_string_io.c \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../../common/common.h \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../target/define.h \
+ E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../hook_type.h \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../adapter/IArtMethodAdapter.h \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../adapter/ArtMethodHelper.h \
  E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../../util/Utils.h \
@@ -272,6 +273,8 @@ D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_stri
 E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../../common/common.h:
 
 E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../target/define.h:
+
+E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../hook_type.h:
 
 E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../adapter/IArtMethodAdapter.h:
 

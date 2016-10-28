@@ -17,5 +17,5 @@ public @interface HookByDescriptor {
     public String className() default "";
     public String methodName() default "";
     public String methodDescriptor() default "";
-
+    public HookType hookType() default HookType.BEFORE_TARGET;
 }
