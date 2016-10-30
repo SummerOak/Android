@@ -17,8 +17,14 @@ import org.w3c.dom.Text;
 import java.io.File;
 
 import example.chedifier.hook.base.BaseActivity;
+import example.chedifier.hook.hook.Hook;
+import example.chedifier.hook.hook.HookParaser;
+import example.chedifier.hook.hook.HookResult;
+import example.chedifier.hook.hook.HookType;
 import example.chedifier.hook.ptrace.PTrace;
 import example.chedifier.hook.ptrace.PTraceService;
+import example.chedifier.hook.testproxy.MyHandlerProxy;
+import example.chedifier.hook.testproxy.MyTextViewProxy;
 import example.chedifier.hook.utils.Utils;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -139,6 +145,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
             case R.id.set_text:
 
+//                HookResult result = Hook.setHookEnable(false, HookType.REPLACE_TARGET.ordinal(),true,MyTextViewProxy.class,"setText",String.class);
                 ((TextView)v).setText("chedifier");
 
 //                Utils.copy(new File(this.getDir()));
@@ -186,7 +193,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
 
             case R.id.start_activity:
-                startActivity(new Intent(this,MainActivity.class));
+//                startActivity(new Intent(this,MainActivity.class));
+                HookParaser.parseAndHook(MyHandlerProxy.class);
                 break;
 
         }

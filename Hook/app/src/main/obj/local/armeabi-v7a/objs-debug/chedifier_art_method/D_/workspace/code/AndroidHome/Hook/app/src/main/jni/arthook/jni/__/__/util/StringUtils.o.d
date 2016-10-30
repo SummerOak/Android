@@ -1,6 +1,6 @@
-E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifier_art_method/E_/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/__/__/util/StringUtils.o: \
- E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../../util/StringUtils.cpp \
- E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../../util/StringUtils.h \
+D:/workspace/code/AndroidHome/Hook/app/src/main/obj/local/armeabi-v7a/objs-debug/chedifier_art_method/D_/workspace/code/AndroidHome/Hook/app/src/main/jni/arthook/jni/__/__/util/StringUtils.o: \
+ D:/workspace/code/AndroidHome/Hook/app/src/main/jni/arthook/jni/../../util/StringUtils.cpp \
+ D:/workspace/code/AndroidHome/Hook/app/src/main/jni/arthook/jni/../../util/StringUtils.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
@@ -86,7 +86,7 @@ E:/private_workspace/ChedifierGithub/Hook/app/src/main/obj/local/armeabi-v7a/obj
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_num_get.c \
  D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/stl/_string_io.c
 
-E:/private_workspace/ChedifierGithub/Hook/app/src/main/jni/arthook/jni/../../util/StringUtils.h:
+D:/workspace/code/AndroidHome/Hook/app/src/main/jni/arthook/jni/../../util/StringUtils.h:
 
 D:/soft/ndk/android-ndk-r11b/build//../sources/cxx-stl/stlport/stlport/string:
 

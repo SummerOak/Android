@@ -15,12 +15,28 @@
 待解决问题：
 
 1. 修改参数
+
+	参数修改在java层难实现，其实hook到了java层可以通过反射的方式去实现逻辑的变更。	
+
 2. 添加this参数
 
+	this 参数可以在proxy方法中通过强制类型转换获取。比如 Object o = this; TextView tv = (TextView) o;
+
+3. Handler 中 handlerMessages hook崩溃。
+
+	1) Application onCreate时hook会导致崩溃，
+
+4. ClassLoader.loadClass
+
+5. Proxy 方法调用native方法崩溃
 
 
 需要整理的：
 
 1. 环境搭建
-2. 原理
+	
+	1) .mk 文件
+	2) ndk环境搭建，so如何添加到lib
+
+2. 实现说明
 3. 

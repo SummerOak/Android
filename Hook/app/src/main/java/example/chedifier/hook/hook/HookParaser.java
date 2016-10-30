@@ -3,6 +3,7 @@ package example.chedifier.hook.hook;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -19,10 +20,21 @@ public class HookParaser {
 
         if(classes != null && classes.length>0){
             for(Class<?> c:classes){
+
+//                try {
+//                    Method prepare = c.getDeclaredMethod("prepare");
+//                    prepare.invoke(c);
+//                } catch (NoSuchMethodException e) {
+//                    e.printStackTrace();
+//                } catch (InvocationTargetException e) {
+//                    e.printStackTrace();
+//                } catch (IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+
                 Method[] methods = c.getDeclaredMethods();
                 if(methods != null && methods.length > 0){
-                    for(int i=0;i<methods.length;i++){
-                        Method method = methods[i];
+                    for(Method method:methods){
                         if(method.isAnnotationPresent(HookAnnotation.class)){
                             parseWithClassAndParamsType(method,method.getAnnotation(HookAnnotation.class));
                         }else if(method.isAnnotationPresent(HookByDescriptor.class)){
@@ -42,11 +54,11 @@ public class HookParaser {
                     Method[] methods = targetClass.getDeclaredMethods();
                     if(methods != null){
                         for(Method m:methods)if(m.getName().equals(annotation.methodName())){
-                            String desc = calculateMethodSignature(m);
+                            String desc = Utils.calculateMethodSignature(m);
                             if(desc != null && !desc.equals("") && desc.equals(annotation.methodDescriptor())){
                                 Log.d(TAG,"tareget >>> " + annotation.methodName() + " " + annotation.methodDescriptor());
                                 Hook.hookMethod(targetClass,annotation.methodName(),annotation.methodDescriptor(),Modifier.isStatic(m.getModifiers()),
-                                        method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
+                                        method.getDeclaringClass(),method.getName(),Utils.calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
                                         annotation.hookType().ordinal());
 
                                 return;
@@ -68,11 +80,11 @@ public class HookParaser {
                     Method target = hookAnnotation.targetClass().getDeclaredMethod(hookAnnotation.targetMethodName(),hookAnnotation.targetMethodParams());
                     if(target != null){
                         String methodName = target.getName();
-                        String signature = calculateMethodSignature(target);
+                        String signature = Utils.calculateMethodSignature(target);
                         Log.d(TAG,"tareget >>> " + methodName + " " + signature);
 
                         Hook.hookMethod(hookAnnotation.targetClass(),methodName,signature,Modifier.isStatic(target.getModifiers()),
-                                method.getDeclaringClass(),method.getName(),calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
+                                method.getDeclaringClass(),method.getName(),Utils.calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
                                 hookAnnotation.hookType().ordinal());
                     }
                 } catch (NoSuchMethodException e) {
@@ -83,29 +95,4 @@ public class HookParaser {
             }
         }
     }
-
-
-    private static String calculateMethodSignature(Method method){
-        String signature = "";
-        if(method != null){
-            signature += "(";
-            for(Class<?> c:method.getParameterTypes()){
-                String Lsig = Array.newInstance(c,1).getClass().getName();
-                signature += Lsig.substring(1);
-            }
-            signature += ")";
-
-            Class<?> returnType = method.getReturnType();
-            if(returnType == void.class){
-                signature += "V";
-            }else{
-                signature += Array.newInstance(returnType,1).getClass().getName().substring(1);
-            }
-
-            signature = signature.replace('.','/');
-        }
-
-        return signature;
-    }
-
 }
