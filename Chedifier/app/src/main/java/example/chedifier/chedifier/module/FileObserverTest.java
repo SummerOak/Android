@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.Observer;
 
 import example.chedifier.chedifier.base.AbsModule;
+import example.chedifier.chedifier.utils.FileUtils;
 
 /**
  * Created by chedifier on 2016/10/28.
@@ -33,8 +35,8 @@ public class FileObserverTest extends AbsModule {
 
     private void start(){
         File f = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        f = new File(f, "ScreenShots");
-        String path = f.getAbsolutePath();
+        f = new File(f, "Screenshots");
+        final String path = f.getAbsolutePath();
         Log.i(TAG, "testFileObserver path = " + path);
         int event = FileObserver.ATTRIB | FileObserver.CLOSE_NOWRITE | FileObserver.CLOSE_WRITE |
                 FileObserver.CREATE | FileObserver.DELETE | FileObserver.DELETE_SELF |
@@ -43,7 +45,19 @@ public class FileObserverTest extends AbsModule {
         mFileObserver = new FileObserver(path, event) {
             @Override
             public void onEvent(int i, String s) {
-                Log.i(TAG, "  >>>path = " + s + "  event = " + getEventType(i));
+
+                File t = new File(path + "/" + s);
+                boolean exist = false;
+                if((i & FileObserver.CREATE) > 0
+                        || (i & FileObserver.DELETE) > 0
+                        || (i & FileObserver.MOVED_FROM) > 0
+                        || (i & FileObserver.MOVED_TO) > 0){
+                    exist = t.exists();
+                    Log.i(TAG, "  >>>path = " + s + "  event = " + getEventType(i) + " exist: " + exist);
+                }else{
+
+                    Log.i(TAG, "  >>>path = " + s + "  event = " + getEventType(i));
+                }
             }
         };
         mFileObserver.startWatching();
