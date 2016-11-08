@@ -15,9 +15,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
+import example.chedifier.base.utils.StringUtils;
 import example.chedifier.chedifier.utils.FileUtils;
-import example.chedifier.chedifier.utils.Md5Utils;
-import example.chedifier.chedifier.utils.StringUtils;
 
 /**
  * ****************************************************************************

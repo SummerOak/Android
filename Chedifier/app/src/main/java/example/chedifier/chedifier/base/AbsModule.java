@@ -3,7 +3,8 @@ package example.chedifier.chedifier.base;
 import android.content.Context;
 import android.view.View;
 
-import example.chedifier.chedifier.utils.ScreenUtils;
+import example.chedifier.base.utils.ScreenUtils;
+import example.chedifier.chedifier.MyApplication;
 
 /**
  * ****************************************************************************
@@ -42,7 +43,7 @@ public abstract class AbsModule implements View.OnClickListener{
 
     private void decorateModule(View view){
         if(view != null){
-            int padding = (int)ScreenUtils.dipToPixels(20f);
+            int padding = (int) ScreenUtils.dipToPixels(MyApplication.getAppContext(),20f);
             view.setPadding(padding,padding,padding,padding);
         }
     }

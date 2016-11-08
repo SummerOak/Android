@@ -17,13 +17,13 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
+import example.chedifier.base.utils.BatteryUtils;
+import example.chedifier.base.utils.StringUtils;
 import example.chedifier.chedifier.common.BackgroundTaskMgr;
 import example.chedifier.chedifier.test.NetworkConnectReceiver;
 import example.chedifier.chedifier.test.OpenWifiDetector;
-import example.chedifier.chedifier.utils.BatteryUtils;
 import example.chedifier.chedifier.utils.FileUtils;
 import example.chedifier.chedifier.common.NetworkWakeupUtil;
-import example.chedifier.chedifier.utils.StringUtils;
 
 /**
  * Created by chedifier on 2016/6/7.

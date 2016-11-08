@@ -14,8 +14,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.chedifier.chedifier.MyApplication;
-import example.chedifier.chedifier.utils.StringUtils;
+import example.chedifier.base.utils.StringUtils;
 
 /**
  * ****************************************************************************

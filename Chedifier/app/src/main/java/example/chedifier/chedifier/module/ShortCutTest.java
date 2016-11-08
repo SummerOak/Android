@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +14,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import example.chedifier.chedifier.MainActivity;
+import example.chedifier.base.utils.ScreenUtils;
+import example.chedifier.chedifier.MyApplication;
 import example.chedifier.chedifier.R;
 import example.chedifier.chedifier.base.AbsModule;
 import example.chedifier.chedifier.common.ShortCutHelper;
-import example.chedifier.chedifier.utils.ScreenUtils;
 
 /**
  * ****************************************************************************
@@ -50,7 +49,7 @@ public class ShortCutTest extends AbsModule {
     @Override
     protected View createView(int pos) {
 
-        int padding = (int)ScreenUtils.dipToPixels(10);
+        int padding = (int) ScreenUtils.dipToPixels(MyApplication.getAppContext(),10);
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 

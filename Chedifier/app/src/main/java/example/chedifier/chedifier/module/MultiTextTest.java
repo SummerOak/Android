@@ -17,8 +17,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import example.chedifier.base.utils.ScreenUtils;
+import example.chedifier.chedifier.MyApplication;
 import example.chedifier.chedifier.base.AbsModule;
-import example.chedifier.chedifier.utils.ScreenUtils;
 
 /**
  * ****************************************************************************
@@ -63,7 +64,7 @@ public class MultiTextTest extends AbsModule {
     }
 
     private TextView createMultiTextWithDefalutBrowser(){
-        int padding = (int) ScreenUtils.dipToPixels(10);
+        int padding = (int) ScreenUtils.dipToPixels(MyApplication.getAppContext(),10);
         TextView textView = new TextView(mContext);
         textView.setPadding(padding,0,0,padding);
 
@@ -75,7 +76,7 @@ public class MultiTextTest extends AbsModule {
     }
 
     private TextView createMultiTextWithSpecifyBrowser(){
-        int padding = (int) ScreenUtils.dipToPixels(10);
+        int padding = (int) ScreenUtils.dipToPixels(MyApplication.getAppContext(),10);
         TextView textView = new TextView(mContext);
         textView.setPadding(padding,0,0,padding);
 
@@ -116,7 +117,7 @@ public class MultiTextTest extends AbsModule {
     }
 
     private TextView createMultiTextWithUCPolicy(final String policy){
-        int padding = (int) ScreenUtils.dipToPixels(10);
+        int padding = (int) ScreenUtils.dipToPixels(MyApplication.getAppContext(),10);
         TextView textView = new TextView(mContext);
         textView.setPadding(padding,0,0,padding);
 

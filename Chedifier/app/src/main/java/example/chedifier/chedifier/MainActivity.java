@@ -14,10 +14,9 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
+import example.chedifier.base.utils.SystemUtils;
 import example.chedifier.chedifier.base.AbsModule;
 import example.chedifier.chedifier.base.BaseActivity;
 import example.chedifier.chedifier.module.AccsTest;
@@ -37,7 +36,6 @@ import example.chedifier.chedifier.module.TalkbackModule;
 import example.chedifier.chedifier.module.WindowLeakTest;
 import example.chedifier.chedifier.multiuser.MultiUserManager;
 import example.chedifier.chedifier.utils.PermissionUtils;
-import example.chedifier.chedifier.utils.SystemUtils;
 
 public class MainActivity extends BaseActivity {
 

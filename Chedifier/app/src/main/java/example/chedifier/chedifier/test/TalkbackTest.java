@@ -1,7 +1,6 @@
 package example.chedifier.chedifier.test;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,14 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import example.chedifier.chedifier.R;
 import example.chedifier.chedifier.base.BaseActivity;
-import example.chedifier.chedifier.utils.ScreenUtils;
 
 /**
  * Created by chedifier on 2016/9/24.
