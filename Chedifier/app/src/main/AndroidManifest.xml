@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="example.chedifier.chedifier">
+    package="example.chedifier.chedifier"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -40,8 +41,11 @@
 
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <uses-sdk tools:overrideLibrary="example.chedifier.hook"/>
+
     <application
         android:name=".MyApplication"
+        tools:replace="android:name"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
@@ -80,6 +84,10 @@
             />
 
         <activity android:name=".test.TalkbackTest" />
+
+        <activity
+            android:name=".test.SkyWalkerTestActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service
             android:name=".BackgroundService"

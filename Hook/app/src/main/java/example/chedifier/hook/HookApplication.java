@@ -5,6 +5,8 @@ import android.content.Context;
 
 import example.chedifier.hook.hook.HookParaser;
 import example.chedifier.hook.testproxy.HookProxyMethod;
+import example.chedifier.hook.testproxy.MyClassloaderProxy;
+import example.chedifier.hook.testproxy.MyHandlerProxy;
 import example.chedifier.hook.testproxy.MyTextViewProxy;
 
 /**
@@ -19,8 +21,13 @@ public class HookApplication extends Application {
         super.onCreate();
 
         HookParaser.parseAndHook(
-                HookProxyMethod.class,
-                MyTextViewProxy.class);
+//                HookProxyMethod.class,
+//                MyTextViewProxy.class,
+//                MyHandlerProxy.class,
+                MyClassloaderProxy.class
+        );
+
+
 
         sAppContext = this;
     }

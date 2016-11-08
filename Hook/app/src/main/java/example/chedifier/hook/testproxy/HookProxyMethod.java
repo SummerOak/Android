@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Choreographer;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
 import example.chedifier.hook.HookApplication;
 import example.chedifier.hook.MainActivity;
-import example.chedifier.hook.hook.HookActivity;
+import example.chedifier.hook.HookActivity;
 import example.chedifier.hook.hook.HookAnnotation;
 import example.chedifier.hook.hook.HookByDescriptor;
 
@@ -93,16 +92,6 @@ public class HookProxyMethod {
                 , Toast.LENGTH_LONG).show();
         return;
     }
-
-//    @HookAnnotation(
-//            targetClass = Handler.class,
-//            targetMethodName = "dispatchMessage",
-//            targetMethodParams = {Message.class})
-//    public void dispatchMessage(Message msg){
-//        Log.d("cqx","dispatchMessage >>> Hooked\n"
-//                        + "  content=" + msg);
-//        return;
-//    }
 
     @HookAnnotation(
             targetClass = Choreographer.class,

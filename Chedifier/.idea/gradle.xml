@@ -10,14 +10,18 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/persistentservicelib" />
+            <option value="$PROJECT_DIR$/skywalker" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/persistentservicelib" />
+            <option value="$PROJECT_DIR$/skywalker" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,1 +1,1 @@
-include ':app', ':persistentservicelib'
+include ':app', ':persistentservicelib', ':skywalker', ':base'

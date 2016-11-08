@@ -1,27 +1,20 @@
 package example.chedifier.hook;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Process;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
-
-import example.chedifier.hook.base.BaseActivity;
+import example.chedifier.base.utils.AnimatorUtils;
+import example.chedifier.hook.hook.Utils;
 import example.chedifier.hook.ptrace.PTrace;
 import example.chedifier.hook.ptrace.PTraceService;
-import example.chedifier.hook.utils.Utils;
+import example.chedifier.hook.test.Class1;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener{
 
     private EditText mPTraceIdInput;
 
@@ -107,87 +100,64 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.test:
 
-                testSimple(886);
-                //testCall(1,22,33,44,5,"str1","str2",(byte)3,(byte)4,'c','d',0.33f,0.22f);
+        if(v.getId() == R.id.test){
+            testSimple(886);
+            //testCall(1,22,33,44,5,"str1","str2",(byte)3,(byte)4,'c','d',0.33f,0.22f);
+        }else if(v.getId() == R.id.test2){
+            testCall2(new String[] {"cheng","qian","xing"});
+        }else if(v.getId() == R.id.call_static_method){
+            testStaticCall(1,22,33,44,5,"str1","str2",(byte)3,(byte)4,'c','d',0.33f,0.22f);
+        }else if(v.getId() == R.id.call_instance_method){
+            testPrivData(new PrivData(226,"337"));
+        }else if(v.getId() == R.id.post_message){
+            AnimatorUtils.animateViewLoop(v);
+        }else if(v.getId() == R.id.set_text){
+//           HookResult result = Hook.setHookEnable(false, HookType.REPLACE_TARGET.ordinal(),true,MyTextViewProxy.class,"setText",String.class);
+            ((TextView)v).setText("chedifier");
 
-                break;
+            Class1 c1 = new Class1();
+//          Log.d(TAG,"c1" + c1);
 
-            case R.id.test2:
+//          Utils.copy(new File(this.getDir()));
 
-                testCall2(new String[] {"cheng","qian","xing"});
-
-                break;
-
-            case R.id.call_static_method:
-                testStaticCall(1,22,33,44,5,"str1","str2",(byte)3,(byte)4,'c','d',0.33f,0.22f);
-                break;
-
-            case R.id.call_native:
-
-                break;
-
-            case R.id.call_instance_method:
-                testPrivData(new PrivData(226,"337"));
-                break;
-
-            case R.id.post_message:
-                Utils.animateViewLoop(v);
-                break;
-
-            case R.id.set_text:
-
-                ((TextView)v).setText("chedifier");
-
-//                Utils.copy(new File(this.getDir()));
-
-                Log.d(TAG,"" + v);
-
-                break;
-            case R.id.trace_pid:
-
-                if(mPTraceIdInput != null){
-                    int pid = Integer.valueOf(mPTraceIdInput.getText().toString());
-                    if(pid > 0){
-                        PTrace.pTrace(pid);
-                    }
+//          Log.d(TAG,"" + v);
+        }else if(v.getId() == R.id.trace_pid){
+            if(mPTraceIdInput != null){
+                int pid = Integer.valueOf(mPTraceIdInput.getText().toString());
+                if(pid > 0){
+                    PTrace.pTrace(pid);
                 }
+            }
+        }else if(v.getId() == R.id.trace_self){
+            PTraceService.startPTrace(this, Process.myPid());
+        }else if(v.getId() == R.id.stop_trace_self){
+            PTraceService.stopPTrace(this);
+        }else if(v.getId() == R.id.start_target){
+            new Thread(new Runnable() {
+                int i = 0;
+                @Override
+                public void run() {
+                    while(true){
+                        System.out.println("chedifier hook test " + (i++));
 
-                break;
-
-            case R.id.trace_self:
-                PTraceService.startPTrace(this, Process.myPid());
-                break;
-
-            case R.id.stop_trace_self:
-                PTraceService.stopPTrace(this);
-                break;
-
-            case R.id.start_target:
-
-                new Thread(new Runnable() {
-                    int i = 0;
-                    @Override
-                    public void run() {
-                        while(true){
-                            System.out.println("chedifier hook test " + (i++));
-
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
-                }).start();
+                }
+            }).start();
+        }else if(v.getId() == R.id.start_activity){
+//                startActivity(new Intent(this,MainActivity.class));
+//                HookParaser.parseAndHook(MyHandlerProxy.class);
+            new Class1().func1("string1");
+        }else if(v.getId() == R.id.test){
 
-                break;
+        }else if(v.getId() == R.id.test){
 
-            case R.id.start_activity:
-                startActivity(new Intent(this,MainActivity.class));
-                break;
+        }else if(v.getId() == R.id.test){
 
         }
     }

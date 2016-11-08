@@ -31,6 +31,7 @@ import example.chedifier.chedifier.module.NotificationTest;
 import example.chedifier.chedifier.module.OpenUrlByDefaultBrowser;
 import example.chedifier.chedifier.module.PreWindowTest;
 import example.chedifier.chedifier.module.ShortCutTest;
+import example.chedifier.chedifier.module.SkyWalkerTester;
 import example.chedifier.chedifier.module.StartBrowserTest;
 import example.chedifier.chedifier.module.TalkbackModule;
 import example.chedifier.chedifier.module.WindowLeakTest;
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity {
         mModules.add(new HWThemeChangeTest(this));
         mModules.add(new TalkbackModule(this));
         mModules.add(new FileObserverTest(this));
+        mModules.add(new SkyWalkerTester(this));
     }
 
     @Override

@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include "common.h"
+#include "crash_handler.h"
 #include "define.h"
 
 #include "hook_type.h"
@@ -35,14 +36,17 @@ struct HookInfo{
     IArtMethodAdapter* proxy_method;
     const char* s_proxy_func_name;
     const char* s_proxy_func_signature;
+    bool proxy_enable;
 
     IArtMethodAdapter* pre_method;
     const char* s_pre_func_name;
     const char* s_pre_func_signature;
+    bool pre_enable;
 
     IArtMethodAdapter* post_method;
     const char* s_post_func_name;
     const char* s_post_func_signature;
+    bool post_enable;
 };
 
 map<uint32_t,HookInfo*> hook_func_mapping;
@@ -55,6 +59,29 @@ HookInfo* findHookInfo(uint32_t target){
         }
     }
 
+    return NULL;
+}
+
+HookInfo* findHookInfoByProxy(jmethodID proxy,HookType hookType = REPLACE_TARGET){
+    for(map<uint32_t,HookInfo*>::iterator itr = hook_func_mapping.begin();itr!=hook_func_mapping.end();itr++){
+        if(itr->second != NULL && itr->second->proxy_method != NULL){
+            IArtMethodAdapter* t = NULL;
+            switch(hookType){
+                case BEFORE_TARGET:
+                    t = itr->second->pre_method;
+                    break;
+                case REPLACE_TARGET:
+                    t = itr->second->proxy_method;
+                    break;
+                case POST_TARGET:
+                    t = itr->second->post_method;
+                    break;
+            }
+            if(t != NULL && reinterpret_cast<jmethodID>(t->getMethodAddress()) == proxy){
+                return itr->second;
+            }
+        }
+    }
     return NULL;
 }
 
@@ -90,7 +117,7 @@ unsigned int fArgLen
         return;
     }
 
-    if(pInfo->pre_method != NULL){
+    if(pInfo->pre_enable && pInfo->pre_method != NULL){
         LOGD("call preMethod[%x]: %s %s",pInfo->pre_method->getEntry2QuickCode(),pInfo->s_pre_func_name,pInfo->s_pre_func_signature);
         call_art_method(
             pInfo->pre_method->getMethodAddress(),
@@ -99,7 +126,7 @@ unsigned int fArgLen
             pInfo->pre_method->getEntry2QuickCode());
     }
 
-    if(pInfo->proxy_method != NULL){
+    if(pInfo->proxy_enable && pInfo->proxy_method != NULL){
         LOGD("call proxyMethod[%x]: %s %s",pInfo->proxy_method->getEntry2QuickCode(),pInfo->s_proxy_func_name,pInfo->s_proxy_func_signature);
         call_art_method(
             pInfo->proxy_method->getMethodAddress(),
@@ -114,7 +141,7 @@ unsigned int fArgLen
             pInfo->old_entry_point_from_quick_compiled_code);
     }
 
-    if(pInfo->post_method != NULL){
+    if(pInfo->post_enable && pInfo->post_method != NULL){
         LOGD("call postMethod[%x]: %s %s",pInfo->post_method->getEntry2QuickCode(),pInfo->s_post_func_name,pInfo->s_post_func_signature);
         call_art_method(
             pInfo->post_method->getMethodAddress(),
@@ -132,6 +159,7 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
                                                        jint hookType) {
 
     Utils::logoutABI();
+    //init_signal_handler();
 
     if(!ArtMethodHelper::isCurrentArtVersionSupport(env)){
         LOGD("not support current art version.");
@@ -211,12 +239,14 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
             pInfo->proxy_method = proxyArtMethod;
             pInfo->s_proxy_func_name = proxy_method_name;
             pInfo->s_proxy_func_signature = proxy_method_signature;
+            pInfo->proxy_enable = true;
             break;
         }
         case POST_TARGET:{
             pInfo->post_method = proxyArtMethod;
             pInfo->s_post_func_name = proxy_method_name;
             pInfo->s_post_func_signature = proxy_method_signature;
+            pInfo->post_enable = true;
             break;
         }
 
@@ -225,10 +255,55 @@ Java_example_chedifier_hook_hook_Hook_hookMethodNative(JNIEnv *env,
             pInfo->pre_method = proxyArtMethod;
             pInfo->s_pre_func_name = proxy_method_name;
             pInfo->s_pre_func_signature = proxy_method_signature;
+            pInfo->pre_enable = true;
             break;
         }
     }
 
     return 0;
+}
+
+extern "C" JNIEXPORT jint JNICALL
+Java_example_chedifier_hook_hook_Hook_setHookEnableNative(JNIEnv *env,
+                                                       jclass type,jclass proxyC,jstring proxyName,jstring proxySig,jboolean isProxyStatic,
+                                                       jint hookType,jboolean enable) {
+
+    const char* proxy_method_name = StringUtils::ConvertJString2CStr(env,proxyName);
+    const char* proxy_method_signature = StringUtils::ConvertJString2CStr(env,proxySig);
+    LOGD("unHook %s %s %d",proxy_method_name,proxy_method_signature,hookType);
+
+    jmethodID proxyMethod;
+    if(isProxyStatic){
+        proxyMethod = env->GetStaticMethodID(proxyC,proxy_method_name,proxy_method_signature);
+    }else{
+        proxyMethod = env->GetMethodID(proxyC,proxy_method_name,proxy_method_signature);
+    }
+    if(proxyMethod == NULL){
+        LOGD("proxyMethod not found.");
+        return 1;
+    }
+
+    HookInfo* pInfo = findHookInfoByProxy(proxyMethod,(HookType)hookType);
+    if(pInfo == NULL){
+        LOGD("not find hook info");
+        return 1;
+    }
+
+    switch(hookType){
+        case REPLACE_TARGET:{
+            pInfo->proxy_enable = enable;
+            return 0;
+        }
+        case POST_TARGET:{
+            pInfo->post_enable = enable;
+            return 0;
+        }
+        case BEFORE_TARGET:{
+            pInfo->pre_enable = enable;
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
