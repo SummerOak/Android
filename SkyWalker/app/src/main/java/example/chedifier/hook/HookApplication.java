@@ -5,6 +5,7 @@ import android.content.Context;
 
 import example.chedifier.hook.hook.HookParaser;
 import example.chedifier.hook.testproxy.HookProxyMethod;
+import example.chedifier.hook.testproxy.HookTalkbackProxy;
 import example.chedifier.hook.testproxy.MyClassloaderProxy;
 import example.chedifier.hook.testproxy.MyHandlerProxy;
 import example.chedifier.hook.testproxy.MyTextViewProxy;
@@ -24,7 +25,7 @@ public class HookApplication extends Application {
 //                HookProxyMethod.class,
 //                MyTextViewProxy.class,
 //                MyHandlerProxy.class,
-                MyClassloaderProxy.class
+                HookTalkbackProxy.class
         );
 
 

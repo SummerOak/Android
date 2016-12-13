@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import example.chedifier.chedifier.base.AbsModule;
-import example.chedifier.chedifier.test.TalkbackTest;
+import example.chedifier.chedifier.test.talkback.TalkbackTest;
 
 /**
  * Created by chedifier on 2016/9/24.

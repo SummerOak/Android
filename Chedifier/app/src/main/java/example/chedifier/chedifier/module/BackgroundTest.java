@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Process;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class BackgroundTest extends AbsModule {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         //Intent intent = new Intent(this,BackgroundService.class);
         //intent.setAction(BackgroundService.ACTION_NET_ACCESS_LOOP);
         //startService(intent);
@@ -55,5 +56,30 @@ public class BackgroundTest extends AbsModule {
         for(String s: list){
             System.out.println(s);
         }
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+
+                    Log.d("log_test","proc: " + Process.myPid() + " thread " + Thread.currentThread().getId());
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        v.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("log_test","proc: " + Process.myPid() + " thread " + Thread.currentThread().getId());
+                v.postDelayed(this,1000);
+            }
+        },1000);
     }
 }

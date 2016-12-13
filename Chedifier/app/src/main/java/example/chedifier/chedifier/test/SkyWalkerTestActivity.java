@@ -46,7 +46,31 @@ public class SkyWalkerTestActivity extends BaseActivity implements View.OnClickL
         ((TextView)findViewById(R.id.start_target)).setOnClickListener(this);
         ((TextView)findViewById(R.id.start_activity)).setOnClickListener(this);
 
-        HookParaser.parseAndHook(HookProxyMethod.class);
+//        HookParaser.parseAndHook(HookProxyMethod.class);
+
+        HookParaser.parseAndHook(ThreadProxy.class);
+
+        runThread();
+    }
+
+    private void runThread(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<10;i++){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },"t" + i).start();
+                }
+            }
+        },"t").start();
     }
 
     public void testSimple(int i) {

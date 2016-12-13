@@ -46,6 +46,8 @@ public class ChedifierAccessibilityService extends AccessibilityService {
                         + " ContentDescription " + nodeInfo.getContentDescription()
                 + " nodeInfo.getViewIdResourceName() " + nodeInfo.getViewIdResourceName());
 
+//                nodeInfo.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS);
+
 
 //                nodeInfo.setError("jjjdj");
 

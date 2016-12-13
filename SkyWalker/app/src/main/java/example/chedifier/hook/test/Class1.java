@@ -13,7 +13,7 @@ public class Class1 {
     }
 
     public void func2(){
-        HookParaser.parseAndHook(MyClassloaderProxy.class);
+//        HookParaser.parseAndHook(MyClassloaderProxy.class);
     }
 
 }

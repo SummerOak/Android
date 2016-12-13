@@ -6,6 +6,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
@@ -134,35 +136,23 @@ public class WindowLeakTest extends AbsModule {
                     @Override
                     public void onCancel(DialogInterface dialog) {
 
+
                     }
                 }).create();
 
-
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
         dialog.show();
 
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        mH.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i("cqx","show");
-//                while(true){
-//                    dialog.show();
-//                }
-//            }
-//        },200);
 
-        if(mContext instanceof Activity){
-            ((Activity)mContext).finish();
-        }
+        Handler h = new Handler(Looper.getMainLooper());
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(mContext instanceof Activity){
+                    ((Activity)mContext).finish();
+                }
+            }
+        },200);
+        ((Activity)mContext).finish();
+
     }
 }

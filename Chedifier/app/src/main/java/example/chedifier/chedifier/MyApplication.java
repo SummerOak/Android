@@ -1,16 +1,14 @@
 package example.chedifier.chedifier;
 
 import android.app.Application;
-import android.content.ComponentCallbacks;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Process;
 import android.util.Log;
 
+import example.chedifier.chedifier.common.BackgroundTaskMgr;
 import example.chedifier.chedifier.common.SysConfigurationChangedHandler;
 import example.chedifier.chedifier.test.ExternalFileTest;
-import example.chedifier.chedifier.common.BackgroundTaskMgr;
 
 /**
  * Created by chedifier on 2016/6/7.
@@ -35,7 +33,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         sAppContext = this;
 
         BackgroundTaskMgr.getInstance().init();
