@@ -48,6 +48,12 @@ public class MyApplication extends Application {
     }
 
     @Override
+    public void onTrimMemory(int level) {
+        Log.i("cqx_trim",getClass() +  "onTrimMemory " + level + "  !!!!");
+        super.onTrimMemory(level);
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 

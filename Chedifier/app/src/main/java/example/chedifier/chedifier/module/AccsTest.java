@@ -1,8 +1,6 @@
 package example.chedifier.chedifier.module;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,9 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import example.chedifier.chedifier.MainActivity;
 import example.chedifier.chedifier.base.AbsModule;
-import example.chedifier.chedifier.test.OOMTest;
 
 /**
  * ****************************************************************************
@@ -43,8 +39,9 @@ public class AccsTest extends AbsModule {
 
     @Override
     public void onClick(View v) {
+        test(1);
 
-        OOMTest.startThread();
+//        OOMTest.startThread();
 
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream("test.txt")));
@@ -57,5 +54,22 @@ public class AccsTest extends AbsModule {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void test(int i){
+        switch (i){
+            case 1:
+                try {
+                    break;
+                }finally {
+                    System.out.println("finally");
+                }
+
+            case 2:
+
+                break;
+        }
+
+        System.out.println("end");
     }
 }

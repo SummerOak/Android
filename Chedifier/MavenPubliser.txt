@@ -1,0 +1,24 @@
+<<<< Jar file directory: /F:/workspace/uc/trunk/Tools/buildtools/maven-publisher
+command: [path:F:\workspace\uc\trunk, -query:, password:********, groupId:com.uc.browser.trunk.cn, repo:uc-dev-local, serverUrl:http://100.84.72.211:8081/artifactory/uc-dev-local, artifactId:flashbuildlibs-armeabi-v7a, type:artifact, version:trunk-SNAPSHOT, user:developer]
+query artifact ...
+<<<< download repo: uc-dev-local
+<<<< download groupId: com.uc.browser.trunk.cn
+<<<< download artifactId: flashbuildlibs-armeabi-v7a
+<<<< download meta file path: F:\workspace\uc\trunk
+<<<< download path: com/uc/browser/trunk/cn/flashbuildlibs-armeabi-v7a/maven-metadata.xml
+<<<< create artifactory ok: http://100.84.72.211:8081
+query result: 
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.uc.browser.trunk.cn</groupId>
+  <artifactId>flashbuildlibs-armeabi-v7a</artifactId>
+  <versioning>
+    <latest>trunk-SNAPSHOT</latest>
+    <versions>
+      <version>trunk-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20170228031533</lastUpdated>
+  </versioning>
+</metadata>
+
+error message: ok

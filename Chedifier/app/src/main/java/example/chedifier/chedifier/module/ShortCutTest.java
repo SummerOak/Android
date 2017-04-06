@@ -1,10 +1,12 @@
 package example.chedifier.chedifier.module;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import example.chedifier.base.utils.ScreenUtils;
 import example.chedifier.chedifier.MyApplication;
 import example.chedifier.chedifier.R;
 import example.chedifier.chedifier.base.AbsModule;
+import example.chedifier.chedifier.bdls.BDLSShortCutHelper;
 import example.chedifier.chedifier.common.ShortCutHelper;
 
 /**
@@ -47,14 +50,18 @@ public class ShortCutTest extends AbsModule {
     private String mUCNewsTitle = "测试新闻";
 
     @Override
+    protected boolean rootViewDecoratable(){
+        return false;
+    }
+
+    @Override
     protected View createView(int pos) {
 
-        int padding = (int) ScreenUtils.dipToPixels(MyApplication.getAppContext(),10);
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         TextView createShortcut = new TextView(mContext);
-        createShortcut.setPadding(padding,0,padding,padding);
+        decorateItem(createShortcut);
         createShortcut.setId(createShortcutID);
         createShortcut.setOnClickListener(this);
         createShortcut.setText("创建快捷方式");
@@ -62,7 +69,7 @@ public class ShortCutTest extends AbsModule {
 
         TextView checkShortcut = new TextView(mContext);
 
-        checkShortcut.setPadding(padding,padding,padding,0);
+        decorateItem(checkShortcut);
         checkShortcut.setOnClickListener(this);
         checkShortcut.setId(checkShortcutID);
         checkShortcut.setText("检测快捷方式");
@@ -70,7 +77,7 @@ public class ShortCutTest extends AbsModule {
 
         TextView removeShortcut = new TextView(mContext);
 
-        removeShortcut.setPadding(padding,padding,padding,0);
+        decorateItem(removeShortcut);
         removeShortcut.setOnClickListener(this);
         removeShortcut.setId(removeShortcutID);
         removeShortcut.setText("删除快捷方式");
@@ -85,26 +92,71 @@ public class ShortCutTest extends AbsModule {
             case checkShortcutID:
                 Log.d("cqx","check shortcut");
                 Toast.makeText(mContext,
-                        mUCNewsTitle + " shortcut " + ShortCutHelper.isShortCutExist(mContext,
-                                mUCNewsTitle,
-                                new String[]{Intent.ACTION_VIEW,"component=com.UCMobile"})
+                        BDLSShortCutHelper.TITLE + " shortcut " + ShortCutHelper.isShortCutExist(mContext,
+                                BDLSShortCutHelper.TITLE,
+                                new String[]{BDLSShortCutHelper.ACTION})
                         , Toast.LENGTH_SHORT).show();
                 break;
 
             case createShortcutID:
+                loadURLAndDownload(mContext);
+//                startUCNews();
+//                openByUC("http://m.baidu.com/?from=2001a");
 //                createShortcut(mShortTitle, R.drawable.hotnews_shortcut, generateUCHotNews());
 
-                tryCreateHotNewsShortCut(null);
+//                tryCreateHotNewsShortCut(null);
+
+                if(!ShortCutHelper.isShortCutExist(mContext,BDLSShortCutHelper.TITLE,new String[]{
+                        BDLSShortCutHelper.ACTION
+                })){
+                    ShortCutHelper.createShortcut(mContext,BDLSShortCutHelper.TITLE,R.drawable.bdls_shortcut,BDLSShortCutHelper.generateShortCutIntent());
+                }
 
                 break;
 
             case removeShortcutID:
 //                removeShortcut(mShortTitle,generateUCHotNews());
 
-                removeShortcut(mUCNewsTitle,resolveUCNewsIntent());
+//                removeShortcut(mUCNewsTitle,resolveUCNewsIntent());
+
+                ShortCutHelper.removeShortcut(mContext,BDLSShortCutHelper.TITLE,BDLSShortCutHelper.generateShortCutIntent());
 
                 break;
         }
+    }
+
+    private void startUCNews(){
+        try{
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setPackage("com.UCMobile");
+            intent.setComponent(new ComponentName("com.UCMobile", "com.UCMobile.main.UCMobile"));
+//            intent.putExtra("openurl", "ext:info_flow_open_channel:ch_id=100&from=9");
+            intent.putExtra("openurl", "http://tieba.baidu.com");
+            mContext.startActivity(intent);
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
+
+    }
+
+    private boolean openByUC(String url){
+        try {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.setPackage("com.UCMobile");
+            intent.setData(Uri.parse(url));
+            intent.putExtra("source", "bdls");
+            intent.putExtra("policy", "UCM_NO_NEED_BACK|UCM_CURRENT_WINDOW");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            mContext.getApplicationContext().startActivity(intent);
+            return true;
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
+
+        return false;
     }
 
     private void removeShortcut(String title,Intent intent){
@@ -219,5 +271,22 @@ public class ShortCutTest extends AbsModule {
                     mUCNewsTitle,
                     generateUCNewsShortcutIntent());
         }
+    }
+
+    private boolean loadURLAndDownload(Context context){
+        try {
+            Intent intent = new Intent("com.UCMobile.intent.action.DOWNLOAD");
+            intent.setClassName("com.UCMobile","com.UCMobile.main.UCMobile");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("downloadurl", "http://pdds.ucweb.com/download/newest/UCBrowser/zh-cn/145/36010/preinstall");
+            intent.putExtra("policy", "UCM_NO_NEED_BACK");
+            context.startActivity(intent);
+
+            return true;
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
+
+        return false;
     }
 }

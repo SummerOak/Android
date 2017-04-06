@@ -47,7 +47,8 @@ public class OpenUrlByDefaultBrowser extends AbsModule {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View v) {
-        mContext.startActivity(generateWebIntent("http://www.baidu.com"));
+
+        mContext.startActivity(generateWebIntent("http://m.wfuyu.com/technology/22762.html"));//http://www.baidu.com
 
 //        notifyUCPush();
 //
@@ -68,8 +69,9 @@ public class OpenUrlByDefaultBrowser extends AbsModule {
 
     private Intent generateWebIntent(String url){
         Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        String pkg = "com.UCMobile";
+        String pkg = "com.android.browser";
 //        String pkg = "com.android.browser";
         intent.setPackage(pkg);
 //        intent.setClassName(pkg,"com.android.browser.BrowserActivity");

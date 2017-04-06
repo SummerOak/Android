@@ -21,4 +21,13 @@
         <item name="android:soundEffectsEnabled">false</item>
     </style>
 
+    <style name="BDLSActivityTheme" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowBackground">@color/search_activity_background</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
 </resources>
