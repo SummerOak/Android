@@ -87,16 +87,16 @@ public class TopoResolver {
 	}
 	
 	private static long maxPriorityOfIncomes(Map<String,INode> id2Node,List<Edge> incomes){
-		long min = Long.MIN_VALUE;
+		long max = Long.MIN_VALUE;
 		if(!Utils.listEmpty(incomes)){
 			for(Edge edge:incomes){
-				if(edge.priority > min){
-					min = edge.priority;
+				if(edge.priority > max){
+					max = edge.priority;
 				}
 			}
 		}
 		
-		return min;
+		return max;
 	}
 	
 	private static List<String> nexts(Map<String,ArrayList<Edge>> incomes){

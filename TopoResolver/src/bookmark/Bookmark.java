@@ -52,6 +52,7 @@ public class Bookmark implements INode{
 		if(local_next == null || !local_next.equals(identifier)){
 			local_next = identifier;
 			dirty = 1;
+			order_time = cloud_order_time = System.currentTimeMillis();
 		}
 	}
 
