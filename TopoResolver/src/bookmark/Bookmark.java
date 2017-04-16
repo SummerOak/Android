@@ -1,6 +1,5 @@
 package bookmark;
 
-import toporesolver.TopoResolver;
 import toporesolver.TopoResolver.INode;
 
 public class Bookmark implements INode{
@@ -13,6 +12,7 @@ public class Bookmark implements INode{
 	public String cloud_next;
 	
 	public long order_time;
+	public long cloud_order_time;
 	
 	
 	public int dirty = 1;
@@ -34,7 +34,12 @@ public class Bookmark implements INode{
 
 	@Override
 	public long priority() {
-		return -order_time;
+		return order_time;
+	}
+	
+	@Override
+	public long priority2() {
+		return cloud_order_time;
 	}
 
 	@Override

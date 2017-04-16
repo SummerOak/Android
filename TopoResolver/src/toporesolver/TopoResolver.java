@@ -14,20 +14,22 @@ import base.Utils;
 public class TopoResolver {
 	
 	
+	
+	
 	public static INode resolve(List<INode> nodes){
 		INode head = null;
 		if(!Utils.listEmpty(nodes)){
 			final Map<String,INode> id2Node = new HashMap<String,INode>();
-			Map<String,Integer> incomes = new HashMap<>();
+			final Map<String,ArrayList<Edge>> incomes = new HashMap<>();
 			for(INode n:nodes){
 				id2Node.put(n.identifier(), n);
 				
-				inc(incomes,n.nextId());
-				inc(incomes,n.nextId2());
+				inc(incomes,n.identifier(),n.nextId(),n.priority());
+				inc(incomes,n.identifier(),n.nextId2(),n.priority2());
 				
-				Integer in = incomes.get(n.identifier());
+				ArrayList<Edge> in = incomes.get(n.identifier());
 				if(in == null){
-					incomes.put(n.identifier(), 0);
+					incomes.put(n.identifier(), new ArrayList<Edge>());
 				}
 			}
 			
@@ -43,15 +45,18 @@ public class TopoResolver {
 						
 						INode n1 = id2Node.get(o1);
 						INode n2 = id2Node.get(o2);
+						
 						if(n1 == null){
-							return n2==null?0:-1;
+							return n2==null?0:-1/*新增排在前面*/;
 						}
 						
 						if(n2 == null){
-							return 1;
+							return 1/*新增排在前面*/;
 						}
 						
-						return (int)(n1.priority() - n2.priority());
+						long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
+						long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
+						return (int)(priority1-priority2);//既然都在别人的后面，那谁先在后面的在前面
 					}
 				});
 				
@@ -61,8 +66,8 @@ public class TopoResolver {
 				if(node != null){
 					nodes.remove(node);
 				
-					dec(incomes,node.nextId());
-					dec(incomes,node.nextId2());
+					dec(incomes,node.identifier(),node.nextId());
+					dec(incomes,node.identifier(),node.nextId2());
 					
 					if(cur != null){
 						cur.setNext(next);
@@ -81,21 +86,32 @@ public class TopoResolver {
 		return head;
 	}
 	
+	private static long maxPriorityOfIncomes(Map<String,INode> id2Node,List<Edge> incomes){
+		long min = Long.MIN_VALUE;
+		if(!Utils.listEmpty(incomes)){
+			for(Edge edge:incomes){
+				if(edge.priority > min){
+					min = edge.priority;
+				}
+			}
+		}
+		
+		return min;
+	}
 	
-	
-	private static List<String> nexts(Map<String,Integer> incomes){
+	private static List<String> nexts(Map<String,ArrayList<Edge>> incomes){
 		List<String> nexts = new ArrayList<String>();
-		Iterator<Entry<String,Integer>> itr = incomes.entrySet().iterator();
+		Iterator<Entry<String,ArrayList<Edge>>> itr = incomes.entrySet().iterator();
 		int min = Integer.MAX_VALUE;
 		while(itr.hasNext()){
-			Entry<String,Integer> entry = itr.next();
-			if(entry.getValue() > min){
+			Entry<String,ArrayList<Edge>> entry = itr.next();
+			if(entry.getValue().size() > min){
 				continue;
 			}
 			
 			
-			if(entry.getValue() < min){
-				min = entry.getValue();
+			if(entry.getValue().size() < min){
+				min = entry.getValue().size();
 				nexts.clear();
 			}
 			
@@ -105,32 +121,57 @@ public class TopoResolver {
 		return nexts;
 	}
 	
-	private static void inc(Map<String,Integer> m,String key){
-		if(m != null && !Utils.stringEmpty(key)){
-			Integer v = m.get(key);
-			int val = v==null?1:++v;
-			m.put(key, val);
+	private static void inc(Map<String,ArrayList<Edge>> m,String from,String to,long priority){
+		if(m != null && !Utils.stringEmpty(to)){
+			ArrayList<Edge> v = m.get(to);
+			if(v == null){
+				v = new ArrayList<Edge>();
+				m.put(to,v);
+			}
+			
+			
+			v.add(new Edge(from,to,priority));
 		}
 	}
 	
-	private static void dec(Map<String,Integer> m,String key){
-		if(m != null && !Utils.stringEmpty(key)){
-			Integer v = m.get(key);
+	private static void dec(Map<String,ArrayList<Edge>> m,String from,String to){
+		if(m != null && !Utils.stringEmpty(to)){
+			ArrayList<Edge> v = m.get(to);
+			
 			if(v != null){
-				m.put(key, --v);
+				ArrayList<Edge> dels = new ArrayList<>();
+				for(Edge edge:v){
+					if(edge.from.equals(from)){
+						dels.add(edge);
+					}
+				}
+				
+				v.removeAll(dels);
 			}
 		}
 	}
 	
 	
-	
-	
+	private static class Edge{
+		String from;
+		String to;
+		
+		public Edge(String from,String to,long priority){
+			this.from = from;
+			this.to = to;
+			this.priority = priority;
+		}
+		
+		long priority;
+	}
 
+	
 	public interface INode{
 		
 		public String nextId();
 		public String nextId2();
 		public long priority();
+		public long priority2();
 		public String identifier();
 		
 		public void setNext(String identifier);

@@ -30,7 +30,7 @@ public abstract class TestCase {
 		
 		System.out.println("case start>>>>>>>>>>>>>>>>>");
 		for(INode n:nodes){
-			System.out.println(n.identifier() + "  " + n.nextId() + "  " + n.nextId2() + "  " + n.priority());
+			System.out.println(n.identifier() + "  " + n.nextId() + "_" + n.priority() + "  " + n.nextId2() + "_" + n.priority2());
 		}
 	}
 	
@@ -74,6 +74,10 @@ public abstract class TestCase {
 		
 		public TestBookmarkBuilder order_time(long val){
 			bookmark.order_time = val;
+			return this;
+		}
+		public TestBookmarkBuilder cloud_order_time(long val){
+			bookmark.cloud_order_time = val;
 			return this;
 		}
 		
