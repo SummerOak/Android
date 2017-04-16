@@ -3,6 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Chedifier.iml" filepath="$PROJECT_DIR$/Chedifier.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dragListViewlibrary/dragListViewlibrary.iml" filepath="$PROJECT_DIR$/dragListViewlibrary/dragListViewlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/draglistview/draglistview.iml" filepath="$PROJECT_DIR$/draglistview/draglistview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/persistentservicelib/persistentservicelib.iml" filepath="$PROJECT_DIR$/persistentservicelib/persistentservicelib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skywalker/skywalker.iml" filepath="$PROJECT_DIR$/skywalker/skywalker.iml" />
     </modules>
   </component>
 </project>

@@ -3,75 +3,41 @@ package example.chedifier.chedifier;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.view.WindowManager;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import example.chedifier.base.utils.SystemUtils;
-import example.chedifier.chedifier.base.AbsModule;
 import example.chedifier.chedifier.base.BaseActivity;
-import example.chedifier.chedifier.module.AccsTest;
-import example.chedifier.chedifier.module.BackgroundTest;
-import example.chedifier.chedifier.module.CopySelf;
-import example.chedifier.chedifier.module.EdittextError;
-import example.chedifier.chedifier.module.FileObserverTest;
-import example.chedifier.chedifier.module.HWThemeChangeTest;
-import example.chedifier.chedifier.module.MultiTextTest;
-import example.chedifier.chedifier.module.NotificationTest;
-import example.chedifier.chedifier.module.OpenUrlByDefaultBrowser;
-import example.chedifier.chedifier.module.PreWindowTest;
-import example.chedifier.chedifier.module.ShortCutTest;
-import example.chedifier.chedifier.module.SkyWalkerTester;
-import example.chedifier.chedifier.module.StartBrowserTest;
-import example.chedifier.chedifier.module.TalkbackModule;
-import example.chedifier.chedifier.module.WindowLeakTest;
 import example.chedifier.chedifier.multiuser.MultiUserManager;
 import example.chedifier.chedifier.utils.PermissionUtils;
+import example.chedifier.chedifier.window.MainWindow;
+import example.chedifier.chedifier.window.common.UIEnvironment;
 
 public class MainActivity extends BaseActivity {
 
     private Handler mH;
 
-    private List<AbsModule> mModules = new ArrayList<>();
+    private static UIEnvironment sEnv;
 
-    private void prepareTestModules(){
-        mModules.add(new CopySelf(this));
-        mModules.add(new AccsTest(this));
-        mModules.add(new BackgroundTest(this));
-        mModules.add(new NotificationTest(this));
-        mModules.add(new OpenUrlByDefaultBrowser(this));
-        mModules.add(new MultiTextTest(this));
-        mModules.add(new EdittextError(this));
-        mModules.add(new PreWindowTest(this));
-        mModules.add(new ShortCutTest(this));
-        mModules.add(new StartBrowserTest(this));
-        mModules.add(new WindowLeakTest(this));
-        mModules.add(new HWThemeChangeTest(this));
-        mModules.add(new TalkbackModule(this));
-        mModules.add(new FileObserverTest(this));
-        mModules.add(new SkyWalkerTester(this));
-    }
-
+    private boolean pre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prepareTestModules();
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout moduleContainer = new LinearLayout(this);
-        moduleContainer.setOrientation(LinearLayout.VERTICAL);
-        scrollView.addView(moduleContainer);
-        initModules(moduleContainer);
-        setContentView(scrollView);
-        getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+
+        sEnv = new UIEnvironment(this);
+        setContentView(sEnv.getView());
+
+//        setContentView(R.layout.talkback_testact);
+
+        getEnv().pushWindow(new MainWindow(this));
 
         MultiUserManager.getInstance().registerUserChangeListener(getApplicationContext());
 
@@ -83,25 +49,38 @@ public class MainActivity extends BaseActivity {
                 "android.permission.WRITE_EXTERNAL_STORAGE",
                 "android.permission.READ_EXTERNAL_STORAGE",
                 "android.permission.READ_PHONE_STATE"});
-    }
 
-    private void initModules(ViewGroup container){
-
-        if(container != null){
-            for(int i=0;i<mModules.size();i++){
-                AbsModule module = mModules.get(i);
-                if(module != null){
-                    container.addView(module.getView(i));
-                }
-            }
-        }
+//        getWindow().getDecorView().getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                if(pre){
+//                    Log.i("cqx_bp","onPreDraw false");
+//                    return false;
+//                }
+//
+//                mH.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mH.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                pre = true;
+//                                Log.i("cqx_bp","pre = true");
+//                            }
+//                        });
+//                    }
+//                },5000);
+//
+//                Log.i("cqx_bp","onPreDraw true");
+//                return true;
+//            }
+//        });
 
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         Log.i("cqx","onConfigurationChanged newConfig = " + newConfig);
-
         super.onConfigurationChanged(newConfig);
     }
 
@@ -132,10 +111,27 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(sEnv != null && sEnv.popWindow()){
+            return;
+        }
+
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pre = false;
+        Log.i("cqx_bp","pre = false");
+    }
+
+    @Override
     protected void onDestroy(){
         super.onDestroy();
+        MyApplication.stopProcess();
 
-//        MyApplication.stopProcess();
+        sEnv = null;
     }
 
     @Override
@@ -145,5 +141,11 @@ public class MainActivity extends BaseActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
+
+    public static UIEnvironment getEnv(){
+        return sEnv;
+    }
+
 }

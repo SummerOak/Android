@@ -2,8 +2,14 @@
 <resources>
 
     <!-- Search Activity -->
-    <color name="search_activity_background">#ff969696</color>
+    <color name="search_activity_background">#ffffffff</color>
 
     <color name="transpanet_color">#00000000</color>
+
+    <color name="bdls_portal_pressed">#ffeeeeee</color>
+
+
+    <color name="item_normal">#00000000</color>
+    <color name="item_pressed">#cc555555</color>
 
 </resources>

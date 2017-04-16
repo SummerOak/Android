@@ -286,4 +286,53 @@ public class ShortCutHelper {
         }
     }
 
+    static final String INSTALL_SHORTCUT = "com.android.launcher.action.INSTALL_SHORTCUT";
+    static final String UNINSTALL_SHORTCUT = "com.android.launcher.action.UNINSTALL_SHORTCUT";
+
+    public static boolean createShortcut(Context context,String name,int iconResId,Intent intent){
+        if(context == null || name == null || intent == null){
+            return false;
+        }
+
+        Intent shortcut = new Intent(INSTALL_SHORTCUT);
+        shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+        shortcut.putExtra("duplicate", false); //不允许重复创建
+        shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
+        shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(context, iconResId));
+
+        try {
+            context.sendBroadcast(shortcut);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static void removeShortcut(final Context context,final String title,final Intent intent){
+        if(context == null || title == null || intent == null){
+            return;
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Intent shortcut = new Intent(UNINSTALL_SHORTCUT);
+                shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+                shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
+
+                try {
+                    context.sendBroadcast(shortcut);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+//        BackgroundTaskMgr.getInstance().runTask(runnable,10);
+        runnable.run();
+    }
+
 }

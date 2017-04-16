@@ -123,7 +123,7 @@ void* get_module_base(pid_t pid,const char* module_name){
 	return (void*)addr;
 }
 
-inline long get_remote_addr(pid_t target_pid,const char* module_name,void* local_addr){
+long get_remote_addr(pid_t target_pid,const char* module_name,void* local_addr){
 	
 	void* local_handle,*remote_handle;
 	local_handle = get_module_base(0,module_name);
@@ -140,7 +140,7 @@ inline long get_remote_addr(pid_t target_pid,const char* module_name,void* local
 	return ret_addr;
 }
 
-inline int ptrace_call(pid_t pid,long addr,long *params,uint32_t num_params,struct pt_regs* regs){
+int ptrace_call(pid_t pid,long addr,long *params,uint32_t num_params,struct pt_regs* regs){
 	printf("ptrace_call pid[%d] addr[%ld] ",pid,addr);	
 
 	uint32_t i;
@@ -198,7 +198,7 @@ void inject(pid_t pid,char* lib_path,void* func_ptr,long* params,size_t parms_le
 
 	printf("getting remote sleep_addr:\n");
 	func_addr = get_remote_addr(pid,lib_path,func_ptr);
-	
+
 	ptrace_call(pid,func_addr,params,parms_len,&regs);
 	
 	ptrace_setregs(pid, &old_regs);

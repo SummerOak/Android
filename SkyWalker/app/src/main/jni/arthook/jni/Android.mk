@@ -18,6 +18,6 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../target/v23
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../util
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../common
 
-LOCAL_LDLIBS := -L$(SYSROOT)/usr/lib -llog -lm -lz
+LOCAL_LDLIBS := -llog
 include $(BUILD_SHARED_LIBRARY)
 

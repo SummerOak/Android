@@ -6,17 +6,10 @@
 #define HOOK_CRASH_HANDLER_H
 
 #include <sstream>
-#include <iostream>
 #include <iomanip>
 #include <unwind.h>
 #include <dlfcn.h>
-#include <signal.h>
-#include <stdio.h>
-#include <malloc.h>
 #include <stdlib.h>
-#include <errno.h>
-#include <sys/mman.h>
-#include <cxxabi.h>
 
 #include "common.h"
 

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by chedifier on 2016/3/14.
@@ -86,6 +89,24 @@ public abstract class BaseActivity extends Activity {
         Log.d(TAG, "this:" + this + " onResume");
 
         super.onResume();
+
+//        getWindow().getDecorView().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    Field field = View.class.getDeclaredField("mViewFlags");
+//                    field.setAccessible(true);
+//                    View decor = getWindow().getDecorView();
+//                    int flag = (int) field.get(decor);
+//                    field.set(decor,(flag & ~0x0000000C) | (0x00000004 & 0x0000000C));
+//
+//                } catch (Throwable e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        },2000);
+
     }
 
     @Override
@@ -150,5 +171,11 @@ public abstract class BaseActivity extends Activity {
             }
             logV.setText(l += logStr);
         }
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        Log.i("cqx_trim",getClass() + "onTrimMemory " + level + "  !!!!");
+        super.onTrimMemory(level);
     }
 }

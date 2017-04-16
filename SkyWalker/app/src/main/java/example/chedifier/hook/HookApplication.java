@@ -22,10 +22,10 @@ public class HookApplication extends Application {
         super.onCreate();
 
         HookParaser.parseAndHook(
-//                HookProxyMethod.class,
+                HookProxyMethod.class
 //                MyTextViewProxy.class,
 //                MyHandlerProxy.class,
-                HookTalkbackProxy.class
+//                HookTalkbackProxy.class
         );
 
 
