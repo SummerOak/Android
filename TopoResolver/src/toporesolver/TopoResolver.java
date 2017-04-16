@@ -54,9 +54,13 @@ public class TopoResolver {
 							return 1/*新增排在前面*/;
 						}
 						
-						long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
-						long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
-						return (int)(priority1-priority2);//既然都在别人的后面，那谁先在后面的在前面
+						if(Utils.listEmpty(incomes.get(o1))){
+							return (int)(Math.max(n1.priority(), n1.priority2()) - Math.max(n2.priority(), n2.priority2()));
+						}else{
+							long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
+							long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
+							return (int)(priority1-priority2);//既然都在别人的后面，那谁先在后面的在前面
+						}
 					}
 				});
 				
