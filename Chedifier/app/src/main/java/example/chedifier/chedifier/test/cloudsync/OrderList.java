@@ -33,15 +33,15 @@ public class OrderList {
 
 
 
-    protected boolean add(long luid, int pos){
-        if(indexOf(luid) != INVALIDATE_ORDER){
+    protected boolean add(String signature, int pos){
+        if(indexOf(signature) != INVALIDATE_ORDER){
             return false;
         }
 
         pos = adjustPos(pos);
 
         long cur = System.currentTimeMillis();
-        orders.add(new OrderInfo(luid));
+        orders.add(new OrderInfo(signature));
         for(int i=pos+1;i<orders.size();i++){
             orders.get(i).order_time = cur;
         }
@@ -49,10 +49,10 @@ public class OrderList {
         return true;
     }
 
-    protected void delete(long luid){
+    protected void delete(String signature){
         int idx = orders.size();
         for(int i=0;i<orders.size();i++){
-            if(orders.get(i).luid == luid){
+            if(signature.equals(orders.get(i).signature)){
                 idx = i;
             }
 
@@ -84,9 +84,9 @@ public class OrderList {
         }
     }
 
-    public int indexOf(long luid){
+    public int indexOf(String signature){
         for(int i=0;i<orders.size();i++){
-            if(orders.get(i).luid == luid){
+            if(signature.equals(orders.get(i).signature)){
                 return i;
             }
         }
@@ -94,9 +94,9 @@ public class OrderList {
         return INVALIDATE_ORDER;
     }
 
-    public OrderInfo findOrderInfo(long luid){
+    public OrderInfo findOrderInfo(String signature){
         for(int i=0;i<orders.size();i++){
-            if(orders.get(i).luid == luid){
+            if(orders.get(i).signature == signature){
                 return orders.get(i);
             }
         }
@@ -117,25 +117,23 @@ public class OrderList {
     }
 
     public static class OrderInfo{
-        public long guid;
-        public long luid;
+        public String signature;
         public long order_time;
 
-        protected OrderInfo(long luid){
-            this.luid = luid;
+        protected OrderInfo(String signature){
+            this.signature = signature;
             order_time = System.currentTimeMillis();
         }
 
         protected OrderInfo(OrderInfo o){
-            this.guid = o.guid;
-            this.luid = o.luid;
+            this.signature = o.signature;
             this.order_time = o.order_time;
         }
 
         @Override
         public boolean equals(Object obj) {
             if(obj instanceof OrderInfo){
-                return ((OrderInfo) obj).luid == this.luid;
+                return this.signature.equals(((OrderInfo) obj).signature);
             }
 
             return false;
@@ -149,8 +147,7 @@ public class OrderList {
         public JSONObject toJson(){
             JSONObject j = new JSONObject();
             try {
-                j.put("guid",String.valueOf(guid));
-                j.put("luid",String.valueOf(luid));
+                j.put("sig",String.valueOf(signature));
                 j.put("order_time",String.valueOf(order_time));
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -169,7 +166,7 @@ public class OrderList {
     public void logout(){
         String s = "";
         for(int i=0;i<orders.size();i++){
-            s += orders.get(i).luid + "  ";
+            s += orders.get(i).signature + "  ";
         }
 
         Log.i(TAG,s);

@@ -11,9 +11,9 @@ import java.util.List;
  * Created by Administrator on 2017/4/1.
  */
 
-public class OrderListResolver2 {
+public class OrderInfoResolver {
 
-    private final String TAG = "OrderListResolver2";
+    private final String TAG = "OrderInfoResolver";
 
     private OrderList mCOrder;
     private OrderList mLOrder;
@@ -21,7 +21,7 @@ public class OrderListResolver2 {
 
     private List<Pair<Integer,OrderList.OrderInfo>> mResult;
 
-    public OrderListResolver2(OrderList cOrder,OrderList lOrder){
+    public OrderInfoResolver(OrderList cOrder, OrderList lOrder){
         this.mCOrder = cOrder;
         this.mLOrder = lOrder;
     }
@@ -38,24 +38,24 @@ public class OrderListResolver2 {
         mResult = new ArrayList<>(sum.size());
 
         for(OrderList.OrderInfo oi:sum){
-            OrderList.OrderInfo coi = mCOrder.findOrderInfo(oi.luid);
-            OrderList.OrderInfo loi = mLOrder.findOrderInfo(oi.luid);
+            OrderList.OrderInfo coi = mCOrder.findOrderInfo(oi.signature);
+            OrderList.OrderInfo loi = mLOrder.findOrderInfo(oi.signature);
 
             OrderList.OrderInfo toi = null;
             int order = -1;
 
             if(coi == null){
                 toi = loi;
-                order = mLOrder.indexOf(oi.luid);
+                order = mLOrder.indexOf(oi.signature);
             }else if(loi == null){
                 toi = coi;
-                order = mCOrder.indexOf(oi.luid);
+                order = mCOrder.indexOf(oi.signature);
             }else if(coi.order_time > loi.order_time){
                 toi = coi;
-                order = mCOrder.indexOf(oi.luid);
+                order = mCOrder.indexOf(oi.signature);
             }else{
                 toi = loi;
-                order = mLOrder.indexOf(oi.luid);
+                order = mLOrder.indexOf(oi.signature);
             }
 
             toi = new OrderList.OrderInfo(toi);
@@ -70,8 +70,8 @@ public class OrderListResolver2 {
                     return o1.first-o2.first;
                 }
 
-                int cid1 = mCOrder.indexOf(o1.second.luid);
-                int cid2 = mCOrder.indexOf(o2.second.luid);
+                int cid1 = mCOrder.indexOf(o1.second.signature);
+                int cid2 = mCOrder.indexOf(o2.second.signature);
                 if(cid1 == OrderList.INVALIDATE_ORDER || cid2 == OrderList.INVALIDATE_ORDER){
                     return (int)(o1.second.order_time - o2.second.order_time);
                 }

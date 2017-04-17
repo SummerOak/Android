@@ -11,10 +11,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import example.chedifier.base.utils.Md5Utils;
 import example.chedifier.base.utils.StringUtils;
+import example.chedifier.base.utils.SystemUtils;
 import example.chedifier.chedifier.MainActivity;
 import example.chedifier.chedifier.R;
 import example.chedifier.chedifier.base.AbsModule;
+import example.chedifier.chedifier.test.FloatCompare;
+import example.chedifier.chedifier.test.HandlerTest;
 
 /**
  * ****************************************************************************
@@ -47,16 +51,34 @@ public class CopySelf extends AbsModule {
     public void onClick(View v) {
 //        mContext.startActivity(new Intent(mContext, MainActivity.class));
 
-        Log.i(TAG,"" + System.currentTimeMillis());
+        Log.i(TAG,"begin " + System.currentTimeMillis());
 
-        for(int i=0;i<100000;i++){
-            testArrayConcur();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
+        HandlerTest h = new HandlerTest();
+        h.start();
+
+
+//        FloatCompare floatCompare = new FloatCompare();
+//        for(int i=0;i<1000000000;i++){
+//            floatCompare.test();
+//        }
+//        Log.i(TAG,"end " + System.currentTimeMillis());
+//
+//
+//        long t = System.currentTimeMillis();
+//        String m = Md5Utils.getMD5("a");
+//        Log.i(TAG,m + "md5 cost: " + (System.currentTimeMillis() - t));
+//        m = Md5Utils.getMD5("Jjfkdsljjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjkkds");
+//        Log.i(TAG,m + "md5 cost: " + (System.currentTimeMillis() - t));
+//
+//        for(int i=0;i<100000;i++){
+//            testArrayConcur();
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     int worker = 0;

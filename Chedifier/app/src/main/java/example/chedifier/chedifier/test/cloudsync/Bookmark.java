@@ -3,6 +3,7 @@ package example.chedifier.chedifier.test.cloudsync;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import example.chedifier.base.utils.Md5Utils;
 import example.chedifier.chedifier.test.cloudsync.framework.AbsSyncItem;
 
 /**
@@ -27,8 +28,10 @@ public class Bookmark extends AbsSyncItem {
     public long p_luid = ID_NONE;
     public String name;
     public String url;
+    public String signature;
     public ITEM_TYPE item_type = ITEM_TYPE.NORMAL;
-    public OrderList order_info;
+    public int order_index;
+    public long order_time;
 
     public long create_time = System.currentTimeMillis();
     public long last_modify = System.currentTimeMillis();
@@ -40,9 +43,6 @@ public class Bookmark extends AbsSyncItem {
 
     public Bookmark(ITEM_TYPE type){
         this.item_type = type;
-        if(item_type == ITEM_TYPE.DIRECTORY){
-            order_info = new OrderList();
-        }
     }
 
     private Bookmark(Bookmark b){
@@ -52,17 +52,24 @@ public class Bookmark extends AbsSyncItem {
         this.p_luid = b.p_luid;
         this.p_guid = b.p_guid;
         this.item_type = b.item_type;
-        if(b.order_info != null){
-            this.order_info = b.order_info.clone();
-        }
         this.create_time = b.create_time;
         this.last_modify = b.last_modify;
+        this.order_index = b.order_index;
+        this.order_time = b.order_time;
     }
 
 
+    public String getSignature(){
+        if(signature == null){
+            signature = Md5Utils.getMD5(name + url);
+        }
+
+        return signature;
+    }
 
     public void updateTo(Bookmark b){
-        this.order_info = b.order_info;
+        this.order_index = b.order_index;
+        this.order_time = b.order_time;
         this.p_luid = b.p_luid;
         this.p_guid = b.p_guid;
         this.last_modify = System.currentTimeMillis();
@@ -119,13 +126,12 @@ public class Bookmark extends AbsSyncItem {
             j.put("is_directory",item_type == ITEM_TYPE.DIRECTORY?"1":"0");
             j.put("parent_guid",String.valueOf(p_guid==-1?"none":p_guid));
             j.put("parent_luid",String.valueOf(p_luid==-1?"none":p_luid));
+            j.put("signature", Md5Utils.getMD5(name + url));
             j.put("create_time",String.valueOf(create_time));
             j.put("last_modify",String.valueOf(last_modify));
             j.put("account",account);
-
-            if(item_type == ITEM_TYPE.DIRECTORY){
-                j.put("order_info",order_info.toJson());
-            }
+            j.put("order_index",String.valueOf(order_index));
+            j.put("order_time",String.valueOf(order_time));
 
         } catch (JSONException e) {
             e.printStackTrace();

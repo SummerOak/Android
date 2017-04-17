@@ -265,7 +265,7 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
 
                 Bookmark dir = mCloudOptDataMgr.getBookmarkByLuid(b.p_luid);
                 if(dir != null && dir.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                    dir.order_info.delete(b.luid);
+                    dir.order_info.delete(b.getSignature());
                 }
             }
         }
@@ -300,7 +300,7 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
 
                 Bookmark dir = mLocalOptDataMgr.getBookmarkByLuid(l.p_luid);
                 if(dir != null && dir.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                    dir.order_info.delete(l.luid);
+                    dir.order_info.delete(l.getSignature());
                 }
 
             }

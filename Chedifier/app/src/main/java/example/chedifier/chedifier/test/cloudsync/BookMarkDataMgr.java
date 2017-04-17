@@ -44,7 +44,7 @@ public class BookMarkDataMgr {
             bookmarks.add(dir);
 
             for(OrderList.OrderInfo oi:dir.order_info.orders){
-                Bookmark i = getBookmarkByLuid(oi.luid);
+                Bookmark i = getBookmarkBySignature(oi.signature);
                 if(i!=null){
                     bookmarks.add(i);
                     if(i.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
@@ -54,6 +54,16 @@ public class BookMarkDataMgr {
             }
         }
         return bookmarks;
+    }
+
+    public Bookmark getBookmarkBySignature(String signature){
+        for(Bookmark b:mData){
+            if(b.getSignature().equals(signature)){
+                return b;
+            }
+        }
+
+        return null;
     }
 
     public Bookmark getBookmarkByLuid(long id){
@@ -109,7 +119,7 @@ public class BookMarkDataMgr {
 
             // update directory order list
             Bookmark dir = getBookmarkByLuid(data.p_luid);
-            if(dir != null && dir.order_info.add(data.luid,pos)){
+            if(dir != null && dir.order_info.add(data.getSignature(),pos)){
                 mPatchMgr.update(dir);
             }
         }
@@ -128,7 +138,7 @@ public class BookMarkDataMgr {
         // update directory order list
         Bookmark dir = getBookmarkByLuid(data.p_luid);
         if(dir != null && mPatchMgr.update(dir)){
-            dir.order_info.delete(data.luid);
+            dir.order_info.delete(data.getSignature());
         }
 
         mPatchMgr.delete(data);
@@ -138,15 +148,15 @@ public class BookMarkDataMgr {
     public void cleanupDirectoryOrderList(){
         for(Bookmark b:mData){
             if(b.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                ArrayList<Long> dels = new ArrayList<>();
+                ArrayList<String> dels = new ArrayList<>();
                 for(OrderList.OrderInfo oi:b.order_info.orders){
-                    if(getBookmarkByLuid(oi.luid) == null){
-                        dels.add(oi.luid);
+                    if(getBookmarkBySignature(oi.signature) == null){
+                        dels.add(oi.signature);
                     }
                 }
 
-                for(Long luid:dels){
-                    b.order_info.delete(luid);
+                for(String sig:dels){
+                    b.order_info.delete(sig);
                 }
             }
         }
