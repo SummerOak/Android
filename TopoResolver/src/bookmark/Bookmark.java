@@ -17,6 +17,8 @@ public class Bookmark implements INode{
 	
 	public int dirty = 1;
 	
+	public int deleted = 0;
+	
 	public Bookmark(String name){
 		this.name = name;
 	}
@@ -45,6 +47,11 @@ public class Bookmark implements INode{
 	@Override
 	public String identifier() {
 		return name;//Utils.getMD5(name+url);
+	}
+	
+	@Override
+	public int deleted() {
+		return deleted;
 	}
 
 	@Override

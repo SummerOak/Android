@@ -10,7 +10,7 @@ package casetest;
  * @author chedifier
  *
  */
-public class BookmarkCase1 extends TestCase{
+public class BookmarkCase_LocalAdd extends TestCase{
 
 	@Override
 	public void prepareCase() {

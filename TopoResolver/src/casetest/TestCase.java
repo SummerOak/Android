@@ -86,6 +86,11 @@ public abstract class TestCase {
 			return this;
 		}
 		
+		public TestBookmarkBuilder deleted(int val){
+			bookmark.deleted = val;
+			return this;
+		}
+		
 		public Bookmark build(){
 			return bookmark;
 		}

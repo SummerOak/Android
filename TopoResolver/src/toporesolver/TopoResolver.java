@@ -73,12 +73,14 @@ public class TopoResolver {
 					dec(incomes,node.identifier(),node.nextId());
 					dec(incomes,node.identifier(),node.nextId2());
 					
-					if(cur != null){
-						cur.setNext(next);
-					}else{
-						head = node;
+					if(node.deleted() == 0){
+						if(cur != null){
+							cur.setNext(next);
+						}else{
+							head = node;
+						}
+						cur = node;
 					}
-					cur = node;
 				}
 				
 				incomes.remove(next);
@@ -177,6 +179,7 @@ public class TopoResolver {
 		public long priority();
 		public long priority2();
 		public String identifier();
+		public int deleted();
 		
 		public void setNext(String identifier);
 		
