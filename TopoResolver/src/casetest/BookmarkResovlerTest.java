@@ -16,7 +16,8 @@ public class BookmarkResovlerTest {
 //		new BookmarkCase_CloudAdd_LocalModify_noneConflict().run();
 //		new BookmarkCaseDel().run();
 //		new BookmarkCaseDel2().run();
-		new BookmarkCaseCloudError_circle().run();
+//		new BookmarkCaseCloudError_circle().run();
+		new BookmarkCaseCloudError_partly().run();
 	}
 	
 

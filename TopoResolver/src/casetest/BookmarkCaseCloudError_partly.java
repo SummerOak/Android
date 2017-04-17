@@ -1,20 +1,19 @@
 package casetest;
 
 /**
- * 云端数据错乱：云端修改，存在环
+ * 云端数据错乱：云端修改，但上传部分未
  * 
- * last: ABCD
- * cloud:
- * 			D->A;
+ * last: ABCD		1
+ * cloud: 把 D 放到A的前面， D->A, C->null ； 但 C这条数据上传失败了 : ABCD		2
  * 
- * local:   ABCD
+ * local: 未修改ABCD	1
  * 
  * expect: 	CDBA or DCBA
  * 
  * @author wxj_pc
  *
  */
-public class BookmarkCaseCloudError extends TestCase{
+public class BookmarkCaseCloudError_partly extends TestCase{
 
 	@Override
 	public void prepareCase() {
@@ -36,15 +35,15 @@ public class BookmarkCaseCloudError extends TestCase{
 				.dirty(0)
 				.local_next("D")
 				.order_time(1L)
-//				.cloud_next(null)
-//				.cloud_order_time(5L)
+				.cloud_next("D")
+				.cloud_order_time(1L)
 				.build());
 		caseData.add(new TestBookmarkBuilder("D")
 				.dirty(0)
 				.local_next(null)
-				.order_time(3L)
+				.order_time(1L)
 				.cloud_next("A")
-				.cloud_order_time(5L)
+				.cloud_order_time(0L)
 				.build());
 	
 	}
