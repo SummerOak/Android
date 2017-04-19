@@ -11,7 +11,7 @@ package casetest;
  * @author chedifier
  *
  */
-public class BookmardCase5_cloud_local_add extends TestCase{
+public class BookmarkCase5_cloud_local_add extends TestCase{
 
 	@Override
 	public void prepareCase() {
