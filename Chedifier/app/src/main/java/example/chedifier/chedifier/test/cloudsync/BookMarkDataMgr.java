@@ -43,15 +43,7 @@ public class BookMarkDataMgr {
         if(dir != null){
             bookmarks.add(dir);
 
-            for(OrderList.OrderInfo oi:dir.order_info.orders){
-                Bookmark i = getBookmarkBySignature(oi.signature);
-                if(i!=null){
-                    bookmarks.add(i);
-                    if(i.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                        bookmarks.addAll(getOrderedData(i.luid));
-                    }
-                }
-            }
+
         }
         return bookmarks;
     }
@@ -117,11 +109,7 @@ public class BookMarkDataMgr {
         if(patch){
             mPatchMgr.add(data);
 
-            // update directory order list
-            Bookmark dir = getBookmarkByLuid(data.p_luid);
-            if(dir != null && dir.order_info.add(data.getSignature(),pos)){
-                mPatchMgr.update(dir);
-            }
+
         }
 
         return true;
@@ -136,30 +124,13 @@ public class BookMarkDataMgr {
         data.updateDirtyType(Bookmark.DIRTY_TYPE.DELETE);
 
         // update directory order list
-        Bookmark dir = getBookmarkByLuid(data.p_luid);
-        if(dir != null && mPatchMgr.update(dir)){
-            dir.order_info.delete(data.getSignature());
-        }
 
         mPatchMgr.delete(data);
         return true;
     }
 
     public void cleanupDirectoryOrderList(){
-        for(Bookmark b:mData){
-            if(b.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                ArrayList<String> dels = new ArrayList<>();
-                for(OrderList.OrderInfo oi:b.order_info.orders){
-                    if(getBookmarkBySignature(oi.signature) == null){
-                        dels.add(oi.signature);
-                    }
-                }
 
-                for(String sig:dels){
-                    b.order_info.delete(sig);
-                }
-            }
-        }
     }
 
     public boolean update(Bookmark data){
@@ -183,10 +154,6 @@ public class BookMarkDataMgr {
         Bookmark dir = getBookmarkByLuid(b.p_luid);
         if(dir == null){
             return false;
-        }
-
-        if(mPatchMgr.update(dir)){
-            dir.order_info.swap(p1-1,p2-1);
         }
 
         return false;

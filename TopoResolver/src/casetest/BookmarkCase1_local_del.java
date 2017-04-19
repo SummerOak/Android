@@ -11,7 +11,7 @@ package casetest;
  * @author chedifier
  *
  */
-public class BookmarkCaseDel extends TestCase{
+public class BookmarkCase1_local_del extends TestCase{
 
 	@Override
 	public void prepareCase() {

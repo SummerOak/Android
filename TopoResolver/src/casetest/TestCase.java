@@ -28,7 +28,7 @@ public abstract class TestCase {
 	
 	private void logCase(List<INode> nodes){
 		
-		System.out.println("case start>>>>>>>>>>>>>>>>>");
+		System.out.println(getClass().getSimpleName() + "  start>>>>>>>>>>>>>>>>>");
 		for(INode n:nodes){
 			System.out.println(n.identifier() + "  " + n.nextId() + "_" + n.priority() + "  " + n.nextId2() + "_" + n.priority2());
 		}

@@ -18,7 +18,7 @@ package casetest;
  * @author chedifier
  *
  */
-public class BookmarkCaseCloudError_circle extends TestCase{
+public class BookmarkCase4_clouderror_circle extends TestCase{
 
 	@Override
 	public void prepareCase() {

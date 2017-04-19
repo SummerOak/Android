@@ -6,18 +6,13 @@ public class BookmarkResovlerTest {
 	
 	public void test(){
 
-	
-//		new BookmarkCaseAddMiddle().run();
-//		new BookmarkCase_CloudAdd().run();
-//		new BookmardCase_Cloud_Local_Add().run();
-//		new BookmarkCaseModify_Conflict().run();
-//		new BookmarkCaseModify_Conflict2().run();
-//		new BookmarkCaseModify_noneConflict().run();
-//		new BookmarkCase_CloudAdd_LocalModify_noneConflict().run();
-//		new BookmarkCaseDel().run();
-//		new BookmarkCaseDel2().run();
-//		new BookmarkCaseCloudError_circle().run();
-		new BookmarkCaseCloudError_partly().run();
+//		new BookmarkCase1_local_add().run();
+//		new BookmarkCase2_local_modify().run();
+//		new BookmarkCase3_local_Del().run();
+//		new BookmarkCase4_CloudError_partly().run();
+//		new BookmarkCase5_CloudError_circle().run();
+		new BookmarkCase1_local_add_top().run();
+
 	}
 	
 

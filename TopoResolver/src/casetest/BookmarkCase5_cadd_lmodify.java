@@ -13,7 +13,7 @@ package casetest;
  * @author chedifier
  *
  */
-public class BookmarkCase_CloudAdd_LocalModify_noneConflict extends TestCase{
+public class BookmarkCase5_cadd_lmodify extends TestCase{
 
 	@Override
 	public void prepareCase() {

@@ -22,7 +22,7 @@ public class Bookmark extends AbsSyncItem {
     public static final long ID_NONE = -3;
     public static final long ID_ROOT = 0;
 
-    public long luid = ID_NONE;
+    public long luid = 0L;
     public long guid = ID_NONE;
     public long p_guid = ID_NONE;
     public long p_luid = ID_NONE;
@@ -30,8 +30,8 @@ public class Bookmark extends AbsSyncItem {
     public String url;
     public String signature;
     public ITEM_TYPE item_type = ITEM_TYPE.NORMAL;
-    public int order_index;
-    public long order_time;
+    public String next_signature;
+    public long next_order_time;
 
     public long create_time = System.currentTimeMillis();
     public long last_modify = System.currentTimeMillis();
@@ -54,8 +54,8 @@ public class Bookmark extends AbsSyncItem {
         this.item_type = b.item_type;
         this.create_time = b.create_time;
         this.last_modify = b.last_modify;
-        this.order_index = b.order_index;
-        this.order_time = b.order_time;
+        this.next_signature = b.next_signature;
+        this.next_order_time = b.next_order_time;
     }
 
 
@@ -67,9 +67,18 @@ public class Bookmark extends AbsSyncItem {
         return signature;
     }
 
+    public long initLuid(){
+        if(luid == 0){
+            String hashString = (name==null?"":name) + (url==null?"":url) + create_time;
+            luid = hashString.hashCode();
+        }
+
+        return luid;
+    }
+
     public void updateTo(Bookmark b){
-        this.order_index = b.order_index;
-        this.order_time = b.order_time;
+        this.next_signature = b.next_signature;
+        this.next_order_time = b.next_order_time;
         this.p_luid = b.p_luid;
         this.p_guid = b.p_guid;
         this.last_modify = System.currentTimeMillis();
@@ -126,12 +135,12 @@ public class Bookmark extends AbsSyncItem {
             j.put("is_directory",item_type == ITEM_TYPE.DIRECTORY?"1":"0");
             j.put("parent_guid",String.valueOf(p_guid==-1?"none":p_guid));
             j.put("parent_luid",String.valueOf(p_luid==-1?"none":p_luid));
-            j.put("signature", Md5Utils.getMD5(name + url));
+            j.put("next_signature",String.valueOf(next_signature));
+            j.put("next_order_time",String.valueOf(next_order_time));
             j.put("create_time",String.valueOf(create_time));
             j.put("last_modify",String.valueOf(last_modify));
             j.put("account",account);
-            j.put("order_index",String.valueOf(order_index));
-            j.put("order_time",String.valueOf(order_time));
+            j.put("device_type","phone");
 
         } catch (JSONException e) {
             e.printStackTrace();

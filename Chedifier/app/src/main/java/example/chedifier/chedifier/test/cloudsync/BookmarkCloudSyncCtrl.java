@@ -257,19 +257,8 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
     @Override
     public boolean deleteCloud(Bookmark data) {
         Log.i(TAG,"deleteCloud >>> " + data.luid);
-        mCloudOptDataMgr.getBookmarkByLuid(Bookmark.ID_ROOT).order_info.logout();
 
-        Bookmark b = mCloudOptDataMgr.getBookmarkByLuid(data.luid);
-        if(b != null){
-            if(mCloudOptDataMgr.getPatch().delete(b)){
 
-                Bookmark dir = mCloudOptDataMgr.getBookmarkByLuid(b.p_luid);
-                if(dir != null && dir.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                    dir.order_info.delete(b.getSignature());
-                }
-            }
-        }
-        mCloudOptDataMgr.getBookmarkByLuid(Bookmark.ID_ROOT).order_info.logout();
         Log.i(TAG,"deleteCloud <<< " + data.luid);
         return true;
     }
@@ -292,22 +281,7 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
     @Override
     public boolean deleteLocal(Bookmark data) {
         Log.i(TAG,"deleteLocal >>> " + data.luid);
-        mLocalOptDataMgr.getBookmarkByLuid(Bookmark.ID_ROOT).order_info.logout();
 
-        Bookmark l = mLocalOptDataMgr.getBookmarkByLuid(data.luid);
-        if(l != null){
-            if(mLocalOptDataMgr.getPatch().delete(l)){
-
-                Bookmark dir = mLocalOptDataMgr.getBookmarkByLuid(l.p_luid);
-                if(dir != null && dir.item_type == Bookmark.ITEM_TYPE.DIRECTORY){
-                    dir.order_info.delete(l.getSignature());
-                }
-
-            }
-        }
-
-        mLocalOptDataMgr.getBookmarkByLuid(Bookmark.ID_ROOT).order_info.logout();
-        Log.i(TAG,"deleteLocal <<< " + data.luid);
 
         return true;
     }
@@ -325,41 +299,45 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
 
         BookMarkDataMgr bmmg = new BookMarkDataMgr();
 
-        Bookmark root = new Bookmark(Bookmark.ITEM_TYPE.DIRECTORY);
-        root.luid = 1;
-        root.guid = 10001;
-        root.p_luid = -1;
-        root.p_guid = -1;
-        root.name = "root";
-        root.url = "";
-        root.create_time = System.currentTimeMillis();
-        root.last_modify = root.create_time;
-        root.account = "TestAccount";
-        bmmg.add(root);
+        Bookmark d1 = new Bookmark(Bookmark.ITEM_TYPE.DIRECTORY);
+        d1.guid = 10001;
+        d1.p_luid = -1;
+        d1.p_guid = -1;
+        d1.name = "directory";
+        d1.url = "";
+        d1.create_time = System.currentTimeMillis();
+        d1.last_modify = d1.create_time;
+        d1.account = "TestAccount";
+        d1.luid = d1.initLuid();
+        bmmg.add(d1);
 
         Bookmark i1 = new Bookmark();
-        i1.luid = 2;
         i1.guid = 10002;
-        i1.p_luid = root.luid;
-        i1.p_guid = root.guid;
+        i1.p_luid = d1.luid;
+        i1.p_guid = d1.guid;
         i1.name = "baidu";
         i1.url = "www.baidu.com";
         i1.create_time = System.currentTimeMillis();
-        i1.last_modify = root.create_time;
+        i1.last_modify = d1.create_time;
         i1.account = "TestAccount";
+        i1.luid = i1.initLuid();
         bmmg.add(i1);
 
-        i1 = new Bookmark();
-        i1.luid = 3;
-        i1.guid = 10003;
-        i1.p_luid = root.luid;
-        i1.p_guid = root.guid;
-        i1.name = "google";
-        i1.url = "www.google.com.hk";
-        i1.create_time = System.currentTimeMillis();
-        i1.last_modify = root.create_time;
-        i1.account = "TestAccount";
-        bmmg.add(i1);
+        Bookmark i2 = new Bookmark();
+        i2.guid = 10003;
+        i2.p_luid = 0;
+        i2.p_guid = 0;
+        i2.name = "google";
+        i2.url = "www.google.com.hk";
+        i2.create_time = System.currentTimeMillis();
+        i2.last_modify = d1.create_time;
+        i2.account = "TestAccount";
+        i2.luid = i2.initLuid();
+
+        d1.next_signature = i2.getSignature();
+        d1.next_order_time = System.currentTimeMillis();
+
+        bmmg.add(i2);
 
         return bmmg.dumpJson();
     }

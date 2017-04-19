@@ -1,51 +1,51 @@
 package casetest;
 
 /**
- * 云端数据错乱：云端修改，但上传部分未
+ * 本地修改&云端修改  无冲突
  * 
- * last: ABCD		1
- * cloud: 把 D 放到A的前面， D->A, C->null ； 但 C这条数据上传失败了 : ABCD		2
+ * last: ABCD				1
+ * local: 调换 AB：	BACD	2
+ * cloud: 调换DC:		ABDC	3
  * 
- * local: 未修改ABCD	1
+ * expect: BADC
  * 
- * expect: 	CDBA or DCBA
- * 
- * @author wxj_pc
+ * @author chedifier
  *
  */
-public class BookmarkCaseCloudError_partly extends TestCase{
+public class BookmarkCase3_modify_noneconflict extends TestCase{
 
 	@Override
 	public void prepareCase() {
 		caseData.add(new TestBookmarkBuilder("A")
 				.dirty(0)
-				.local_next("B")
+				.local_next("C")
+				.order_time(2L)
 				.cloud_next("B")
-				.order_time(1L)
+				.cloud_order_time(1L)
 				.build());
 		
 		caseData.add(new TestBookmarkBuilder("B")
 				.dirty(0)
-				.local_next("C")
-				.cloud_next("C")
-				.order_time(1L)
+				.local_next("A")
+				.order_time(2L)
+				.cloud_next("D")
+				.cloud_order_time(1L)
 				.build());
 		
 		caseData.add(new TestBookmarkBuilder("C")
 				.dirty(0)
 				.local_next("D")
 				.order_time(1L)
-				.cloud_next("D")
-				.cloud_order_time(1L)
+				.cloud_next(null)
+				.cloud_order_time(2L)
 				.build());
 		caseData.add(new TestBookmarkBuilder("D")
 				.dirty(0)
 				.local_next(null)
 				.order_time(1L)
-				.cloud_next("A")
-				.cloud_order_time(0L)
+				.cloud_next("C")
+				.cloud_order_time(2L)
 				.build());
-	
 	}
 
 }
