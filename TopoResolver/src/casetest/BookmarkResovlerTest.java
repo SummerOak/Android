@@ -11,6 +11,7 @@ public class BookmarkResovlerTest {
 //		new BookmarkCase1_local_add().run();
 //		new BookmarkCase1_local_del().run();
 //		new BookmarkCase1_local_modify().run();
+		new BookmarkCase1_local_modify2().run();
 //		
 //		
 //		new BookmarkCase2_cloud_add_middle().run();
@@ -19,8 +20,9 @@ public class BookmarkResovlerTest {
 //		
 //		new BookmarkCase3_modify_conflict().run();
 //		new BookmarkCase3_modify_conflict2().run();
-		new BookmarkCase3_modify_noneconflict().run();
-		new BookmarkCase3_modify_conflict3().run();
+//		new BookmarkCase3_modify_noneconflict().run();
+		new BookmarkCase3_modify_noneconflict2().run();
+//		new BookmarkCase3_modify_conflict3().run();
 //		
 //		
 //		new BookmarkCase4_clouderror_circle().run();

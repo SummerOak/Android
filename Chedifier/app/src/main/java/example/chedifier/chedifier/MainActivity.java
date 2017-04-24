@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Trace;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Trace.beginSection("chedifier_MainActivity_onCreate");
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
@@ -76,6 +78,7 @@ public class MainActivity extends BaseActivity {
 //            }
 //        });
 
+        Trace.endSection();
     }
 
     @Override

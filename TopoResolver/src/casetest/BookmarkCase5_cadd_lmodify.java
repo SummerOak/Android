@@ -52,7 +52,7 @@ public class BookmarkCase5_cadd_lmodify extends TestCase{
 				.dirty(0)
 				.local_next(null)
 				.order_time(0L)
-				.cloud_next("A")
+				.cloud_next("B")
 				.cloud_order_time(2L)
 				.build());
 	}

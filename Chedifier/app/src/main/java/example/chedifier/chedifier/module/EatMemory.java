@@ -1,6 +1,7 @@
 package example.chedifier.chedifier.module;
 
 import android.content.Context;
+import android.os.Trace;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,6 +36,8 @@ public class EatMemory extends AbsModule {
     @Override
     protected View createView(int pos) {
 
+        Trace.beginSection("chedifier_createView");
+
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -53,6 +56,8 @@ public class EatMemory extends AbsModule {
         eatNativeHeap.setOnLongClickListener(this);
         eatNativeHeap.setText("eat NativeHeap 50 MB");
         linearLayout.addView(eatNativeHeap);
+
+        Trace.endSection();
 
         return linearLayout;
     }

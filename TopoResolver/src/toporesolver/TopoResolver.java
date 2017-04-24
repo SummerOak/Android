@@ -35,14 +35,19 @@ public class TopoResolver {
 				}
 			}
 			
-			Set<Edge> choose = new HashSet<>();
+			Set<Edge> edges = new HashSet<>();
+			Set<String> topoed = new HashSet<>();
 			
 			INode cur = null;
 			while(!Utils.listEmpty(nodes)){
 				List<String> nexts = nexts(incomes);
 				
-				String next = chooseNode(choose,nexts);
+				String next = chooseNode(edges,nexts);
 				if(next == null){
+					//有2个情况会进入该条件： 
+					//1. 当前选择的是第1个点 
+					//2. 云端数据不完整导致有向图存在多个联通区域，
+					//因为本地数据构成的有向图肯定在同一个联通区域，所以多出来的联通区域的结点是云端新增
 					Collections.sort(nexts, new Comparator<String>() {
 
 						@Override
@@ -59,12 +64,12 @@ public class TopoResolver {
 								return 1/*新增排在前面*/;
 							}
 							
-							if(Utils.listEmpty(incomes.get(o1))){
+							if(Utils.listEmpty(incomes.get(o1))){// 这些点的入度都为0
 								return (int)(Math.max(n1.priority(), n1.priority2()) - Math.max(n2.priority(), n2.priority2()));
-							}else{
+							}else{//一般不会走到这里，但为了更趋于合理性，还是考虑这个场景
 								long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
 								long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
-								return (int)(priority1-priority2);//既然都在别人的后面，那谁先在后面的在前面
+								return (int)(priority1-priority2);//既然都在别人的后面，那取先的
 							}
 						}
 					});
@@ -75,11 +80,17 @@ public class TopoResolver {
 
 				INode node = id2Node.get(next);
 				if(node != null){
+					
+					topoed.add(next);
 					nodes.remove(node);
 					
-					choose.add(new Edge(node.identifier(),node.nextId(),node.priority()));
-					choose.add(new Edge(node.identifier(),node.nextId2(),node.priority2()));
-				
+					if(node.nextId() != null && !topoed.contains(node.nextId())){//把已经排出来的点没有必要再添加边了
+						edges.add(new Edge(node.identifier(),node.nextId(),node.priority()));
+					}
+					if(node.nextId2() != null && !topoed.contains(node.nextId2())){//把已经排出来的点没有必要再添加边了
+						edges.add(new Edge(node.identifier(),node.nextId2(),node.priority2()));
+					}
+					
 					dec(incomes,node.identifier(),node.nextId());
 					dec(incomes,node.identifier(),node.nextId2());
 					
