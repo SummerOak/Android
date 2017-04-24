@@ -29,7 +29,7 @@ public class BookmarkCase3_modify_noneconflict extends TestCase{
 				.local_next("A")
 				.order_time(2L)
 				.cloud_next("D")
-				.cloud_order_time(1L)
+				.cloud_order_time(3L)
 				.build());
 		
 		caseData.add(new TestBookmarkBuilder("C")
@@ -37,14 +37,14 @@ public class BookmarkCase3_modify_noneconflict extends TestCase{
 				.local_next("D")
 				.order_time(1L)
 				.cloud_next(null)
-				.cloud_order_time(2L)
+				.cloud_order_time(3L)
 				.build());
 		caseData.add(new TestBookmarkBuilder("D")
 				.dirty(0)
 				.local_next(null)
 				.order_time(1L)
 				.cloud_next("C")
-				.cloud_order_time(2L)
+				.cloud_order_time(3L)
 				.build());
 	}
 

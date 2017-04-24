@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import base.Utils;
 
@@ -33,42 +35,50 @@ public class TopoResolver {
 				}
 			}
 			
+			Set<Edge> choose = new HashSet<>();
 			
 			INode cur = null;
 			while(!Utils.listEmpty(nodes)){
 				List<String> nexts = nexts(incomes);
 				
-				Collections.sort(nexts, new Comparator<String>() {
+				String next = chooseNode(choose,nexts);
+				if(next == null){
+					Collections.sort(nexts, new Comparator<String>() {
 
-					@Override
-					public int compare(String o1, String o2) {
-						
-						INode n1 = id2Node.get(o1);
-						INode n2 = id2Node.get(o2);
-						
-						if(n1 == null){
-							return n2==null?0:-1/*新增排在前面*/;
+						@Override
+						public int compare(String o1, String o2) {
+							
+							INode n1 = id2Node.get(o1);
+							INode n2 = id2Node.get(o2);
+							
+							if(n1 == null){
+								return n2==null?0:-1/*新增排在前面*/;
+							}
+							
+							if(n2 == null){
+								return 1/*新增排在前面*/;
+							}
+							
+							if(Utils.listEmpty(incomes.get(o1))){
+								return (int)(Math.max(n1.priority(), n1.priority2()) - Math.max(n2.priority(), n2.priority2()));
+							}else{
+								long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
+								long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
+								return (int)(priority1-priority2);//既然都在别人的后面，那谁先在后面的在前面
+							}
 						}
-						
-						if(n2 == null){
-							return 1/*新增排在前面*/;
-						}
-						
-						if(Utils.listEmpty(incomes.get(o1))){
-							return (int)(Math.max(n1.priority(), n1.priority2()) - Math.max(n2.priority(), n2.priority2()));
-						}else{
-							long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
-							long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
-							return (int)(priority1-priority2);//既然都在别人的后面，那谁先在后面的在前面
-						}
-					}
-				});
-				
-				
-				String next = nexts.get(0);
+					});
+					
+					
+					next = nexts.get(0);
+				}
+
 				INode node = id2Node.get(next);
 				if(node != null){
 					nodes.remove(node);
+					
+					choose.add(new Edge(node.identifier(),node.nextId(),node.priority()));
+					choose.add(new Edge(node.identifier(),node.nextId2(),node.priority2()));
 				
 					dec(incomes,node.identifier(),node.nextId());
 					dec(incomes,node.identifier(),node.nextId2());
@@ -90,6 +100,29 @@ public class TopoResolver {
 		}
 		
 		return head;
+	}
+	
+	private static String chooseNode(Set<Edge> choose,List<String> nodes){
+		Edge target = null;
+		String next = null;
+		if(choose != null && nodes != null){
+			for(String node:nodes){
+				for(Edge e:choose){
+					if(node.equals(e.to)){
+						if(target == null || target.priority < e.priority){
+							target = e;
+							next = node;
+						}
+					}
+				}
+			}
+		}
+		
+		if(target != null){
+			choose.remove(target);
+		}
+		
+		return next;
 	}
 	
 	private static long maxPriorityOfIncomes(Map<String,INode> id2Node,List<Edge> incomes){

@@ -3,6 +3,13 @@
     package="example.chedifier.chedifier"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <permission
+        android:description="@string/accessibility_service_description"
+        android:icon="@drawable/bdls_logo"
+        android:label="chedifier_1"
+        android:name="com.chedifier.exported.action"
+        android:protectionLevel="dangerous"/>
+
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -177,6 +184,13 @@
 
         </service>
 
+        <receiver android:name=".test.ExportAction"
+            android:permission="com.chedifier.exported.action"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.chedifier.export.action1" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

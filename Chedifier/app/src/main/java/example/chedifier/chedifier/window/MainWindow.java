@@ -35,6 +35,7 @@ import example.chedifier.chedifier.module.OOMTest;
 import example.chedifier.chedifier.module.OpenGLTest;
 import example.chedifier.chedifier.module.OpenUrlByDefaultBrowser;
 import example.chedifier.chedifier.module.PreWindowTest;
+import example.chedifier.chedifier.module.ProviderTest;
 import example.chedifier.chedifier.module.QSChouModule;
 import example.chedifier.chedifier.module.RemoveViewInSubThread;
 import example.chedifier.chedifier.module.ShortCutTest;
@@ -74,6 +75,7 @@ public class MainWindow extends AbsWindow {
 
     private void prepareTestModules(){
         mModules.add(new CopySelf(mContext));
+        mModules.add(new ProviderTest(mContext));
         mModules.add(new CloudSyncOrderTest(mContext));
         mModules.add(new GetPackageSignatureSha1(mContext));
         mModules.add(new OpenGLTest(mContext));

@@ -15,7 +15,6 @@ import com.woxthebox.draglistview.swipe.ListSwipeItem;
 import java.util.ArrayList;
 
 import example.chedifier.chedifier.R;
-import example.chedifier.chedifier.test.cloudsync.framework.AbsSyncItem;
 import example.chedifier.chedifier.test.cloudsync.framework.SyncResolver;
 import example.chedifier.chedifier.test.cloudsync.list.SyncData;
 
@@ -161,7 +160,6 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
     private Bookmark productItem(){
 
         Bookmark ret = new Bookmark();
-        ret.luid = ++ id;
         ret.p_luid = Bookmark.ID_ROOT;
         ret.name = String.valueOf(id);
         return ret;
@@ -169,7 +167,6 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
 
     private void prepareRoot(){
         Bookmark root = new Bookmark(Bookmark.ITEM_TYPE.DIRECTORY);
-        root.luid = Bookmark.ID_ROOT;
         root.name = String.valueOf(root.luid);
 
         mCloudDataMgr.add(root);
@@ -300,9 +297,9 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
         BookMarkDataMgr bmmg = new BookMarkDataMgr();
 
         Bookmark d1 = new Bookmark(Bookmark.ITEM_TYPE.DIRECTORY);
-        d1.guid = 10001;
-        d1.p_luid = -1;
-        d1.p_guid = -1;
+        d1.guid = "10001";
+        d1.p_luid = "root";
+        d1.p_guid = "root";
         d1.name = "directory";
         d1.url = "";
         d1.create_time = System.currentTimeMillis();
@@ -312,7 +309,7 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
         bmmg.add(d1);
 
         Bookmark i1 = new Bookmark();
-        i1.guid = 10002;
+        i1.guid = "10002";
         i1.p_luid = d1.luid;
         i1.p_guid = d1.guid;
         i1.name = "baidu";
@@ -321,20 +318,26 @@ public class BookmarkCloudSyncCtrl implements View.OnClickListener,SyncResolver.
         i1.last_modify = d1.create_time;
         i1.account = "TestAccount";
         i1.luid = i1.initLuid();
+
+        i1.next = "tail";
+        i1.next_order_time = System.currentTimeMillis();
+
         bmmg.add(i1);
 
         Bookmark i2 = new Bookmark();
-        i2.guid = 10003;
-        i2.p_luid = 0;
-        i2.p_guid = 0;
+        i2.guid = "10003";
+        i2.p_luid = "root";
+        i2.p_guid = "root";
         i2.name = "google";
         i2.url = "www.google.com.hk";
         i2.create_time = System.currentTimeMillis();
         i2.last_modify = d1.create_time;
         i2.account = "TestAccount";
         i2.luid = i2.initLuid();
+        i2.next = "tail";
+        i2.next_order_time = System.currentTimeMillis();
 
-        d1.next_signature = i2.getSignature();
+        d1.next = i2.initLuid();
         d1.next_order_time = System.currentTimeMillis();
 
         bmmg.add(i2);

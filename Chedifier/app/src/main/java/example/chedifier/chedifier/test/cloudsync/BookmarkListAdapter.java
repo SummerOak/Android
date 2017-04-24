@@ -40,8 +40,8 @@ class BookmarkListAdapter extends DragItemAdapter<Bookmark, BookmarkListAdapter.
 
         Color[] colors = Color.values();
         Bookmark data = mItemList.get(position);
-        long lci = data.luid;
-        int ci = ((int)lci)%colors.length;
+        long lci = data.luid.hashCode();
+        int ci = (Math.abs((int)lci))%colors.length;
         int color = colors[ci].value;
         holder.mContent.setBackgroundColor(color);
         holder.itemView.setTag(data);
@@ -65,7 +65,7 @@ class BookmarkListAdapter extends DragItemAdapter<Bookmark, BookmarkListAdapter.
 
     @Override
     public long getItemId(int position) {
-        return mItemList.get(position).luid;
+        return mItemList.get(position).initLuid().hashCode();
     }
 
     class ViewHolder extends DragItemAdapter.ViewHolder {

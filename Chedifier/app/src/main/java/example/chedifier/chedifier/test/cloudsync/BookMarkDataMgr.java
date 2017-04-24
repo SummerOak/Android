@@ -37,7 +37,7 @@ public class BookMarkDataMgr {
         mData.addAll(ordered);
     }
 
-    public ArrayList<Bookmark> getOrderedData(long bid){
+    public ArrayList<Bookmark> getOrderedData(String bid){
         ArrayList<Bookmark> bookmarks = new ArrayList<>();
         Bookmark dir = getBookmarkByLuid(bid);
         if(dir != null){
@@ -48,19 +48,9 @@ public class BookMarkDataMgr {
         return bookmarks;
     }
 
-    public Bookmark getBookmarkBySignature(String signature){
+    public Bookmark getBookmarkByLuid(String id){
         for(Bookmark b:mData){
-            if(b.getSignature().equals(signature)){
-                return b;
-            }
-        }
-
-        return null;
-    }
-
-    public Bookmark getBookmarkByLuid(long id){
-        for(Bookmark b:mData){
-            if(b.luid == id){
+            if(b.luid.equals(id)){
                 return b;
             }
         }
