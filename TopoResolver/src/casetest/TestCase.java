@@ -30,20 +30,20 @@ public abstract class TestCase {
 		
 		System.out.println(getClass().getSimpleName() + "  start>>>>>>>>>>>>>>>>>");
 		for(INode n:nodes){
-			System.out.println(n.identifier() + "  " + n.nextId() + "_" + n.priority() + "  " + n.nextId2() + "_" + n.priority2());
+			System.out.println(n.luid() + "  " + n.nextLuid() + "_" + n.nextPriority() + "  " + n.nextLuidOfCloud() + "_" + n.nextPriorityOfCloud());
 		}
 	}
 	
 	private void checkAndLog(INode head,List<INode> nodes){
 		String log = "";
 		while(head != null){
-			String id = head.identifier();
+			String id = head.luid();
 			log += id;
 			
-			id= head.nextId();
+			id= head.nextLuid();
 			head = null;
 			for(INode n:nodes){
-				if(!Utils.stringEmpty(id) && id.equals(n.identifier())){
+				if(!Utils.stringEmpty(id) && id.equals(n.luid())){
 					head = n;
 					break;
 				}

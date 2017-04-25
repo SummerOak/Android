@@ -8,6 +8,7 @@
 #include <jni.h>
 #include "Utils.h"
 #include "ArtMethodAdapter_6_0.h"
+#include "ArtMethodAdapter_7_0.h"
 
 class ArtMethodHelper {
 
@@ -18,7 +19,11 @@ class ArtMethodHelper {
         IArtMethodAdapter* ret = NULL;
         switch(apiLevel){
         case 23:{
-            ret = new ArtMethodAdapter_6_0(methodID);
+                ret = new ArtMethodAdapter_6_0(methodID);
+                break;
+            }
+        case 24:{
+            ret = new ArtMethodAdapter_7_0(methodID);
             break;
         }
 
@@ -29,7 +34,8 @@ class ArtMethodHelper {
 
     static bool isCurrentArtVersionSupport(JNIEnv* env){
         switch(Utils::getSystemAPLevel(env)){
-            case 23:{
+            case 23:
+            case 24:{
                return true;
             }
 

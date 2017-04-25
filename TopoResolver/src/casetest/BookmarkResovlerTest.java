@@ -9,6 +9,7 @@ public class BookmarkResovlerTest {
 //		new BookmarkCase1_local_add_middle().run();
 //		new BookmarkCase1_local_add_top().run();
 //		new BookmarkCase1_local_add().run();
+		new BookmarkCase1_local_add_tail().run();
 //		new BookmarkCase1_local_del().run();
 //		new BookmarkCase1_local_modify().run();
 		new BookmarkCase1_local_modify2().run();

@@ -15,7 +15,7 @@ public class HookParaser {
 
     public static void parseAndHook(Class<?>... classes){
 
-        Log.d(TAG,"parseAndHook");
+        Log.i(TAG,"parseAndHook");
 
         if(classes != null && classes.length>0){
             for(Class<?> c:classes){
@@ -43,7 +43,7 @@ public class HookParaser {
                         for(Method m:methods)if(m.getName().equals(annotation.methodName())){
                             String desc = Utils.calculateMethodSignature(m);
                             if(desc != null && !desc.equals("") && desc.equals(annotation.methodDescriptor())){
-                                Log.d(TAG,"tareget >>> " + annotation.methodName() + " " + annotation.methodDescriptor());
+                                Log.i(TAG,"tareget >>> " + annotation.methodName() + " " + annotation.methodDescriptor());
                                 Hook.hookMethod(targetClass,annotation.methodName(),annotation.methodDescriptor(),Modifier.isStatic(m.getModifiers()),
                                         method.getDeclaringClass(),method.getName(),Utils.calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),
                                         annotation.hookType().ordinal());
@@ -68,7 +68,7 @@ public class HookParaser {
                     if(target != null){
                         String methodName = target.getName();
                         String signature = Utils.calculateMethodSignature(target);
-                        Log.d(TAG,"tareget >>> " + methodName + " " + signature);
+                        Log.i(TAG,"tareget >>> " + methodName + " " + signature);
 
                         Hook.hookMethod(hookAnnotation.targetClass(),methodName,signature,Modifier.isStatic(target.getModifiers()),
                                 method.getDeclaringClass(),method.getName(),Utils.calculateMethodSignature(method), Modifier.isStatic(method.getModifiers()),

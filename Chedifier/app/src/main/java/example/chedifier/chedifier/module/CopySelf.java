@@ -4,9 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.View;
 import android.widget.TextView;
 
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,6 +57,7 @@ public class CopySelf extends AbsModule {
 
         Log.i(TAG,"begin " + System.currentTimeMillis());
 
+        f();
 
         HandlerTest h = new HandlerTest();
         h.start();
@@ -124,5 +129,26 @@ public class CopySelf extends AbsModule {
                 }
             }).start();
         }
+    }
+
+
+    private void f(){
+//        Method[] methods = Choreographer.class.getDeclaredMethods();
+//        for(Method m:methods){
+//            Log.i("cqx","" + m);
+//        }
+//
+//        AccessibleObject.setAccessible(methods, true);
+
+        System.setSecurityManager(null);
+        try {
+            Constructor<Method> methodConstructor = null;
+            methodConstructor =Method.class.getDeclaredConstructor();
+            // we can't use methodConstructor.setAccessible(true); because Google does not like it
+            AccessibleObject.setAccessible(new AccessibleObject[]{methodConstructor}, true);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -13,6 +13,8 @@ E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/obj/local/armeabi-v7
   E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v23\ArtMethodAdapter_6_0.h \
   E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v23/ArtMethod_6_0.h \
   E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target\Offset.h \
+  E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v24\ArtMethodAdapter_7_0.h \
+  E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v24/ArtMethod_7_0.h \
   E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../../util\StringUtils.h \
   E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target\ArtModifiers.h \
   D:/soft/ndk/android-ndk-r13b-windows-x86_64/android-ndk-r13b/build//../sources/cxx-stl/gnu-libstdc++/4.9/include\map
@@ -42,6 +44,10 @@ E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../t
 E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v23/ArtMethod_6_0.h:
 
 E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target\Offset.h:
+
+E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v24\ArtMethodAdapter_7_0.h:
+
+E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../target/v24/ArtMethod_7_0.h:
 
 E:/private_workspace/ChedifierGithub/SkyWalker/app/src/main/jni/arthook/jni/../../util\StringUtils.h:
 

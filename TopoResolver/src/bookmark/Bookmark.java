@@ -25,27 +25,27 @@ public class Bookmark implements INode{
 	
 
 	@Override
-	public String nextId() {
+	public String nextLuid() {
 		return local_next;
 	}
 
 	@Override
-	public String nextId2() {
+	public String nextLuidOfCloud() {
 		return cloud_next;
 	}
 
 	@Override
-	public long priority() {
+	public long nextPriority() {
 		return order_time;
 	}
 	
 	@Override
-	public long priority2() {
+	public long nextPriorityOfCloud() {
 		return cloud_order_time;
 	}
 
 	@Override
-	public String identifier() {
+	public String luid() {
 		return name;//Utils.getMD5(name+url);
 	}
 	
@@ -55,7 +55,7 @@ public class Bookmark implements INode{
 	}
 
 	@Override
-	public void setNext(String identifier) {
+	public void updateNext(String identifier) {
 		if(local_next == null || !local_next.equals(identifier)){
 			local_next = identifier;
 			dirty = 1;

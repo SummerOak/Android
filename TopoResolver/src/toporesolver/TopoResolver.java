@@ -11,61 +11,71 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import base.Utils;
-
 public class TopoResolver {
-	
-	
-	
-	
-	public static INode resolve(List<INode> nodes){
-		INode head = null;
+
+	public static <T extends INode> void sort(List<T> nodes){
+
+		Map<String,T> id2Node = new HashMap<>();
+		for(T node:nodes){
+			id2Node.put(node.luid(),node);
+		}
+
+		T head = resolve(nodes);
+
+		while(head != null){
+			nodes.add(head);
+			head = id2Node.get(head.nextLuid());
+		}
+	}
+
+	public static <T extends INode> T resolve(List<T> nodes){
+		T head = null;
 		if(!Utils.listEmpty(nodes)){
-			final Map<String,INode> id2Node = new HashMap<String,INode>();
+			final Map<String,T> id2Node = new HashMap<String,T>();
 			final Map<String,ArrayList<Edge>> incomes = new HashMap<>();
-			for(INode n:nodes){
-				id2Node.put(n.identifier(), n);
-				
-				inc(incomes,n.identifier(),n.nextId(),n.priority());
-				inc(incomes,n.identifier(),n.nextId2(),n.priority2());
-				
-				ArrayList<Edge> in = incomes.get(n.identifier());
+			for(T n:nodes){
+				id2Node.put(n.luid(), n);
+
+				inc(incomes,n.luid(),n.nextLuid(),n.nextPriority());
+				inc(incomes,n.luid(),n.nextLuidOfCloud(),n.nextPriorityOfCloud());
+
+				ArrayList<Edge> in = incomes.get(n.luid());
 				if(in == null){
-					incomes.put(n.identifier(), new ArrayList<Edge>());
+					incomes.put(n.luid(), new ArrayList<Edge>());
 				}
 			}
-			
+
 			Set<Edge> edges = new HashSet<>();
 			Set<String> topoed = new HashSet<>();
-			
+
 			INode cur = null;
 			while(!Utils.listEmpty(nodes)){
 				List<String> nexts = nexts(incomes);
-				
+
 				String next = chooseNode(edges,nexts);
 				if(next == null){
-					//有2个情况会进入该条件： 
-					//1. 当前选择的是第1个点 
+					//有2个情况会进入该条件：
+					//1. 当前选择的是第1个点
 					//2. 云端数据不完整导致有向图存在多个联通区域，
 					//因为本地数据构成的有向图肯定在同一个联通区域，所以多出来的联通区域的结点是云端新增
 					Collections.sort(nexts, new Comparator<String>() {
 
 						@Override
 						public int compare(String o1, String o2) {
-							
+
 							INode n1 = id2Node.get(o1);
 							INode n2 = id2Node.get(o2);
-							
+
 							if(n1 == null){
 								return n2==null?0:-1/*新增排在前面*/;
 							}
-							
+
 							if(n2 == null){
 								return 1/*新增排在前面*/;
 							}
-							
+
 							if(Utils.listEmpty(incomes.get(o1))){// 这些点的入度都为0
-								return (int)(Math.max(n1.priority(), n1.priority2()) - Math.max(n2.priority(), n2.priority2()));
+								return (int)(Math.max(n1.nextPriority(), n1.nextPriorityOfCloud()) - Math.max(n2.nextPriority(), n2.nextPriorityOfCloud()));
 							}else{//一般不会走到这里，但为了更趋于合理性，还是考虑这个场景
 								long priority1 = maxPriorityOfIncomes(id2Node, incomes.get(o1));
 								long priority2 = maxPriorityOfIncomes(id2Node, incomes.get(o2));
@@ -73,47 +83,47 @@ public class TopoResolver {
 							}
 						}
 					});
-					
-					
+
+
 					next = nexts.get(0);
 				}
 
-				INode node = id2Node.get(next);
+				T node = id2Node.get(next);
 				if(node != null){
-					
+
 					topoed.add(next);
 					nodes.remove(node);
-					
-					if(node.nextId() != null && !topoed.contains(node.nextId())){//把已经排出来的点没有必要再添加边了
-						edges.add(new Edge(node.identifier(),node.nextId(),node.priority()));
+
+					if(node.nextLuid() != null && !topoed.contains(node.nextLuid())){//把已经排出来的点没有必要再添加边了
+						edges.add(new Edge(node.luid(),node.nextLuid(),node.nextPriority()));
 					}
-					if(node.nextId2() != null && !topoed.contains(node.nextId2())){//把已经排出来的点没有必要再添加边了
-						edges.add(new Edge(node.identifier(),node.nextId2(),node.priority2()));
+					if(node.nextLuidOfCloud() != null && !topoed.contains(node.nextLuidOfCloud())){//把已经排出来的点没有必要再添加边了
+						edges.add(new Edge(node.luid(),node.nextLuidOfCloud(),node.nextPriorityOfCloud()));
 					}
-					
-					dec(incomes,node.identifier(),node.nextId());
-					dec(incomes,node.identifier(),node.nextId2());
-					
+
+					dec(incomes,node.luid(),node.nextLuid());
+					dec(incomes,node.luid(),node.nextLuidOfCloud());
+
 					if(node.deleted() == 0){
 						if(cur != null){
-							cur.setNext(next);
+							cur.updateNext(next);
 						}else{
 							head = node;
 						}
 						cur = node;
 					}
 				}
-				
+
 				incomes.remove(next);
 			}
-			
-			if(cur != null) cur.setNext(null);
+
+			if(cur != null) cur.updateNext(null);
 		}
-		
+
 		return head;
 	}
-	
-	private static String chooseNode(Set<Edge> choose,List<String> nodes){
+
+	private static String chooseNode(Set<Edge> choose, List<String> nodes){
 		Edge target = null;
 		String next = null;
 		if(choose != null && nodes != null){
@@ -128,15 +138,15 @@ public class TopoResolver {
 				}
 			}
 		}
-		
+
 		if(target != null){
 			choose.remove(target);
 		}
-		
+
 		return next;
 	}
-	
-	private static long maxPriorityOfIncomes(Map<String,INode> id2Node,List<Edge> incomes){
+
+	private static <T> long maxPriorityOfIncomes(Map<String,T> id2Node,List<Edge> incomes){
 		long max = Long.MIN_VALUE;
 		if(!Utils.listEmpty(incomes)){
 			for(Edge edge:incomes){
@@ -145,10 +155,10 @@ public class TopoResolver {
 				}
 			}
 		}
-		
+
 		return max;
 	}
-	
+
 	private static List<String> nexts(Map<String,ArrayList<Edge>> incomes){
 		List<String> nexts = new ArrayList<String>();
 		Iterator<Entry<String,ArrayList<Edge>>> itr = incomes.entrySet().iterator();
@@ -158,19 +168,19 @@ public class TopoResolver {
 			if(entry.getValue().size() > min){
 				continue;
 			}
-			
-			
+
+
 			if(entry.getValue().size() < min){
 				min = entry.getValue().size();
 				nexts.clear();
 			}
-			
+
 			nexts.add(entry.getKey());
 		}
-		
+
 		return nexts;
 	}
-	
+
 	private static void inc(Map<String,ArrayList<Edge>> m,String from,String to,long priority){
 		if(m != null && !Utils.stringEmpty(to)){
 			ArrayList<Edge> v = m.get(to);
@@ -178,16 +188,16 @@ public class TopoResolver {
 				v = new ArrayList<Edge>();
 				m.put(to,v);
 			}
-			
-			
+
+
 			v.add(new Edge(from,to,priority));
 		}
 	}
-	
+
 	private static void dec(Map<String,ArrayList<Edge>> m,String from,String to){
 		if(m != null && !Utils.stringEmpty(to)){
 			ArrayList<Edge> v = m.get(to);
-			
+
 			if(v != null){
 				ArrayList<Edge> dels = new ArrayList<>();
 				for(Edge edge:v){
@@ -195,37 +205,40 @@ public class TopoResolver {
 						dels.add(edge);
 					}
 				}
-				
+
 				v.removeAll(dels);
 			}
 		}
 	}
-	
-	
+
+
 	private static class Edge{
 		String from;
 		String to;
-		
+
 		public Edge(String from,String to,long priority){
 			this.from = from;
 			this.to = to;
 			this.priority = priority;
 		}
-		
+
 		long priority;
 	}
 
-	
+
 	public interface INode{
-		
-		public String nextId();
-		public String nextId2();
-		public long priority();
-		public long priority2();
-		public String identifier();
+
+		public static final String TAIL = "tail";
+
+		public String nextLuid();
+		public String nextLuidOfCloud();
+		public long nextPriority();
+		public long nextPriorityOfCloud();
+		public String luid();
 		public int deleted();
-		
-		public void setNext(String identifier);
-		
+
+		public void updateNext(String identifier);
+
 	}
 }
+
