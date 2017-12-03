@@ -25,7 +25,7 @@ int lock_file(const char *lock_file_path) {
     }
 
     LOGD("try to flock start %s",lock_file_path);
-    int lockRet = flock(lockFileDescriptor, LOCK_EX);
+    int lockRet = 0;//flock(lockFileDescriptor, LOCK_EX);
     LOGD("try to flock end %s",lock_file_path);
 
     return lockRet == -1 ? 0 : 1;

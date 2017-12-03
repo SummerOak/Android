@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- video gif start -->
+  <dimen name="video_gif_back_left_margin">10dp</dimen>
+  <dimen name="video_gif_back_top_margin">14dp</dimen>
+  <dimen name="video_gif_back_height">32dp</dimen>
+  <dimen name="video_gif_back_width">68dp</dimen>
+  <dimen name="video_gif_back_radius">6dp</dimen>
+
+  <dimen name="video_gif_progress_height">6dp</dimen>
+
+  <dimen name="video_gif_tips_top_margin">16dp</dimen>
+  <dimen name="video_gif_tips_left_padding">12dp</dimen>
+  <dimen name="video_gif_tips_right_padding">12dp</dimen>
+  <dimen name="video_gif_tips_indicator_padding">7dp</dimen>
+  <dimen name="video_gif_tips_height">28dp</dimen>
+  <dimen name="video_gif_tips_radius">100dp</dimen>
+  <dimen name="video_gif_tips_indicator_radius">10dp</dimen>
+
+  <dimen name="video_gif_stop_right_margin">9dp</dimen>
+
+  <dimen name="video_gif_stop_size">95dp</dimen>
+  <dimen name="video_gif_stop_ring_radius">25dp</dimen>
+  <dimen name="video_gif_stop_rect_radius">8.5dp</dimen>
+  <!-- video gif end -->
+</resources>

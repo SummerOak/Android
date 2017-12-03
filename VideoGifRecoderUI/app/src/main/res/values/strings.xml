@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">VideoGifRecoderUI</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- video gif strings start -->
+    <string name="video_gif_cancel">取消</string>
+    <string name="video_gif_min_time_limit_tips">录制1秒以上，即可分享</string>
+    <string name="video_gif_stop_enabled_tips">随时可以停止了</string>
+    <!-- video gif strings end -->
+</resources>

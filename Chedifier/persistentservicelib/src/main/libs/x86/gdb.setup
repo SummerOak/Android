@@ -1,2 +1,2 @@
-set solib-search-path E:/private_workspace/ChedifierGithub/Chedifier/persistentservicelib/src/main/obj/local/x86
-directory D:/soft/ndk/android-ndk-r13b-windows-x86_64/android-ndk-r13b/build//../platforms/android-15/arch-x86/usr/include E:/private_workspace/ChedifierGithub/Chedifier/persistentservicelib/src/main/jni/include D:/soft/ndk/android-ndk-r13b-windows-x86_64/android-ndk-r13b/build//../sources/cxx-stl/system/include
+set solib-search-path /Users/chedifier/github/Android/Chedifier/persistentservicelib/src/main/obj/local/x86
+directory /Users/uc/soft/androidndk/android-ndk-r15c/sysroot /Users/chedifier/github/Android/Chedifier/persistentservicelib/src/main/jni/include /Users/uc/soft/androidndk/android-ndk-r15c/sources/cxx-stl/system/include

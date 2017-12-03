@@ -4,6 +4,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "CannotResolve"
 
+#include <string.h>
 #include <stdlib.h>
 #include "../common.h"
 

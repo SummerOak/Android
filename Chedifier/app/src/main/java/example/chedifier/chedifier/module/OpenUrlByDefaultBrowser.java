@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import example.chedifier.chedifier.R;
@@ -39,66 +40,52 @@ public class OpenUrlByDefaultBrowser extends AbsModule {
 
     @Override
     protected View createView(int pos) {
-        TextView textView = new TextView(mContext);
-        textView.setText("打开知乎");
-        return textView;
+        LinearLayout linearLayout = new LinearLayout(mContext);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        TextView query = new TextView(mContext);
+        decorateItem(query);
+        query.setId(1);
+        query.setOnClickListener(this);
+        query.setOnLongClickListener(this);
+        query.setText("open url by UCMobile");
+        linearLayout.addView(query);
+
+        TextView delete = new TextView(mContext);
+        decorateItem(delete);
+        delete.setId(2);
+        delete.setOnClickListener(this);
+        delete.setOnLongClickListener(this);
+        delete.setText("open url by browser");
+        linearLayout.addView(delete);
+
+        return linearLayout;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View v) {
 
-        mContext.startActivity(generateWebIntent("http://m.wfuyu.com/technology/22762.html"));//http://www.baidu.com
+        switch (v.getId()){
+            case 1:
+                mContext.startActivity(generateWebIntent("http://www.zhihu.com","com.UCMobile"));
+                break;
+            case 2:
+                mContext.startActivity(generateWebIntent("http://www.zhihu.com","com.android.browser"));
+                break;
+        }
 
-//        notifyUCPush();
-//
-//        PackageManager pm = mContext.getPackageManager();
-//
-//        try {
-//            PackageInfo pi = pm.getPackageInfo("com.UCMobile",PackageManager.GET_CONFIGURATIONS);
-//
-//            if(pi != null){
-//                Log.i("cqx","versionName " + pi.versionName + " versionCode " + pi.versionCode);
-//            }
-//
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
+
 
     }
 
-    private Intent generateWebIntent(String url){
+    private Intent generateWebIntent(String url,String pkg){
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        String pkg = "com.android.browser";
-//        String pkg = "com.android.browser";
         intent.setPackage(pkg);
-//        intent.setClassName(pkg,"com.android.browser.BrowserActivity");
         intent.setData(Uri.parse(url));
-        intent.putExtra("policy","UCM_NEW_WINDOW");
 
         return intent;
-    }
-
-    private boolean notifyUCPush() {
-        try {
-            Context appContext = mContext;
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if (Build.VERSION.SDK_INT >= 12)
-                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setPackage("com.UCMobile");
-            intent.setData(android.net.Uri.parse("ucwebpush://www.uc.cn?source=huaweibp1")); // source = "huaweibp1"
-
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            appContext.startActivity(intent);
-
-            return true;
-        } catch (Throwable tr) {
-            tr.printStackTrace();
-        }
-
-        return false;
     }
 }

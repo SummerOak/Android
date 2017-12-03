@@ -75,6 +75,7 @@ public class MainWindow extends AbsWindow {
 
     private void prepareTestModules(){
         mModules.add(new CopySelf(mContext));
+        mModules.add(new OpenUrlByDefaultBrowser(mContext));
         mModules.add(new ProviderTest(mContext));
         mModules.add(new CloudSyncOrderTest(mContext));
         mModules.add(new GetPackageSignatureSha1(mContext));
@@ -93,7 +94,6 @@ public class MainWindow extends AbsWindow {
         mModules.add(new NativeTestModule(mContext));
         mModules.add(new BackgroundTest(mContext));
         mModules.add(new NotificationTest(mContext));
-        mModules.add(new OpenUrlByDefaultBrowser(mContext));
         mModules.add(new MultiTextTest(mContext));
         mModules.add(new EdittextError(mContext));
         mModules.add(new PreWindowTest(mContext));
