@@ -3,14 +3,15 @@ package com.uc.test.videogifrecoderui.gif;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.uc.framework.resources.ResTools;
 
-
-public class VideoGifRecoder implements RecordingView.IListener{
+public class VideoGifRecoder implements IEventHandler {
+    private static final String TAG = "VideoGifRecoder";
 
     private Context mContext;
     private ViewGroup mAnchor;
@@ -18,38 +19,39 @@ public class VideoGifRecoder implements RecordingView.IListener{
 
     private ImageButton mEntryView;
 
-    private RecordingView mRecordView;
-    private IVideoGifHandler mRecordHandler;
+    private TopLayer mBaseLayer;
+    private RecordingLayer mRecordView;
+    private ShareGifLayer mShareView;
+    private IVideoGifRecordImpl mRecordHandler;
+
+    private byte mState;
+    private final byte INIT = 0;
+    private final byte RECORDING = 1;
+    private final byte RECORDED = 2;
 
     /**
      * the min time length limit of recording.
      */
-    private final int MIN_GIF_TIME_LENGTH = 5000;
+    private final int MIN_GIF_TIME_LENGTH = 1000;
 
     /**
      * the max time length limit of recording.
      */
     private final int MAX_GIF_TIME_LENGTH = 10000;
 
-    public VideoGifRecoder(ViewGroup anchor){
-        this(anchor,null);
-    }
-
-    public VideoGifRecoder(ViewGroup anchor, IListener listener){
+    public VideoGifRecoder(ViewGroup anchor, IVideoGifRecordImpl handler, IListener listener){
         mAnchor = anchor;
         mContext = mAnchor.getContext();
-        mListener = listener;
-    }
-
-    public void setRecordHandler(IVideoGifHandler handler){
         mRecordHandler = handler;
+        mListener = listener;
+        mState = INIT;
     }
 
     public View getEntry(){
         if(mEntryView == null){
             mEntryView = new ImageButton(mContext);
             mEntryView.setBackgroundColor(Color.TRANSPARENT);
-            mEntryView.setImageDrawable(ResTools.getDrawable("video_gif_4.svg"));
+            mEntryView.setImageDrawable(new ColorDrawable(Color.BLACK));
             mEntryView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -62,22 +64,66 @@ public class VideoGifRecoder implements RecordingView.IListener{
     }
 
     private void startRecord(){
-        if(mAnchor != null && mAnchor.indexOfChild(getRecordView().getView()) < 0){
-            mAnchor.addView(getRecordView().getView(), ViewGroup.LayoutParams.MATCH_PARENT
-                    , ViewGroup.LayoutParams.MATCH_PARENT);
+        if(mRecordHandler == null){
+            Log.e(TAG,"record impl is null");
+            return;
         }
 
+        getBaseLayer().attachTo(mAnchor);
+        getRecordView().attachTo(mAnchor);
         getRecordView().start();
+        mRecordHandler.startVideoRecode(generateGifFilePath());
+        mState = RECORDING;
 
         if(mListener != null){
             mListener.onGifRecordStart();
         }
     }
 
-    private RecordingView getRecordView(){
+    private void stopRecord(int recordTime){
+        if(recordTime > MIN_GIF_TIME_LENGTH){
+            if(mRecordHandler != null){
+                mRecordHandler.stopVideoRecord();
+            }
+
+            getRecordView().detach();
+            getShareView().setGifPreview(mRecordHandler.getCurrentVideoSnapture());
+            getShareView().attachTo(mAnchor);
+            mAnchor.bringChildToFront(getBaseLayer());
+
+            if(mListener != null){
+                mListener.onGifRecordEnd();
+            }
+            mState = RECORDED;
+        }
+    }
+
+    private void exit(){
+        if(mState == RECORDING && mRecordHandler != null){
+            mRecordHandler.stopVideoRecord();
+        }
+
+        getRecordView().detach();
+        getShareView().detach();
+        getBaseLayer().detach();
+        mState = INIT;
+
+        if(mListener != null){
+            mListener.onGifRecordExit();
+        }
+    }
+
+    private TopLayer getBaseLayer(){
+        if(mBaseLayer == null){
+            mBaseLayer = new TopLayer(mContext,this);
+        }
+
+        return mBaseLayer;
+    }
+
+    private RecordingLayer getRecordView(){
         if(mRecordView == null){
-            mRecordView = new RecordingView(mContext);
-            mRecordView.setListener(this);
+            mRecordView = new RecordingLayer(mContext,this);
             mRecordView.setMaxRecordTime(MAX_GIF_TIME_LENGTH);
             mRecordView.setMinRecordTime(MIN_GIF_TIME_LENGTH);
         }
@@ -85,22 +131,35 @@ public class VideoGifRecoder implements RecordingView.IListener{
         return mRecordView;
     }
 
-    @Override
-    public void onStop() {
-        if(mRecordHandler != null){
-            mRecordHandler.handleGifAction(IVideoGifHandler.STOP_RECORD);
+    private ShareGifLayer getShareView(){
+        if(mShareView == null){
+            mShareView = new ShareGifLayer(mContext,this);
+            mShareView.addMenu(1,"保存本地",new ColorDrawable(Color.GREEN));
+            mShareView.addMenu(2,"微信好友",new ColorDrawable(Color.RED));
+            mShareView.addMenu(3,"微博",new ColorDrawable(Color.YELLOW));
+            mShareView.addMenu(4,"QQ空间",new ColorDrawable(Color.BLUE));
         }
+
+        return mShareView;
+    }
+
+    private String generateGifFilePath(){
+        return "g_" + System.currentTimeMillis() + ".gif";
     }
 
     @Override
-    public void onExit() {
-        if(mAnchor != null){
-            mAnchor.removeView(mRecordView.getView());
-        }
+    public void onStopEvent(int recordTime) {
+        stopRecord(recordTime);
+    }
 
-        if(mListener != null){
-            mListener.onGifRecordEnd();
-        }
+    @Override
+    public void onExitEvent() {
+        exit();
+    }
+
+    @Override
+    public void onGifMenuClickEvent(ShareGifLayer.MenuItem item) {
+
     }
 
     public interface IListener{
@@ -108,5 +167,6 @@ public class VideoGifRecoder implements RecordingView.IListener{
         void onGifRecordEnd();
         void onGifRecordExit();
     }
+
 
 }

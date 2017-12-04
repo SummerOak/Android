@@ -18,7 +18,7 @@
 
 
     <color name="video_gif_stop_enable">#FFF45554</color>
-    <color name="video_gif_stop_disable">#F8F45554</color>
+    <color name="video_gif_stop_disable">#C0F45554</color>
     <color name="video_gif_stop_rect">#FFFFFFFF</color>
     <!-- video gif colors end-->
 

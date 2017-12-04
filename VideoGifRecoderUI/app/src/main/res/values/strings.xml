@@ -8,5 +8,6 @@
     <string name="video_gif_cancel">取消</string>
     <string name="video_gif_min_time_limit_tips">录制1秒以上，即可分享</string>
     <string name="video_gif_stop_enabled_tips">随时可以停止了</string>
+    <string name="video_gif_share_title">分享GIF</string>
     <!-- video gif strings end -->
 </resources>

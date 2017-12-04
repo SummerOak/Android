@@ -38,7 +38,8 @@ public class ResTools {
     }
 
     public static Drawable getDrawable(String resName){
-        return new ColorDrawable(Color.GREEN);
+        int id = getContext().getResources().getIdentifier(resName,"drawable",getContext().getPackageName());
+        return ResourcesCompat.getDrawable(getContext().getResources(),id,null);
     }
 
 }

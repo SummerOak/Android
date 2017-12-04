@@ -53,6 +53,20 @@ public class StopTips extends TextView{
         });
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if(hasWindowFocus()){
+            mIndicatorAnimator.start();
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mIndicatorAnimator.end();
+    }
+
     public void setCanStop(boolean canStop){
         mTipsLeftPoint.getPaint().setColor(ResTools.getColor(canStop?"video_gif_progress_can_stop":"video_gif_progress_cant_stop"));
         mTipsBackground.getPaint().setColor(ResTools.getColor("video_gif_background"));

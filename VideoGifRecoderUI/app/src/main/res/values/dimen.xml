@@ -22,5 +22,17 @@
   <dimen name="video_gif_stop_size">95dp</dimen>
   <dimen name="video_gif_stop_ring_radius">25dp</dimen>
   <dimen name="video_gif_stop_rect_radius">8.5dp</dimen>
+
+
+  <dimen name="video_gif_share_title_top_margin">19dp</dimen>
+  <dimen name="video_gif_share_gif_view_top_margin">70dp</dimen>
+  <dimen name="video_gif_share_gif_view_width">300dp</dimen>
+  <dimen name="video_gif_share_gif_view_height">169dp</dimen>
+  <dimen name="video_gif_share_menu_bottom_margin">21dp</dimen>
+  <dimen name="video_gif_share_menu_size">48dp</dimen>
+  <dimen name="video_gif_share_menu_horizontal_padding">12dp</dimen>
+  <dimen name="video_gif_share_menu_title_top_margin">5dp</dimen>
+
+
   <!-- video gif end -->
 </resources>
