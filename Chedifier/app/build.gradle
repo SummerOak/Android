@@ -25,6 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets.main {
+        jni.srcDirs = []
+    }
 }
 
 dependencies {
@@ -33,5 +37,4 @@ dependencies {
     compile project(':persistentservicelib')
     compile project(':skywalker')
     compile project(':base')
-    compile project(':dragListViewlibrary')
 }

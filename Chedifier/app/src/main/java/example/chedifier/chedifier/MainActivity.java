@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import example.chedifier.base.utils.SystemUtils;
 import example.chedifier.chedifier.base.BaseActivity;
-import example.chedifier.chedifier.multiuser.MultiUserManager;
 import example.chedifier.chedifier.utils.PermissionUtils;
 import example.chedifier.chedifier.window.MainWindow;
 import example.chedifier.chedifier.window.common.UIEnvironment;
@@ -41,8 +40,6 @@ public class MainActivity extends BaseActivity {
 
         getEnv().pushWindow(new MainWindow(this));
 
-        MultiUserManager.getInstance().registerUserChangeListener(getApplicationContext());
-
         Log.d("cqx_lan", SystemUtils.getLanguage());
 
         mH = new Handler(Looper.getMainLooper());
@@ -51,32 +48,6 @@ public class MainActivity extends BaseActivity {
                 "android.permission.WRITE_EXTERNAL_STORAGE",
                 "android.permission.READ_EXTERNAL_STORAGE",
                 "android.permission.READ_PHONE_STATE"});
-
-//        getWindow().getDecorView().getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean onPreDraw() {
-//                if(pre){
-//                    Log.i("cqx_bp","onPreDraw false");
-//                    return false;
-//                }
-//
-//                mH.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mH.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                pre = true;
-//                                Log.i("cqx_bp","pre = true");
-//                            }
-//                        });
-//                    }
-//                },5000);
-//
-//                Log.i("cqx_bp","onPreDraw true");
-//                return true;
-//            }
-//        });
 
         Trace.endSection();
     }

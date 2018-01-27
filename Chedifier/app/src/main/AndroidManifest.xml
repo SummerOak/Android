@@ -5,7 +5,7 @@
 
     <permission
         android:description="@string/accessibility_service_description"
-        android:icon="@drawable/bdls_logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="chedifier_1"
         android:name="com.chedifier.exported.action"
         android:protectionLevel="dangerous"/>
@@ -100,25 +100,6 @@
         <activity
             android:name=".test.SkyWalkerTestActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name=".bdls.BDLSActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=":bdls"
-            android:stateNotNeeded="true"
-            android:icon="@drawable/bdls_shortcut"
-            android:theme="@style/BDLSActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:exported="true"
-            android:excludeFromRecents="true"
-            android:configChanges="orientation|smallestScreenSize|screenLayout|screenSize|fontScale|keyboardHidden|locale|layoutDirection|mcc|mnc">
-
-            <intent-filter>
-                <action android:name="fkldjslnknvkljdiosuioejklmdkfjkdlsj" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </activity>
 
         <service
             android:name=".BackgroundService"

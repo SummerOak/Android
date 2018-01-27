@@ -11,8 +11,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base" />
-            <option value="$PROJECT_DIR$/dragListViewlibrary" />
-            <option value="$PROJECT_DIR$/draglistview" />
             <option value="$PROJECT_DIR$/persistentservicelib" />
             <option value="$PROJECT_DIR$/skywalker" />
           </set>

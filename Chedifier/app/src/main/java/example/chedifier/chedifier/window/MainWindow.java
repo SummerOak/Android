@@ -13,37 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.chedifier.chedifier.base.AbsModule;
-import example.chedifier.chedifier.module.AccsTest;
-import example.chedifier.chedifier.module.BackgroundTest;
-import example.chedifier.chedifier.module.BlockMainThread;
-import example.chedifier.chedifier.module.BrowserProvider;
-import example.chedifier.chedifier.module.CloudSyncOrderTest;
-import example.chedifier.chedifier.module.CopySelf;
-import example.chedifier.chedifier.module.CoverPanel;
 import example.chedifier.chedifier.module.EatMemory;
-import example.chedifier.chedifier.module.EdittextError;
-import example.chedifier.chedifier.module.ExtHandlerText;
-import example.chedifier.chedifier.module.FileObserverTest;
 import example.chedifier.chedifier.module.GetPackageSignatureSha1;
-import example.chedifier.chedifier.module.HWAccTest;
-import example.chedifier.chedifier.module.HWBlackListTest;
-import example.chedifier.chedifier.module.HWThemeChangeTest;
-import example.chedifier.chedifier.module.MultiTextTest;
 import example.chedifier.chedifier.module.NativeTestModule;
-import example.chedifier.chedifier.module.NotificationTest;
-import example.chedifier.chedifier.module.OOMTest;
 import example.chedifier.chedifier.module.OpenGLTest;
-import example.chedifier.chedifier.module.OpenUrlByDefaultBrowser;
 import example.chedifier.chedifier.module.PhoneInfo;
-import example.chedifier.chedifier.module.PreWindowTest;
-import example.chedifier.chedifier.module.ProviderTest;
-import example.chedifier.chedifier.module.QSChouModule;
-import example.chedifier.chedifier.module.RemoveViewInSubThread;
-import example.chedifier.chedifier.module.ShortCutTest;
 import example.chedifier.chedifier.module.SkyWalkerTester;
-import example.chedifier.chedifier.module.StartBrowserTest;
 import example.chedifier.chedifier.module.TalkbackModule;
-import example.chedifier.chedifier.module.WindowLeakTest;
 import example.chedifier.chedifier.window.common.AbsWindow;
 
 /**
@@ -75,37 +51,13 @@ public class MainWindow extends AbsWindow {
 
 
     private void prepareTestModules(){
-        mModules.add(new CopySelf(mContext));
         mModules.add(new PhoneInfo(mContext));
-        mModules.add(new OpenUrlByDefaultBrowser(mContext));
-        mModules.add(new ProviderTest(mContext));
-        mModules.add(new CloudSyncOrderTest(mContext));
         mModules.add(new GetPackageSignatureSha1(mContext));
         mModules.add(new OpenGLTest(mContext));
-        mModules.add(new RemoveViewInSubThread(mContext));
-        mModules.add(new HWBlackListTest(mContext));
-        mModules.add(new CoverPanel(mContext));
-        mModules.add(new HWAccTest(mContext));
-        mModules.add(new QSChouModule(mContext));
         mModules.add(new EatMemory(mContext));
-        mModules.add(new BrowserProvider(mContext));
-        mModules.add(new ShortCutTest(mContext));
-        mModules.add(new AccsTest(mContext));
-        mModules.add(new ExtHandlerText(mContext));
-        mModules.add(new OOMTest(mContext));
         mModules.add(new NativeTestModule(mContext));
-        mModules.add(new BackgroundTest(mContext));
-        mModules.add(new NotificationTest(mContext));
-        mModules.add(new MultiTextTest(mContext));
-        mModules.add(new EdittextError(mContext));
-        mModules.add(new PreWindowTest(mContext));
-        mModules.add(new StartBrowserTest(mContext));
-        mModules.add(new WindowLeakTest(mContext));
-        mModules.add(new HWThemeChangeTest(mContext));
         mModules.add(new TalkbackModule(mContext));
-        mModules.add(new FileObserverTest(mContext));
         mModules.add(new SkyWalkerTester(mContext));
-        mModules.add(new BlockMainThread(mContext));
     }
 
     private void initModules(ViewGroup container){
