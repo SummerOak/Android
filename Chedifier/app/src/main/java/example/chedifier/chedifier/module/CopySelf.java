@@ -57,10 +57,12 @@ public class CopySelf extends AbsModule {
 
         Log.i(TAG,"begin " + System.currentTimeMillis());
 
-        f();
+        while(true);
 
-        HandlerTest h = new HandlerTest();
-        h.start();
+//        f();
+//
+//        HandlerTest h = new HandlerTest();
+//        h.start();
 
 
 //        FloatCompare floatCompare = new FloatCompare();
